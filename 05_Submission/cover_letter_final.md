@@ -45,7 +45,7 @@ Annals of Surgical Oncology is the ideal venue for this work because:
 
 1. **Wei-Lin Wang**, MD — Zhejiang University (published the foundational SEER-HCC paper: Zhang et al. 2020; directly relevant expertise)
 2. **San-Lin You**, PhD — Fu Jen Catholic University (reviewed Zhang et al. 2020; expertise in HCC epidemiology)
-3. Expert in surgical oncology with SEER/population-based methodology
+3. **Lei Xia**, MD — (corresponding author of Xia et al. 2025, *Medicine*, the most recent SEER-based HCC surgical comparison)
 4. Expert in hepatobiliary surgery with geriatric focus
 5. Biostatistician with survival machine learning expertise
 
