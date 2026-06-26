@@ -92,7 +92,7 @@ This study follows the TRIPOD (Transparent Reporting of a multivariable predicti
 
 ### Baseline Characteristics and Survival
 
-**Table 1** presents baseline characteristics (full version: **eTable 1**). Non-surgery patients were older (74.6 vs 72.4 years, p<0.001) and more likely Stage IV (26.0% vs 9.7%). Cirrhosis was paradoxically more prevalent in the surgery group (12.9% vs 8.4%, p<0.001).
+**Table 1** presents baseline characteristics (full version: **eTable 1**). Of 76,110 patients, 59,821 (78.6%) received no surgery and 16,289 (21.4%) underwent surgical intervention. Non-surgery patients were older (74.6 vs 72.4 years, p<0.001) and more likely Stage IV (26.0% vs 9.7%). Cirrhosis was paradoxically more prevalent in the surgery group (12.9% vs 8.4%, p<0.001).
 
 **Figure 1** displays Kaplan-Meier curves. Median OS by surgery type was: None 4m, Local Destruction 28m, Segmental Resection 30m, Larger Resection 24m, and Transplant 42m (log-rank p<0.0001). In multivariate Cox regression (C-index 0.739; **Figure 2**, **eTable 2**), the strongest protective factors were transplant (HR 0.15 [0.14–0.17]), segmental (HR 0.23 [0.22–0.25]), and larger resection (HR 0.24 [0.22–0.27]). Chemotherapy (HR 0.57 [0.56–0.59]) and radiation (HR 0.52 [0.50–0.53]) were independently protective.
 
