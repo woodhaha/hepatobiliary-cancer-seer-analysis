@@ -10,7 +10,7 @@ $\dagger$ Equal contribution · $^{*}$ Corresponding author: xuqigang@wmu.edu.cn
 
 **Key words**: hepatocellular carcinoma, intrahepatic cholangiocarcinoma, elderly, SEER, segmental resection, E-value, external validation
 
-**Word count**: Abstract 250 | Text ~3,400 | Figures 6 | Tables 3 | References 23
+**Word count**: Abstract 250 | Text ~3,400 | Figures 6 | Tables 3 | References 27
 
 ---
 
@@ -88,7 +88,7 @@ This study follows the TRIPOD (Transparent Reporting of a multivariable predicti
 
 ### Study Population
 
-**eFigure 1** summarizes cohort selection. The analytic cohort comprised 76,110 elderly patients: 57,380 HCC (75.4%), 11,749 ICC (15.4%), and 6,981 other (9.2%). Median age was 74 years (IQR 68–80); 65.4% were male.
+**eFigure 1** summarizes cohort selection. The analytic cohort comprised 76,110 elderly patients: 57,380 HCC (75.4%), 11,749 ICC (15.4%), and 6,981 other hepatobiliary malignancies (9.2%; including combined HCC-ICC, hepatoblastoma, and sarcoma NOS). Median age was 74 years (IQR 68–80); 65.4% were male. Median follow-up was 49 months (IQR 16–96) for OS and 74 months (IQR 24–120) for CSS, computed by the reverse Kaplan-Meier method.
 
 ### Baseline Characteristics and Survival
 
