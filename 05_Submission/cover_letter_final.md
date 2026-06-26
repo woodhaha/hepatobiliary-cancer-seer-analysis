@@ -60,7 +60,7 @@ Corresponding Author
 Department of Hepatobiliary and Pancreatic Surgery  
 The First Affiliated Hospital of Wenzhou Medical University  
 Zhejiang, China  
-E-mail: xuqigang@wmu.edu.cn
+E-mail: xiaogang123999@126.com
 
 ---
 

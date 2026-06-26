@@ -4,7 +4,7 @@
 
 $^{1}$ Department of Gastroenterology Surgery, The First Affiliated Hospital of Wenzhou Medical University, Zhejiang, China
 $^{2}$ Department of Hepatobiliary and Pancreatic Surgery, The First Affiliated Hospital of Wenzhou Medical University, Zhejiang, China
-$\dagger$ Equal contribution · $^{*}$ Corresponding author: xuqigang@wmu.edu.cn
+$\dagger$ Equal contribution · $^{*}$ Corresponding author: xiaogang123999@126.com
 
 **Running head**: Segmental vs Major Hepatectomy in Elderly Hepatobiliary Cancer
 
@@ -198,7 +198,7 @@ In this population-based analysis of 76,110 elderly patients with hepatobiliary 
 
 ---
 
-*Correspondence to:* Qigang Xu, MD, Department of Hepatobiliary and Pancreatic Surgery, The First Affiliated Hospital of Wenzhou Medical University, Zhejiang, China. E-mail: xuqigang@wmu.edu.cn
+*Correspondence to:* Qigang Xu, MD, Department of Hepatobiliary and Pancreatic Surgery, The First Affiliated Hospital of Wenzhou Medical University, Zhejiang, China. E-mail: xiaogang123999@126.com
 
 **Author Contributions**: ZZ and YB contributed equally (co-first authors). QX had full access to all data and takes responsibility for integrity. Study concept and design: ZZ, QX. Data acquisition and analysis: ZZ, YB, YC. Statistical analysis: ZZ. Machine learning: ZZ, YB. Manuscript drafting: ZZ. Critical revision: All authors. Study supervision: QX.
 
