@@ -10,7 +10,7 @@ $\dagger$ Equal contribution · $^{*}$ Corresponding author: xuqigang@wmu.edu.cn
 
 **Key words**: hepatocellular carcinoma, intrahepatic cholangiocarcinoma, elderly, SEER, segmental resection, E-value, external validation
 
-**Word count**: Abstract 250 | Text ~3,400 | Figures 6 | Tables 3 | References 27
+**Word count**: Abstract 250 | Text ~3,400 | Figures 6 | Tables 3 | References 16
 
 ---
 
@@ -186,29 +186,7 @@ In this population-based analysis of 76,110 elderly patients with hepatobiliary 
 
 15. VanderWeele TJ, Ding P. Sensitivity analysis in observational research: introducing the E-value. *Ann Intern Med*. 2017;167(4):268–274. doi:10.7326/M16-2607
 
-16. Baiocchi M, Cheng J, Small DS. Instrumental variable methods for causal inference. *Stat Med*. 2014;33(13):2297–2340. doi:10.1002/sim.6128
-
-17. Peters NA, Javed AA, He J, Wolfgang CL, Weiss MJ. Association of socioeconomics, surgical therapy, and survival of early stage hepatocellular carcinoma. *J Surg Res*. 2017;210:253–260. doi:10.1016/j.jss.2016.11.042
-
-18. Yu B, Ding Y, Liao X, Wang C, Wang B, Chen X. Radiofrequency ablation versus surgical resection in elderly patients with early-stage hepatocellular carcinoma in the era of organ shortage. *Saudi J Gastroenterol*. 2018;24(6):317–325. doi:10.4103/sjg.SJG_261_18
-
-19. Kim GA, Shim JH, Kim MJ, et al. Radiofrequency ablation as an alternative to hepatic resection for single small hepatocellular carcinomas. *Br J Surg*. 2016;103(1):126–135. doi:10.1002/bjs.9960
-
-20. Jianyong L, Lunan Y, Dajiang L, Wentao W. Comparison of open liver resection and RFA for the treatment of solitary 3–5-cm hepatocellular carcinoma: a retrospective study. *BMC Surg*. 2019;19:195. doi:10.1186/s12893-019-0663-9
-
-21. Xu XL, Liu XD, Liang M, Luo BM. Radiofrequency ablation versus hepatic resection for small hepatocellular carcinoma: systematic review of randomized controlled trials with meta-analysis and trial sequential analysis. *Radiology*. 2018;287(2):461–472. doi:10.1148/radiol.2017162756
-
-22. Sposito C, Battiston C, Facciorusso A, et al. Propensity score analysis of outcomes following laparoscopic or open liver resection for hepatocellular carcinoma. *Br J Surg*. 2016;103(7):871–880. doi:10.1002/bjs.10137
-
-23. Jiang YQ, Wang ZX, Deng YN, Yang Y, Wang GY, Chen GH. Efficacy of hepatic resection vs. radiofrequency ablation for patients with very-early-stage or early-stage hepatocellular carcinoma: a population-based study with stratification by age and tumor size. *Front Oncol*. 2019;9:113. doi:10.3389/fonc.2019.00113
-
-24. Shaya FT, Breunig IM, Seal B, Mullins CD, Chirikov VV, Hanna N. Comparative and cost effectiveness of treatment modalities for hepatocellular carcinoma in SEER-Medicare. *Pharmacoeconomics*. 2014;32(1):63–74. doi:10.1007/s40273-013-0109-7
-
-25. Kamarajah SK. Fibrosis score impacts survival following resection for hepatocellular carcinoma (HCC): a Surveillance, End Results and Epidemiology (SEER) database analysis. *Asian J Surg*. 2018;41(6):551–561. doi:10.1016/j.asjsur.2018.01.001
-
-26. Parikh ND, Marshall VD, Green M, et al. Effectiveness and cost of radiofrequency ablation and stereotactic body radiotherapy for treatment of early-stage hepatocellular carcinoma: an analysis of SEER-Medicare. *J Med Imaging Radiat Oncol*. 2018;62(5):673–681. doi:10.1111/1754-9485.12754
-
-27. Chen T, Guestrin C. XGBoost: a scalable tree boosting system. *KDD*. 2016. doi:10.1145/2939672.2939785
+16. Chen T, Guestrin C. XGBoost: a scalable tree boosting system. *KDD*. 2016. doi:10.1145/2939672.2939785
 
 ---
 
