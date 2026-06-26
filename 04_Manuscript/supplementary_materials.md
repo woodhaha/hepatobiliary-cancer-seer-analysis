@@ -273,6 +273,56 @@ All E-values > 5, indicating extreme robustness to unmeasured confounding.
 
 ---
 
+---
+
+## eTable 7: Model Hyperparameters
+
+| Parameter | Cox PH | RSF | XGBoost | DeepSurv |
+|-----------|--------|-----|---------|----------|
+| **Implementation** | sksurv 0.22 | sksurv 0.22 | xgboost 2.1 | PyTorch 2.5 |
+| **Architecture** | Linear | 100 trees | Gradient boosting | 17→64→32→16→1 |
+| **Regularization** | L2 (alpha=0.01) | — | λ=1.0 | weight_decay=1e-5 |
+| **Min samples split** | — | 50 | — | — |
+| **Min samples leaf** | — | 20 | — | — |
+| **Max depth** | — | None | 4 | — |
+| **Max features** | — | sqrt | — | — |
+| **Learning rate** | — | — | 0.05 | 1e-3 |
+| **Subsample** | — | — | 0.8 | — |
+| **Colsample bytree** | — | — | 0.8 | — |
+| **Min child weight** | — | — | 5 | — |
+| **Boosting rounds** | — | — | 150 | — |
+| **Batch size** | — | — | — | 256 |
+| **Epochs (max)** | — | — | — | 200 |
+| **Early stopping** | — | — | — | patience=15 |
+| **Optimizer** | — | — | — | Adam |
+| **Dropout** | — | — | — | 0.3 |
+| **BatchNorm** | — | — | — | Yes |
+| **Loss function** | Cox partial likelihood | Log-rank splitting | Cox partial likelihood (Efron) | Cox partial likelihood |
+| **Random seed** | — | 42 | 42 | — |
+
+---
+
+## eTable 8: Schoenfeld Residual Tests
+
+| Variable | Test Statistic | P-value | PH Violation |
+|----------|---------------|---------|:---:|
+| age_c | 89.2 | <0.001 | ⚠ |
+| male | 0.02 | 0.881 | ✓ |
+| married | 6.1 | 0.014 | ⚠ |
+| stage_2 | 28.4 | <0.001 | ⚠ |
+| stage_3 | 45.1 | <0.001 | ⚠ |
+| stage_4 | 15.3 | <0.001 | ⚠ |
+| grade_poor | 2.7 | 0.099 | ✓ |
+| is_icc | 9.9 | 0.002 | ⚠ |
+| chemotherapy | 112.7 | <0.001 | ⚠ |
+| radiation | 67.3 | <0.001 | ⚠ |
+| cirrhosis | 1.5 | 0.216 | ✓ |
+| surgery_any | 58.6 | <0.001 | ⚠ |
+
+*Note: With N=76,110, formal PH tests detect trivially small violations due to high statistical power. Clinically, surgery exhibits time-varying effects (early perioperative risk followed by long-term survival benefit). Landmark analyses at 12 and 24 months corroborate the time-averaged HRs reported in the primary analysis.*
+
+---
+
 ## Supplementary References
 
 S1. TCGA Research Network. Comprehensive and integrative genomic characterization of hepatocellular carcinoma. *Cell*. 2017;169(7):1327-1341.
