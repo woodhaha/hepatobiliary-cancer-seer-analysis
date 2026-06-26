@@ -1,0 +1,17 @@
+我想根据以上这些分析结果通过深度学习，比如Python的deepsurv和R survivalmode中的一些方法 和机器学习方法random survival，catboost 等方法建模，模型进行5fold 交叉验证 ，比较各模型参
+  数，优劣，通过PSM方法保证数据平衡，建立一个关于老年人hepatobiliary cancer治疗的推荐系统，同时与可参考已发表的文章进行比较或讨论，发现一些未曾发表的问题
+
+搜索文献老年胃癌患者面临的治疗难题，治疗决策，加入introduce和discussion
+
+在文章方法中强调数据预处理过程，pms消除偏倚，强调建模时的交叉验证，以及有外部数据验证，在讨论部分强调575
+例hepatobiliary cancer手术患者中与seer中结论吻合的部分，更加强调不足之处，强调验证数据集中新变量对于改善模型预测能力改进的效能
+
+
+查询 例外部验证数据 将伦理声明：All procedures followed were in accordance with the ethical standards of the Ethics Committee of The First Affiliated Hospital of Wenzhou Medical University and with the Helsinki Declaration of 1964 and later versions." 利益冲突 "The authors have declared that no competing interest exists."
+  Methods 部分明确写明：
+
+  ▎ "agreed to take part in this study and signed the informed consent"
+
+  Human rights statement 部分：
+
+  ▎ "Informed consent to be included in the study was obtained from all patients."加入到文章合适的位置，并引用该项研究发表的论文，在外部验证数据来源做特别声明，更新文章
