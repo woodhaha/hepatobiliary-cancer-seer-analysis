@@ -10,27 +10,25 @@ $\dagger$ Equal contribution · $^{*}$ Corresponding author: xuqigang@wmu.edu.cn
 
 **Key words**: hepatocellular carcinoma, intrahepatic cholangiocarcinoma, elderly, SEER, segmental resection, E-value, external validation
 
-**Word count**: Abstract ~350 | Text ~4,900 | Figures 6 | Tables 3 | References 28
+**Word count**: Abstract 250 | Text ~3,400 | Figures 6 | Tables 3 | References 23
 
 ---
 
 ## ABSTRACT
 
-**Importance**: Whether parenchymal-sparing liver resection provides equivalent oncologic outcomes to major hepatectomy in elderly patients with hepatobiliary cancer—across both hepatocellular carcinoma (HCC) and intrahepatic cholangiocarcinoma (ICC)—has not been established.
+**Importance**: Whether parenchymal-sparing liver resection provides equivalent oncologic outcomes to major hepatectomy in elderly patients with both hepatocellular carcinoma (HCC) and intrahepatic cholangiocarcinoma (ICC) has not been established.
 
-**Objective**: To compare survival between segmental/wedge resection and larger resection in elderly HCC and ICC patients using population-based data with external validation.
+**Objective**: To compare survival between segmental/wedge and larger resection in elderly hepatobiliary cancer patients.
 
-**Design**: Population-based cohort study using SEER 18-registry data (2004–2022), externally validated on TCGA-LIHC (n=269) and ICGC-LIRI-JP (n=260).
+**Design**: Population-based cohort study using SEER 18-registry data (2004–2022), externally validated on TCGA-LIHC and ICGC-LIRI-JP.
 
-**Participants**: 76,110 patients ≥65 years with hepatobiliary cancer (57,380 HCC; 11,749 ICC; 6,981 other). Median age 74 years (IQR 68–80); 65.4% male.
+**Participants**: 76,110 patients ≥65 years with hepatobiliary cancer (57,380 HCC; 11,749 ICC; 6,981 other).
 
-**Exposures**: Five surgical categories: none (78.6%), local destruction (14.2%), segmental/wedge resection (3.3%), larger resection (0.9%), and liver transplantation (2.3%).
+**Exposures**: Five surgical categories: none, local destruction, segmental/wedge, larger resection, and transplantation.
 
-**Main Outcomes and Measures**: Overall survival (OS) and cancer-specific survival (CSS). Model discrimination assessed by Harrell's C-index. Robustness quantified by E-value.
+**Results**: Median OS ranged from 4 months (non-surgery) to 42 months (transplant). Segmental resection (HR 0.23, 95% CI 0.22–0.25) provided equivalent CSS benefit to larger resection (HR 0.24, 95% CI 0.22–0.27), persisting across all age bands ≥70 and in both HCC and ICC; surgery×cancer type interaction was not significant (p=0.206). PSM-adjusted HR was 0.35 (6,434 pairs, SMD 0.190→0.030). E-value was 4.3 (conservative). The ensemble model achieved C-index 0.756. External validation C-indices were 0.595 (TCGA) and 0.547 (ICGC). A 7-variable risk score stratified patients into low- (22-month), intermediate- (5-month), and high-risk (2-month) groups.
 
-**Results**: Median OS was 4 months (non-surgery), 28 (local destruction), 30 (segmental), 24 (larger), and 42 (transplant); log-rank p<0.0001. In multivariate Cox regression (C-index 0.739), segmental resection HR was 0.23 (95% CI 0.22–0.25) versus larger resection HR 0.24 (95% CI 0.22–0.27). This equivalence persisted across all age bands ≥70 and in both HCC (segmental HR 0.26 vs larger HR 0.26) and ICC (segmental HR 0.22 vs larger HR 0.26). Surgery × cancer type interaction was not significant (p=0.206). After 1:1 PSM (6,434 pairs, SMD 0.190→0.030), adjusted HR was 0.35. E-value=7.5. Model discrimination was strong: ensemble C-index 0.756, DeepSurv 0.751, XGBoost 0.746, Cox 0.739. External C-indices: TCGA 0.595, ICGC 0.547. A 7-variable Hepatobiliary Cancer Index stratified patients into low-risk (22 months), intermediate (5 months), and high-risk (2 months).
-
-**Conclusions and Relevance**: In elderly hepatobiliary cancer patients, segmental/wedge resection provides equivalent or superior survival to major hepatectomy across both HCC and ICC. These findings support parenchymal-sparing surgery as the default strategy when transplantation is unavailable.
+**Conclusions**: In elderly hepatobiliary cancer patients, segmental/wedge resection provides equivalent or superior survival to major hepatectomy across both HCC and ICC, supporting parenchymal-sparing surgery when transplantation is unavailable.
 
 ---
 
