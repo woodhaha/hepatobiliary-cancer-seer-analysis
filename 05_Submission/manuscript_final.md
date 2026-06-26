@@ -1,4 +1,4 @@
-# Parenchymal-Sparing vs Major Hepatectomy in Elderly Hepatobiliary Cancer: A Population-Based Analysis with Machine Learning Ensemble and External Validation
+# Segmental vs Major Hepatectomy in Elderly Patients With Hepatobiliary Cancer: A Population-Based Cohort Study With External Validation
 
 **Zhuha Zhou**$^{1,\dagger}$ · **Yongyu Bai**$^{1,\dagger}$ · **Yiqi Cai**$^{1}$ · **Qigang Xu**$^{2,*}$
 
@@ -6,7 +6,7 @@ $^{1}$ Department of Gastroenterology Surgery, The First Affiliated Hospital of 
 $^{2}$ Department of Hepatobiliary and Pancreatic Surgery, The First Affiliated Hospital of Wenzhou Medical University, Zhejiang, China
 $\dagger$ Equal contribution · $^{*}$ Corresponding author: xuqigang@wmu.edu.cn
 
-**Running head**: Parenchymal-Sparing Surgery in Elderly Hepatobiliary Cancer
+**Running head**: Segmental vs Major Hepatectomy in Elderly Hepatobiliary Cancer
 
 **Key words**: hepatocellular carcinoma, intrahepatic cholangiocarcinoma, elderly, SEER, segmental resection, E-value, external validation
 

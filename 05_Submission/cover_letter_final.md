@@ -7,7 +7,7 @@ Annals of Surgical Oncology
 
 **Dear Editor,**
 
-We are pleased to submit our manuscript entitled **"Parenchymal-Sparing vs Major Hepatectomy in Elderly Hepatobiliary Cancer: A Population-Based Analysis with Machine Learning Ensemble and External Validation"** for consideration in Annals of Surgical Oncology.
+We are pleased to submit our manuscript entitled **"Segmental vs Major Hepatectomy in Elderly Patients With Hepatobiliary Cancer: A Population-Based Cohort Study With External Validation"** for consideration in Annals of Surgical Oncology.
 
 ### Clinical Question
 
