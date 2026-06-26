@@ -7,29 +7,31 @@ Annals of Surgical Oncology
 
 **Dear Editor,**
 
-We are pleased to submit our manuscript entitled **"Segmental vs Major Hepatectomy in Elderly Patients With Hepatobiliary Cancer: A Population-Based Cohort Study With External Validation"** for consideration in Annals of Surgical Oncology.
+We are pleased to submit our manuscript entitled **"Surgical Resection and Extent in Elderly Patients With Hepatobiliary Cancer: A SEER Population-Based Cohort Study With External Validation"** for consideration in Annals of Surgical Oncology.
 
 ### Clinical Question
 
-For elderly patients with hepatobiliary cancer, does a more radical liver resection (lobectomy/extended lobectomy) confer a survival benefit over parenchymal-sparing segmental or wedge resection when liver transplantation is unavailable? This question affects clinical decision-making for the growing population of elderly patients diagnosed with hepatocellular carcinoma (HCC) and intrahepatic cholangiocarcinoma (ICC).
+For elderly patients with hepatobiliary cancer, any surgical resection dramatically improves survival — but should surgeons prefer parenchymal-sparing segmental/wedge resection or more radical lobectomy when both are anatomically feasible? This question affects daily decision-making for the growing population of elderly patients with hepatocellular carcinoma (HCC) and intrahepatic cholangiocarcinoma (ICC).
 
 ### What This Study Adds
 
-Using SEER data covering **76,110 elderly patients**—the largest analysis of its kind—we demonstrate that segmental/wedge resection provides **equivalent or superior survival** to major hepatectomy across both HCC and ICC. Six features distinguish this work from prior studies:
+Using SEER data covering **76,110 elderly patients** — the largest analysis of its kind — we demonstrate that any surgical resection confers a robust survival benefit (PSM-adjusted HR 0.35; E-value 4.3), and within the operated subgroup, segmental and larger resection are associated with similar adjusted survival. Seven features distinguish this work:
 
-1. **First simultaneous comparison of surgical extents in both HCC and ICC** (prior: HCC only)
-2. **Surgery × cancer type interaction p=0.206** — formally establishing that surgical benefit is equivalent across histologies, a finding not previously reported
-3. **E-value=7.5** — exceptional robustness to unmeasured confounding, exceeding all known prognostic factors including AJCC Stage IV
-4. **DeepSurv neural network (C-index 0.750) + XGBoost (0.746) + ensemble** with excellent calibration (IBS 0.109)
-5. **Dual external validation** on TCGA-LIHC (n=269) and ICGC-LIRI-JP (n=260) — the first external benchmarks for SEER-trained hepatobiliary models
-6. **Clinical decision matrix** stratifying recommendations by age, cancer type, stage, and frailty status
+1. **First simultaneous evaluation of surgical extent in both HCC and ICC** (prior: HCC only; here: 57,380 HCC + 11,749 ICC)
+2. **Surgery × cancer type interaction p=0.206** — survival benefit of surgical resection is comparable across histologies
+3. **E-value=4.3** — robust to unmeasured confounding by clinically plausible variables
+4. **DeepSurv (C-index 0.751) + XGBoost (0.746) + 4-model ensemble (0.756)** with calibration assessment (Brier scores)
+5. **External validation** on TCGA-LIHC (C-index 0.595, significantly above chance) — the first benchmark for SEER-trained hepatobiliary models
+6. **Honest reporting of ICGC validation failure** (C-index 0.547, 95% CI 0.486–0.608) — population-specific recalibration needed for Asian cohorts
+7. **Clinical decision matrix** with HBI risk score stratifying patients by expected survival
 
 ### Why Annals of Surgical Oncology
 
 Annals of Surgical Oncology is the ideal venue for this work because:
-- The journal's readership of surgical oncologists directly faces the clinical dilemma this study addresses
+- ASO's readership of surgical oncologists directly faces the clinical dilemma this study addresses
 - ASO has a strong track record of publishing SEER-based surgical outcomes research
-- The journal values both clinical relevance and methodological rigor — our study provides both through E-value analysis and ML ensemble modeling
+- The journal values both clinical relevance and methodological rigor — our study contributes both through E-value causal sensitivity analysis and ML ensemble modeling with external validation
+- Our reference paper (Zhang et al. 2020) was published in Frontiers in Oncology — we seek ASO for its stronger surgical audience and methodological standards
 
 ### Declarations
 
@@ -41,7 +43,7 @@ Annals of Surgical Oncology is the ideal venue for this work because:
 
 ### Suggested Reviewers
 
-1. **Wei-Lin Wang**, MD — Zhejiang University (published the foundational SEER-HCC paper: Zhang et al. 2020, Front Oncol; directly relevant expertise)
+1. **Wei-Lin Wang**, MD — Zhejiang University (published the foundational SEER-HCC paper: Zhang et al. 2020; directly relevant expertise)
 2. **San-Lin You**, PhD — Fu Jen Catholic University (reviewed Zhang et al. 2020; expertise in HCC epidemiology)
 3. Expert in surgical oncology with SEER/population-based methodology
 4. Expert in hepatobiliary surgery with geriatric focus
