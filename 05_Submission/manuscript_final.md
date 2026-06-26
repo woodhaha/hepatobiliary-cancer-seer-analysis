@@ -1,4 +1,4 @@
-# Segmental vs Major Hepatectomy in Elderly Patients With Hepatobiliary Cancer: A Population-Based Cohort Study With External Validation
+# Surgical Resection and Extent in Elderly Patients With Hepatobiliary Cancer: A SEER Population-Based Cohort Study With External Validation
 
 **Zhuha Zhou**$^{1,\dagger}$ · **Yongyu Bai**$^{1,\dagger}$ · **Yiqi Cai**$^{1}$ · **Qigang Xu**$^{2,*}$
 
@@ -16,19 +16,19 @@ $\dagger$ Equal contribution · $^{*}$ Corresponding author: xuqigang@wmu.edu.cn
 
 ## ABSTRACT
 
-**Importance**: Whether parenchymal-sparing liver resection provides equivalent oncologic outcomes to major hepatectomy in elderly patients with both hepatocellular carcinoma (HCC) and intrahepatic cholangiocarcinoma (ICC) has not been established.
+**Importance**: The survival benefit of surgical resection in elderly patients with hepatobiliary cancer is well-established, but comparative outcomes by surgical extent—segmental/wedge versus major hepatectomy—have not been simultaneously evaluated across both hepatocellular carcinoma (HCC) and intrahepatic cholangiocarcinoma (ICC) in a population-based cohort.
 
-**Objective**: To compare survival between segmental/wedge and larger resection in elderly hepatobiliary cancer patients.
+**Objective**: To quantify the survival benefit of surgical resection and compare outcomes by surgical extent in elderly patients with hepatobiliary cancer.
 
-**Design**: Population-based cohort study using SEER 18-registry data (2004–2022), externally validated on TCGA-LIHC and ICGC-LIRI-JP.
+**Design**: Population-based cohort study using SEER 18-registry data (2004–2022), with external validation on TCGA-LIHC and ICGC-LIRI-JP.
 
 **Participants**: 76,110 patients ≥65 years with hepatobiliary cancer (57,380 HCC; 11,749 ICC; 6,981 other).
 
 **Exposures**: Five surgical categories: none, local destruction, segmental/wedge, larger resection, and transplantation.
 
-**Results**: Median OS ranged from 4 months (non-surgery) to 42 months (transplant). Segmental resection (HR 0.23, 95% CI 0.22–0.25) provided equivalent CSS benefit to larger resection (HR 0.24, 95% CI 0.22–0.27), persisting across all age bands ≥70 and in both HCC and ICC; surgery×cancer type interaction was not significant (p=0.206). PSM-adjusted HR was 0.35 (6,434 pairs, SMD 0.190→0.030). E-value was 4.3 (conservative). The ensemble model achieved C-index 0.756. External validation C-indices were 0.595 (TCGA) and 0.547 (ICGC). A 7-variable risk score stratified patients into low- (22-month), intermediate- (5-month), and high-risk (2-month) groups.
+**Results**: Any surgical resection was strongly protective versus no surgery (PSM-adjusted HR 0.35; E-value 4.3). Within the surgical subgroup, segmental resection and larger resection showed similar adjusted CSS HRs (0.23 vs 0.24 in the full model), a pattern consistent across age bands ≥70, HCC and ICC, and PSM analyses. Surgery×cancer type interaction was not significant (p=0.206). Median OS ranged from 4 months (non-surgery) to 42 months (transplant), with segmental at 30 months and larger resection at 24 months. The 4-model ensemble achieved C-index 0.756. External validation C-index was 0.595 (TCGA-LIHC); the model did not successfully validate in the Japanese ICGC cohort (C-index 0.547, 95% CI crossing 0.5).
 
-**Conclusions**: In elderly hepatobiliary cancer patients, segmental/wedge resection provides equivalent or superior survival to major hepatectomy across both HCC and ICC, supporting parenchymal-sparing surgery when transplantation is unavailable.
+**Conclusions**: In elderly patients with hepatobiliary cancer, surgical resection confers a robust survival benefit. Within the surgical subgroup, segmental and larger resection are associated with similar adjusted survival, supporting parenchymal-sparing approaches when both options are anatomically feasible.
 
 ---
 
@@ -38,7 +38,7 @@ Hepatobiliary cancers, comprising hepatocellular carcinoma (HCC) and intrahepati
 
 Zhang et al. first reported from SEER data that for 2,371 elderly patients with stage I–II HCC, segmental or wedge resection provided survival outcomes comparable to larger resection when transplantation was unavailable [5]. However, this analysis was limited to early-stage HCC (2004–2011), employed only conventional Cox regression, and did not include ICC. Xia et al. subsequently compared surgical types in 10,174 HCC patients but combined wedge and segmental resection as a single category without age-specific stratification of surgical subtypes [6]. A 2025 study evaluated 147 machine learning algorithms in 252 elderly HCC patients but was limited to a single center [7]. For ICC, an XGBoost model predicted survival in 1,055 surgical patients but did not compare surgical extents [8]. Critically, no prior study has simultaneously compared segmental versus larger resection outcomes in elderly patients with both HCC and ICC using population-based data with formal causal sensitivity analyses and external validation.
 
-To address these gaps, we conducted a comprehensive analysis with four objectives: (1) to determine whether more radical surgeries provide superior survival over parenchymal-sparing approaches in elderly hepatobiliary cancer; (2) to compare these effects between HCC and ICC using formal interaction testing; (3) to develop and externally validate machine learning ensemble models; and (4) to quantify robustness through E-value analysis, instrumental variable methods, and multiple sensitivity analyses.
+To address these gaps, we conducted a comprehensive analysis with four objectives: (1) to quantify the survival benefit of surgical resection in elderly hepatobiliary cancer using robust causal sensitivity analyses; (2) to compare adjusted outcomes by surgical extent within the operated subgroup, examining whether the pattern observed in HCC extends to ICC; (3) to develop machine learning ensemble models for survival prediction with external validation; and (4) to assess robustness through E-value analysis, propensity score matching, and multiple sensitivity analyses.
 
 ---
 
@@ -66,7 +66,7 @@ Baseline characteristics were compared using Student's t-test (continuous) and �
 
 ### Machine Learning Models
 
-Four survival models were trained: L2-regularized Cox PH, Random Survival Forest (100 trees, min_samples_leaf=20), XGBoost (survival:cox objective, max_depth=4, learning_rate=0.05), and DeepSurv (3-layer MLP: 17→128→64→32→1 with ReLU activations, batch normalization, dropout=0.3, trained with the negative log partial likelihood of the Cox proportional hazards model; Adam optimizer, lr=5e-4, weight_decay=1e-5, batch_size=256, 500 epochs with early stopping patience=15). Models were trained using temporal split (2004–2017 train, 2018–2022 test). A 5-fold cross-validated 4-model ensemble combined Cox, RSF, XGBoost, and DeepSurv predictions via z-score standardization and equal-weight averaging of out-of-fold risk scores. Performance was assessed using Harrell's C-index. Feature importance was evaluated using permutation importance and SHAP values [11,12].
+Four survival models were trained: L2-regularized Cox PH, Random Survival Forest (100 trees, min_samples_leaf=20), XGBoost (survival:cox objective, max_depth=4, learning_rate=0.05), and DeepSurv (3-layer MLP: 17→64→32→16→1 with ReLU activations, batch normalization, dropout=0.3, trained with the negative log partial likelihood of the Cox model; Adam optimizer, lr=1e-3, weight_decay=1e-5, batch_size=256, 200 epochs with early stopping patience=15). Models were trained using temporal split (2004–2017 train, 2018–2022 test). A 5-fold cross-validated 4-model ensemble combined Cox, RSF, XGBoost, and DeepSurv predictions via z-score standardization and equal-weight averaging of out-of-fold risk scores. Performance was assessed using Harrell's C-index. Feature importance was evaluated using permutation importance and SHAP values [11,12].
 
 ### External Validation
 
@@ -74,7 +74,7 @@ Two independent cohorts served for external validation: TCGA-LIHC (n=269, all-su
 
 ### Sensitivity Analyses
 
-(1) E-value analysis quantified unmeasured confounding required to nullify the surgery benefit [15]; (2) Instrumental variable analysis using regional socioeconomic status as instrument [16]; (3) Cause-specific hazard regression for competing risks; (4) Leave-one-out analysis; (5) Sequential model specification testing; (6) Restricted cubic splines for non-linear age effects; (7) Frailty Surrogate Index (FSI) using age, stage, and grade; (8) Landmark conditional survival analysis at 12 and 24 months.
+(1) E-value analysis for unmeasured confounding [15]; (2) Cause-specific hazard regression for competing risks; (3) Leave-one-out analysis excluding key subgroups; (4) Sequential model specification testing; (5) Restricted cubic splines for non-linear age effects; (6) Frailty Surrogate Index (FSI) using age, stage, and grade; (7) Landmark conditional survival analysis at 12 and 24 months; (8) Schoenfeld residual tests for proportional hazards assumption.
 
 ### Temporal, Geographic, and Clinical Tool Development
 
@@ -136,11 +136,11 @@ Surgery benefit persisted across all FSI strata: Fit HR 0.27, Pre-frail HR 0.32,
 
 ## DISCUSSION
 
-In this population-based analysis of 76,110 elderly hepatobiliary cancer patients, we demonstrate that segmental/wedge resection provides equivalent or superior survival to major hepatectomy across both HCC and ICC. This finding was robust to PSM, instrumental variable analysis, six sensitivity analyses (E-value=4.3 conservative; 7.5 multivariable), and external validation on two independent cohorts.
+In this population-based analysis of 76,110 elderly hepatobiliary cancer patients, we demonstrate that segmental/wedge resection provides equivalent or superior survival to major hepatectomy across both HCC and ICC. This finding was robust to PSM, multiple sensitivity analyses (E-value=4.3 conservative), and external validation on TCGA-LIHC.
 
 Our findings corroborate and substantially extend Zhang et al. [5]. We confirm their observation in a cohort 32 times larger, extend to all AJCC stages, and demonstrate—for the first time—that this pattern holds for ICC. The formal interaction test (p=0.206) is clinically important: it suggests the decision between segmental and larger resection should be based on technical and patient factors rather than cancer histology alone.
 
-The E-value of 4.3 on the PSM-adjusted estimate (7.5 in the full multivariable model) indicates robustness to unmeasured confounding: an unobserved confounder would need RR ≥4.3 to nullify the finding, which exceeds most clinically plausible confounders including AJCC Stage IV (the strongest measured predictor). Notably, the E-value addresses the surgery-vs-none comparison; the segmental-vs-larger equivalence finding rests on the directly observed HR similarity (0.23 vs 0.24) rather than formal non-inferiority testing.
+The E-value of 4.3 on the PSM-adjusted estimate indicates an unmeasured confounder would need RR ≥4.3 to nullify the surgery-versus-none benefit. While severe liver dysfunction (Child-Pugh C, not captured in SEER) could approach this effect size, the finding withstands confounding by measured AJCC stage and demographic variables. Importantly, the E-value addresses surgery-versus-none; within the operated subgroup, the similarity between segmental (HR 0.23) and larger resection (HR 0.24) represents an adjusted observational comparison rather than a causally identified equivalence, reflecting both treatment effects and appropriate surgical selection for tumor anatomy.
 
 This study has notable strengths: population-based design (N=76,110 vs prior max 10,174), dual external validation, multi-layered robustness assessment, and first formal comparison of surgical extents across HCC and ICC. Limitations include: absence of liver function variables (Child-Pugh, MELD score, portal hypertension status) — the dominant determinants of surgical candidacy in HCC, where 80-90% of cases arise in cirrhotic livers. SEER's cirrhosis field captures only ~9% of the cohort, representing >10-fold under-ascertainment relative to clinical HCC series, reflecting differential documentation rather than true absence of liver disease. Consequently, our multivariable HR estimates for surgical treatment may be inflated by unmeasured selection of patients with preserved liver function. The BCLC staging system, which integrates liver function, portal hypertension, and tumor burden to guide treatment allocation, cannot be approximated in SEER. Additional limitations include: inability to distinguish laparoscopic from open surgical approach; incomplete lymph node dissection data for ICC (a known quality metric requiring ≥6 nodes); immortal time bias between diagnosis and surgical intervention; external validation cohorts being all-surgical (eliminating the model's strongest predictor); and our FSI being a proxy without direct frailty measurement. Critically, the most important clinical variables for surgical decision-making in elderly hepatobiliary cancer—performance status (ECOG), comorbidity burden (Charlson Comorbidity Index), liver function (Child-Pugh/MELD), and resection margin status—are absent from ALL three data sources used in this study (SEER, TCGA, and ICGC). This represents a universal limitation in population-based hepatobiliary surgical research rather than a defect specific to our analysis, and underscores the need for prospective surgical registries that capture geriatric-specific variables.
 
@@ -148,7 +148,7 @@ This study has notable strengths: population-based design (N=76,110 vs prior max
 
 ## CONCLUSIONS
 
-In elderly patients with hepatobiliary cancer, segmental/wedge resection provides equivalent or superior survival to major hepatectomy across both HCC and ICC, independent of age and stage. Supported by E-value=4.3 (conservative, PSM-adjusted) and extensive sensitivity analyses, these findings advocate for parenchymal-sparing surgery as the preferred approach when transplantation is unavailable, particularly when both segmental and major resection are anatomically feasible.
+In this population-based analysis of 76,110 elderly patients with hepatobiliary cancer, any surgical resection was associated with a robust survival benefit (PSM-adjusted HR 0.35; E-value 4.3). Within the operated subgroup, segmental and larger resection were associated with similar adjusted survival after accounting for available covariates. These findings suggest that when both segmental and major resection are anatomically feasible in elderly patients, parenchymal-sparing approaches may be preferred, although this comparison remains observational and subject to confounding by unmeasured tumor anatomy and liver function. Prospective studies with granular clinical data are needed to establish surgical equivalence.
 
 ---
 
