@@ -7,7 +7,7 @@
 - **Segmental Resection HR=0.23** vs Larger Resection HR=0.24 — nearly identical benefit
 - In **ICC**, segmental resection (HR=0.22) **outperforms** larger resection (HR=0.26)
 - Age-surgery benefit persists through **80+** years
-- **5-fold CV Ensemble C-index: 0.756** (SEER internal, 4-model: Cox+RSF+XGBoost+DeepSurv)
+- **5-fold CV Ensemble C-index: 0.737** (SEER internal)
 - External validation: TCGA-LIHC C-index **0.595**, ICGC-LIRI-JP **0.547**
 
 ## Key Tables
@@ -36,12 +36,10 @@
 ### Table 3: Stratification (Age × Surgery Type CSS HR)
 | Age | Segmental HR | Larger HR | Better Option |
 |---|---|---|---|
-| 65-69 | 0.33 | 0.35 | Larger (marginal) |
-| 70-74 | 0.27 | 0.25 | Equivalent |
-| 75-79 | 0.29 | 0.33 | Segmental ✓ |
-| 80+ | 0.26 | 0.31 | Segmental ✓ |
-
-> **Note**: Values differ from earlier analysis versions. The correct values from the final multivariate Cox model are shown above. Across all age bands ≥70, segmental was equivalent or numerically superior. Only at age 65-69 did larger resection show marginal advantage.
+| 65-69 | 0.34 | 0.40 | Segmental ✓ |
+| 70-74 | 0.30 | 0.29 | Larger |
+| 75-79 | 0.33 | 0.38 | Segmental ✓ |
+| 80+ | 0.33 | 0.34 | Segmental ✓ |
 
 ### Table 4: Model Performance
 | Model | SEER C-index | TCGA C-index | ICGC C-index |
@@ -49,7 +47,7 @@
 | Cox PH | 0.739 | 0.595 | 0.522 |
 | RSF | 0.736 | 0.567 | 0.551 |
 | XGBoost | 0.746 | 0.592 | 0.547 |
-| **Ensemble** | **0.756** | — | — |
+| **Ensemble** | **0.737** | — | — |
 
 ## Novel Insights (Not Previously Reported)
 
@@ -57,7 +55,7 @@
 2. **Cirrhosis Paradox**: Cirrhosis patients have HIGHER surgery rate and BETTER survival — selection bias artifact
 3. **Age-Attenuation Pattern**: Surgery benefit decreases linearly with age (p_interaction=0.08) but remains positive at 80+
 4. **Temporal Improvement**: Median OS improved from 3m (2000) to 12m (2019) — treatment evolution effect
-5. **External Generalizability Gap**: SEER→TCGA ΔC-index=0.09, largely explained by predictor range restriction
+5. **External Generalizability Gap**: SEER→TCGA ΔC-index=0.09, largely explained by surgery feature paradox
 6. **HBI Risk Score**: Simple 7-variable point system stratifies patients with 3-fold survival difference
 
 ## HBI (Hepatobiliary Cancer Index) Scoring

@@ -1,6 +1,7 @@
 """Script 09: LASSO + Bootstrap Calibration + DCA + Time-AUC + Nomogram + DeepSurv Tuned"""
 import pandas as pd, numpy as np, matplotlib; matplotlib.use('Agg')
 import matplotlib.pyplot as plt, os, warnings; warnings.filterwarnings('ignore')
+plt.rcParams['axes.prop_cycle'] = plt.cycler(color=['#0072B2','#E69F00','#009E73','#CC79A7','#56B4E9','#F0E442','#000000'])
 os.chdir(r'D:\Researching\SEER\hepatobiliary cancer')
 os.makedirs('03_Analysis/figures', exist_ok=True)
 
@@ -96,7 +97,7 @@ with open(out, 'w', encoding='utf-8') as fout:
         nb_model.append(m); nb_all.append(a); nb_none.append(0)
 
     fig, ax = plt.subplots(figsize=(8,5))
-    ax.plot(thresholds, nb_model, label='RSF Model', lw=2, color='steelblue')
+    ax.plot(thresholds, nb_model, label='RSF Model', lw=2, color='#0072B2')
     ax.plot(thresholds, nb_all, label='Treat All', lw=2, color='darkorange', ls='--')
     ax.axhline(0, color='gray', ls=':', label='Treat None')
     ax.set_xlabel('Threshold Probability'); ax.set_ylabel('Net Benefit')
@@ -117,7 +118,7 @@ with open(out, 'w', encoding='utf-8') as fout:
         for t, auc in zip(times, auc_means):
             p(f"| {t} | {auc:.3f} |")
         fig, ax = plt.subplots(figsize=(8,4))
-        ax.plot(times, auc_means, 'o-', color='steelblue', lw=2)
+        ax.plot(times, auc_means, 'o-', color='#0072B2', lw=2)
         ax.fill_between(times, auc_means-0.03, auc_means+0.03, alpha=0.2)
         ax.set_xlabel('Months'); ax.set_ylabel('AUC'); ax.set_ylim(0.5, 0.85)
         ax.set_title('Time-Dependent AUC', fontweight='bold')
@@ -149,7 +150,7 @@ with open(out, 'w', encoding='utf-8') as fout:
         y = y_start - i * 0.9
         points = int(round(abs(coef) / max_coef * 100))
         ax.text(1, y, var.replace('_',' ').title(), fontsize=11, va='center', fontweight='bold')
-        ax.barh(y, points/100*8, height=0.5, color='steelblue' if coef<0 else '#e74c3c', alpha=0.7)
+        ax.barh(y, points/100*8, height=0.5, color='#0072B2' if coef<0 else '#CC79A7', alpha=0.7)
         ax.text(points/100*8+0.3, y, f'{points} pts', fontsize=10, va='center')
 
     # Total points axis

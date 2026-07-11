@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+plt.rcParams['axes.prop_cycle'] = plt.cycler(color=['#0072B2','#E69F00','#009E73','#CC79A7','#56B4E9','#F0E442','#000000'])
 from lifelines import KaplanMeierFitter, CoxPHFitter
 from sksurv.metrics import concordance_index_censored
 from sksurv.util import Surv
@@ -276,7 +277,7 @@ icgc_c_list = [icgc_results.get('XGBoost',0), icgc_results.get('RSF',0), icgc_re
 x = np.arange(len(models))
 w = 0.25
 bars1 = ax.bar(x - w, seer_c, w, label='SEER Internal', color='#2c3e50')
-bars2 = ax.bar(x, tcga_c, w, label='TCGA-LIHC', color='#3498db')
+bars2 = ax.bar(x, tcga_c, w, label='TCGA-LIHC', color='#0072B2')
 bars3 = ax.bar(x + w, icgc_c_list, w, label='ICGC-LIRI-JP', color='#e67e22')
 ax.set_ylabel('C-index'); ax.set_xticks(x); ax.set_xticklabels(models)
 ax.set_ylim(0.4, 0.85); ax.legend(frameon=False, fontsize=8)
@@ -290,7 +291,7 @@ ax = axes[0,1]
 tcga_risk = rsf_model.predict(X_tcga_s)
 tcga_df['risk'] = np.where(tcga_risk > np.median(tcga_risk), 'High', 'Low')
 kmf = KaplanMeierFitter()
-for lb, c in [('Low','#2ecc71'),('High','#e74c3c')]:
+for lb, c in [('Low','#009E73'),('High','#CC79A7')]:
     g = tcga_df[tcga_df['risk']==lb]
     if len(g)>10:
         kmf.fit(g['surv_months'], g['vital_dead'], label=f'{lb} Risk (n={len(g)})')
@@ -302,7 +303,7 @@ ax.set_xlim(0, 60); ax.legend(frameon=False)
 # C: Survival by cohort
 ax = axes[1,0]
 for label, grp, color in [('SEER Surgery', 'seer', '#2c3e50'),
-                           ('TCGA-LIHC', 'tcga', '#3498db'),
+                           ('TCGA-LIHC', 'tcga', '#0072B2'),
                            ('ICGC-LIRI-JP', 'icgc', '#e67e22')]:
     if label.startswith('SEER'):
         seer_s = pd.read_csv(r'02_Data\cleaned\hepatobiliary_elderly_clean.csv')
@@ -323,7 +324,7 @@ key_feats = ['age_c','male','stage_4','grade_poor','cirrhosis','chemotherapy']
 seer_var = [np.var(data['X_train'][:,features.index(f)]) for f in key_feats if f in features]
 tcga_var_list = [np.var(X_tcga[:,features.index(f)]) if f in features else 0 for f in key_feats]
 ypos = range(len(key_feats))
-ax.barh(ypos, seer_var, 0.35, label='SEER', color='steelblue')
+ax.barh(ypos, seer_var, 0.35, label='SEER', color='#0072B2')
 ax.barh([y+0.35 for y in ypos], tcga_var_list, 0.35, label='TCGA', color='darkorange')
 ax.set_yticks([y+0.175 for y in ypos]); ax.set_yticklabels(key_feats, fontsize=9)
 ax.set_xlabel('Variance'); ax.set_title('D. Feature Variance: SEER vs TCGA', fontweight='bold')

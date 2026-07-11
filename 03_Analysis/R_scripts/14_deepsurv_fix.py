@@ -10,6 +10,7 @@ Hypotheses:
 import pandas as pd, numpy as np, torch, torch.nn as nn
 import matplotlib; matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+plt.rcParams['axes.prop_cycle'] = plt.cycler(color=['#0072B2','#E69F00','#009E73','#CC79A7','#56B4E9','#F0E442','#000000'])
 import os, warnings; warnings.filterwarnings('ignore')
 os.chdir(r'D:\Researching\SEER\hepatobiliary cancer')
 

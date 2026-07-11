@@ -63,7 +63,7 @@ Inflection point: age 86 — beyond this, benefit attenuation accelerates
 | Q4 (Highest) | 4.1 | Parenchymal-sparing preference |
 ✓ Fig23 Geography saved
 
-## 6. Cause-Specific Hazard Competing Risk Regression
+## 6. Fine-Gray Competing Risk Regression
 
 | Event | Surgery HR | 95% CI | P |
 |---|---|---|---|

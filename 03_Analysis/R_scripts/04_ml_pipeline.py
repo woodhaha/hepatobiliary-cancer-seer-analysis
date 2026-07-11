@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import matplotlib; matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+plt.rcParams['axes.prop_cycle'] = plt.cycler(color=['#0072B2','#E69F00','#009E73','#CC79A7','#56B4E9','#F0E442','#000000'])
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 import os, warnings, pickle

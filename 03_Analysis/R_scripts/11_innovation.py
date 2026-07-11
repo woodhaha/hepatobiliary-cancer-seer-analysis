@@ -1,6 +1,7 @@
 """Script 11: Counterfactual + AJCC Migration + Decision Tree + SES + CONSORT"""
 import pandas as pd, numpy as np, matplotlib; matplotlib.use('Agg')
 import matplotlib.pyplot as plt, os, warnings; warnings.filterwarnings('ignore')
+plt.rcParams['axes.prop_cycle'] = plt.cycler(color=['#0072B2','#E69F00','#009E73','#CC79A7','#56B4E9','#F0E442','#000000'])
 os.chdir(r'D:\Researching\SEER\hepatobiliary cancer')
 os.makedirs('03_Analysis/figures', exist_ok=True)
 
@@ -116,7 +117,7 @@ with open(out, 'w', encoding='utf-8') as fout:
         sub = df[df['year']==yr]
         for s in [1,2,3,4]:
             stage_pct[s].append((sub['stage']==s).mean()*100 if len(sub)>100 else np.nan)
-    colors = ['#2ecc71','#3498db','#f39c12','#e74c3c']
+    colors = ['#009E73','#0072B2','#E69F00','#CC79A7']
     for s, c in zip([1,2,3,4], colors):
         ax.plot(yrs, stage_pct[s], 'o-', label=f'Stage {["I","II","III","IV"][s-1]}', color=c, lw=2)
     ax.set_xlabel('Year'); ax.set_ylabel('%'); ax.legend()
@@ -228,8 +229,8 @@ with open(out, 'w', encoding='utf-8') as fout:
         (0.5, 0.80, 'Adult (≥18) Cohort\nN = 169,887', '#2980b9', 'white'),
         (0.5, 0.72, 'Complete Survival Data\nN = 164,383', '#2980b9', 'white'),
         (0.5, 0.62, 'Study Cohort (Age ≥65)\nN = 76,110', '#27ae60', 'white'),
-        (0.25, 0.50, 'Non-Surgery\nn = 59,821 (78.6%)', '#e74c3c', 'white'),
-        (0.75, 0.50, 'Surgery\nn = 16,289 (21.4%)', '#2ecc71', 'white'),
+        (0.25, 0.50, 'Non-Surgery\nn = 59,821 (78.6%)', '#CC79A7', 'white'),
+        (0.75, 0.50, 'Surgery\nn = 16,289 (21.4%)', '#009E73', 'white'),
         (0.75, 0.40, 'Local: 10,771\nSegmental: 2,486\nLarger: 699\nTransplant: 1,778', '#27ae60', 'white'),
         (0.25, 0.30, 'External Validation\nTCGA-LIHC: n=269\nICGC-LIRI-JP: n=260', '#8e44ad', 'white'),
     ]

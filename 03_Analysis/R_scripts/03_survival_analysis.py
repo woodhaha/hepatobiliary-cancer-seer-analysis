@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import matplotlib; matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+plt.rcParams['axes.prop_cycle'] = plt.cycler(color=['#0072B2','#E69F00','#009E73','#CC79A7','#56B4E9','#F0E442','#000000'])
 from lifelines import KaplanMeierFitter, CoxPHFitter
 from lifelines.statistics import logrank_test
 from scipy.stats import chi2_contingency, ttest_ind
@@ -117,8 +118,8 @@ with open('03_Analysis/outputs/02_survival_report.md', 'w', encoding='utf-8') as
 
     # C: OS by surgery type
     ax = axes[0,2]
-    colors = {'Non-surgery':'#e74c3c','Local Destruction':'#f39c12','Segmental Resection':'#2ecc71',
-              'Larger Resection':'#3498db','Transplant':'#9b59b6'}
+    colors = {'Non-surgery':'#CC79A7','Local Destruction':'#E69F00','Segmental Resection':'#009E73',
+              'Larger Resection':'#0072B2','Transplant':'#CC79A7'}
     for lb, gr in df.groupby('surgery_group'):
         if len(gr)>=30:
             kmf.fit(gr['surv_months'], gr['vital_dead'], label=lb)
@@ -277,7 +278,7 @@ with open('03_Analysis/outputs/02_survival_report.md', 'w', encoding='utf-8') as
 
         y = range(len(feats))
         ax.errorbar(hrs, y, xerr=[np.array(hrs)-np.array(lo), np.array(hi)-np.array(hrs)],
-                    fmt='o', capsize=3, color='steelblue')
+                    fmt='o', capsize=3, color='#0072B2')
         ax.axvline(1, color='red', ls='--', alpha=0.5)
         ax.set_yticks(y); ax.set_yticklabels(feats, fontsize=9)
         ax.set_xlabel('Hazard Ratio (95% CI)'); ax.set_xscale('log')

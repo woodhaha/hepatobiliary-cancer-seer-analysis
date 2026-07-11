@@ -1,6 +1,7 @@
 """Script 10: Schoenfeld + Subgroup + Landmark + AFP + Race + COVID"""
 import pandas as pd, numpy as np, matplotlib; matplotlib.use('Agg')
 import matplotlib.pyplot as plt, os, warnings; warnings.filterwarnings('ignore')
+plt.rcParams['axes.prop_cycle'] = plt.cycler(color=['#0072B2','#E69F00','#009E73','#CC79A7','#56B4E9','#F0E442','#000000'])
 os.chdir(r'D:\Researching\SEER\hepatobiliary cancer')
 os.makedirs('03_Analysis/figures', exist_ok=True)
 
@@ -103,7 +104,7 @@ with open(out, 'w', encoding='utf-8') as f:
         except: pass
 
     ax.errorbar(all_hrs, all_rows, xerr=[np.array(all_hrs)-np.array(all_lo), np.array(all_hi)-np.array(all_hrs)],
-                fmt='o', capsize=3, color='steelblue')
+                fmt='o', capsize=3, color='#0072B2')
     ax.axvline(1, color='red', ls='--', alpha=0.5)
     ax.set_yticks(all_rows); ax.set_yticklabels(all_labels, fontsize=9)
     ax.set_xlabel('Surgery CSS HR'); ax.set_xscale('log')
@@ -205,7 +206,7 @@ with open(out, 'w', encoding='utf-8') as f:
         monthly[yr]['os'] = sub['surv_months'].median()
         monthly[yr]['n'] = len(sub)
 
-    ax = axes[0]; ax.bar(yrs, [monthly[y]['n'] for y in yrs], color='steelblue')
+    ax = axes[0]; ax.bar(yrs, [monthly[y]['n'] for y in yrs], color='#0072B2')
     ax.set_title('Annual Cases'); ax.set_ylabel('N')
     ax = axes[1]; ax.plot(yrs, [monthly[y]['surgery'] for y in yrs], 'o-', color='green')
     ax.set_title('Surgery Rate'); ax.set_ylabel('%')

@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import matplotlib; matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+plt.rcParams['axes.prop_cycle'] = plt.cycler(color=['#0072B2','#E69F00','#009E73','#CC79A7','#56B4E9','#F0E442','#000000'])
 from lifelines import KaplanMeierFitter, CoxPHFitter
 from sksurv.metrics import concordance_index_censored
 from sksurv.util import Surv
@@ -191,7 +192,7 @@ fig.suptitle('Hepatobiliary Cancer in the Elderly — Comprehensive Analysis', f
 
 # A: 5-fold CV results
 ax = fig.add_subplot(3, 4, 1)
-for model, color in [('Cox','steelblue'),('RSF','darkorange'),('XGBoost','green'),
+for model, color in [('Cox','#0072B2'),('RSF','darkorange'),('XGBoost','green'),
                        ('Ensemble_Mean','red')]:
     scores = cv_scores[model]
     ax.plot(range(1,6), scores, 'o-', label=f'{model} ({np.mean(scores):.3f})', color=color, lw=2)
@@ -201,8 +202,8 @@ ax.set_title('A. 5-Fold CV Model Comparison', fontweight='bold'); ax.legend(font
 # B: PSM Love Plot
 ax = fig.add_subplot(3, 4, 2)
 y_pos = range(len(psm_feats))
-ax.scatter(smd_before, y_pos, s=80, marker='o', label='Before PSM', color='#e74c3c', zorder=3)
-ax.scatter(smd_after, y_pos, s=80, marker='s', label='After PSM', color='#2ecc71', zorder=3)
+ax.scatter(smd_before, y_pos, s=80, marker='o', label='Before PSM', color='#CC79A7', zorder=3)
+ax.scatter(smd_after, y_pos, s=80, marker='s', label='After PSM', color='#009E73', zorder=3)
 ax.axvline(0.1, color='gray', ls='--', alpha=0.5, label='SMD=0.1 threshold')
 ax.set_yticks(y_pos); ax.set_yticklabels(psm_feats, fontsize=8)
 ax.set_xlabel('Standardized Mean Difference'); ax.set_title('B. PSM Love Plot', fontweight='bold')
@@ -211,7 +212,7 @@ ax.legend(fontsize=7)
 # C: HBI Risk Stratification
 ax = fig.add_subplot(3, 4, 3)
 kmf = KaplanMeierFitter()
-for lb, c in [('Low Risk','#2ecc71'),('Intermediate','#f39c12'),('High Risk','#e74c3c')]:
+for lb, c in [('Low Risk','#009E73'),('Intermediate','#E69F00'),('High Risk','#CC79A7')]:
     g = ml[ml['HBI_group']==lb]
     kmf.fit(g['surv_months'], g['vital_dead'], label=f'{lb} (n={len(g)})')
     kmf.plot_survival_function(ax=ax, ci_show=False, lw=2, color=c)
@@ -221,8 +222,8 @@ ax.set_xlabel('Months'); ax.set_xlim(0, 60); ax.legend(fontsize=7)
 # D: Age x Surgery Interaction
 ax = fig.add_subplot(3, 4, 4)
 ages = range(65, 91, 2)
-for surg, color, ls in [('Segmental_Resection','#2ecc71','-'),('Larger_Resection','#e74c3c','--'),
-                          ('Transplant','#3498db','-.')]:
+for surg, color, ls in [('Segmental_Resection','#009E73','-'),('Larger_Resection','#CC79A7','--'),
+                          ('Transplant','#0072B2','-.')]:
     hrs = []
     for a in ages:
         sub = df[(df['age']>=a)&(df['age']<a+2)]
@@ -246,18 +247,18 @@ subplot_configs = [
         for ct, g in df.groupby('cancer_type') if len(g)>500
     ]),
     (3, 4, 6, 'F. Temporal Trend: Median OS', lambda ax: [
-        (lambda yrs, mos: (ax.plot(yrs, mos, 'o-', color='steelblue', lw=2),
+        (lambda yrs, mos: (ax.plot(yrs, mos, 'o-', color='#0072B2', lw=2),
          ax.set_xlabel('Year'), ax.set_ylabel('Median OS (months)')))(*zip(*[
             (yr, sub['surv_months'].median()) for yr, sub in df.groupby('year') if len(sub)>100
         ]))
     ]),
     (3, 4, 7, 'G. Feature Contribution (HBI)', lambda ax: [
-        (ax.barh(list(hbi_points.keys()), list(hbi_points.values()), color='steelblue'),
+        (ax.barh(list(hbi_points.keys()), list(hbi_points.values()), color='#0072B2'),
          ax.set_xlabel('Points'), ax.invert_yaxis())
     ]),
     (3, 4, 8, 'H. Surgery Type by Age', lambda ax: [
         (lambda dat: (ax.stackplot(dat.index, *[dat[c].values for c in dat.columns],
-         labels=dat.columns.str.replace('_',' '), colors=['#9b59b6','#2ecc71','#e74c3c','#f39c12'],
+         labels=dat.columns.str.replace('_',' '), colors=['#CC79A7','#009E73','#CC79A7','#E69F00'],
          alpha=0.8), ax.legend(fontsize=6, loc='upper right')))(
             df[df['surgery_any']==1].groupby('age_band')['surgery_type'].apply(
                 lambda x: x.value_counts(normalize=True)).unstack().fillna(0))

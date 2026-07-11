@@ -3,6 +3,7 @@ E-value + Instrumental Variable + RCS + Frailty + Geography + Fine-Gray + Sensit
 """
 import pandas as pd, numpy as np, matplotlib; matplotlib.use('Agg')
 import matplotlib.pyplot as plt, os, warnings; warnings.filterwarnings('ignore')
+plt.rcParams['axes.prop_cycle'] = plt.cycler(color=['#0072B2','#E69F00','#009E73','#CC79A7','#56B4E9','#F0E442','#000000'])
 os.chdir(r'D:\Researching\SEER\hepatobiliary cancer')
 os.makedirs('03_Analysis/figures', exist_ok=True)
 
@@ -149,7 +150,7 @@ with open('03_Analysis/outputs/12_jama_level_report.md', 'w', encoding='utf-8') 
     ax.scatter(ages, hrs_raw, s=20, alpha=0.3, label='Unadjusted')
     ax.scatter(ages, hrs_adj, s=20, alpha=0.5, label='Adjusted')
     if valid_raw.sum() > 4:
-        ax.plot(age_fine, cs_raw(age_fine), '--', color='steelblue', lw=2, alpha=0.7)
+        ax.plot(age_fine, cs_raw(age_fine), '--', color='#0072B2', lw=2, alpha=0.7)
         ax.plot(age_fine, cs_adj(age_fine), '-', color='darkred', lw=2.5)
     ax.axhline(1, color='black', ls='-'); ax.set_xlabel('Age'); ax.set_ylabel('Surgery HR')
     ax.set_title('Restricted Cubic Spline: Age-Dependent Surgery Benefit', fontweight='bold')

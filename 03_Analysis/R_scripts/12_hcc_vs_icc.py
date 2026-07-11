@@ -5,6 +5,7 @@ hold for BOTH HCC and ICC? What are the key differences?
 """
 import pandas as pd, numpy as np, matplotlib; matplotlib.use('Agg')
 import matplotlib.pyplot as plt, os, warnings; warnings.filterwarnings('ignore')
+plt.rcParams['axes.prop_cycle'] = plt.cycler(color=['#0072B2','#E69F00','#009E73','#CC79A7','#56B4E9','#F0E442','#000000'])
 os.chdir(r'D:\Researching\SEER\hepatobiliary cancer')
 os.makedirs('03_Analysis/figures', exist_ok=True)
 
@@ -121,7 +122,7 @@ with open('03_Analysis/outputs/10_hcc_vs_icc_report.md', 'w', encoding='utf-8') 
 
     # Panel A: Segmental vs Larger HR by age — HCC
     ax = axes[0,0]
-    for ct, ax_idx, color in [('HCC',(0,0),'#3498db'),('ICC',(0,1),'#e74c3c')]:
+    for ct, ax_idx, color in [('HCC',(0,0),'#0072B2'),('ICC',(0,1),'#CC79A7')]:
         ax = axes[ax_idx[0], ax_idx[1]]
         sub = df[df['cancer_type']==ct]
         ages = range(65, 91, 2)
@@ -147,7 +148,7 @@ with open('03_Analysis/outputs/10_hcc_vs_icc_report.md', 'w', encoding='utf-8') 
 
     # Panel B: KM by cancer type — Surgery only
     ax = axes[0,2]
-    for ct, color in [('HCC','#3498db'),('ICC','#e74c3c')]:
+    for ct, color in [('HCC','#0072B2'),('ICC','#CC79A7')]:
         sub = df[(df['cancer_type']==ct)&(df['surgery_any']==1)]
         kmf.fit(sub['surv_months'], sub['vital_dead'], label=f'{ct} Surgery (n={len(sub)})')
         kmf.plot_survival_function(ax=ax, ci_show=False, lw=2, color=color)
@@ -158,13 +159,13 @@ with open('03_Analysis/outputs/10_hcc_vs_icc_report.md', 'w', encoding='utf-8') 
     ax = axes[1,0]
     surg_order = ['None','Local_Destruction','Segmental_Resection','Larger_Resection','Transplant']
     surg_labels = ['None','Local Ablation','Segmental','Larger','Transplant']
-    colors_list = ['#95a5a6','#f39c12','#2ecc71','#e74c3c','#9b59b6']
+    colors_list = ['#95a5a6','#E69F00','#009E73','#CC79A7','#CC79A7']
     x = np.arange(len(surg_order))
     w = 0.35
     for i, (ct, offset) in enumerate([('HCC', -w/2), ('ICC', w/2)]):
         sub = df[df['cancer_type']==ct]
         counts = [(sub['surgery_type']==s).sum()/len(sub)*100 for s in surg_order]
-        ax.bar(x+offset, counts, w, label=ct, alpha=0.8, color='#3498db' if ct=='HCC' else '#e74c3c')
+        ax.bar(x+offset, counts, w, label=ct, alpha=0.8, color='#0072B2' if ct=='HCC' else '#CC79A7')
     ax.set_xticks(x); ax.set_xticklabels(surg_labels, fontsize=9)
     ax.set_ylabel('%'); ax.set_title('C. Surgery Distribution', fontweight='bold')
     ax.legend()
