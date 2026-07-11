@@ -1,0 +1,37 @@
+# Data — never committed
+02_Data/raw/
+02_Data/cleaned/
+*.csv
+*.npz
+
+# Generated PDFs and large binaries
+*.pdf
+*.docx
+*.zip
+*.png
+*.jpg
+*.jpeg
+*.tiff
+*.tif
+*.svg
+
+# Submission artifacts (generated)
+05_Submission/*.pdf
+05_Submission/*.docx
+05_Submission/*.zip
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store

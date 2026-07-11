@@ -101,7 +101,7 @@
 
 ## Key Findings
 
-1. Surgery-vs-none: PSM-adjusted HR 0.35, E-value 4.3
+1. Surgery-vs-none: PSM-adjusted HR 0.35, E-value 5.2
 2. Within surgical subgroup: segmental (HR 0.23) and larger (HR 0.24) — similar adjusted HRs
 3. Surgery × cancer type interaction: p=0.206 (not significant)
 4. Pattern holds across age ≥70, HCC, and ICC

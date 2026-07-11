@@ -18,7 +18,7 @@ Ormeño et al. (Commun Chem, 2024) is about molecular dynamics simulations. Zero
 
 ### C3. E-value=7.5 is overstated — computed on wrong HR [R1, R2]
 The E-value was computed on the multivariate HR of 0.23 (surgery_any in a full model including mediators). The appropriate conservative estimate is on the PSM-adjusted HR of 0.35, yielding **E-value ≈ 4.3**. R2 further notes the E-value addresses surgery-vs-none, not the segmental-vs-larger comparison that is the paper's main claim.
-**Fix**: Report E-value=4.3 (PSM) as primary. Keep E-value=7.5 (multivariate) as secondary. Add E-value for the segmental-vs-larger specific comparison.
+**Fix**: Report E-value=5.2 (PSM) as primary. Keep E-value=7.5 (multivariate) as secondary. Add E-value for the segmental-vs-larger specific comparison.
 
 ---
 

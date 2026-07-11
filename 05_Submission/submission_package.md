@@ -9,8 +9,8 @@
 | Item | Status | File |
 |------|--------|------|
 | Title Page | ✅ | Included in manuscript |
-| Manuscript Body | ✅ | `04_Manuscript/manuscript_draft.md` |
-| Abstract (structured) | ✅ | 350 words + Mini-abstract |
+| Manuscript Body | ✅ | `05_Submission/manuscript.md` |
+| Abstract (structured) | ✅ | 250 words |
 | Key Words | ✅ | 6 keywords |
 | Figures (main) | ✅ | Fig1-6 (6 main + 8 suppl) |
 | Tables (main) | ✅ | Table 1-3 |
@@ -48,7 +48,7 @@ decision-making in an aging population.
 Key strengths of this manuscript include:
 1. Population-based design with 76,110 patients—the largest analysis of its kind
 2. First simultaneous comparison of surgical extents in HCC and ICC
-3. Robust causal sensitivity analysis (E-value=7.5, PSM, instrumental variable)
+3. Robust causal sensitivity analysis (E-value=5.2, PSM, instrumental variable)
 4. Machine learning ensemble with 5-fold cross-validation
 5. Dual external validation (TCGA-LIHC + ICGC-LIRI-JP)
 6. Practical clinical decision matrix and risk stratification tool
@@ -63,12 +63,12 @@ to your readership.
 
 Sincerely,
 
-Qigang Xu, MD
+Zhuha Zhou, MD
 Corresponding Author
-Department of Hepatobiliary and Pancreatic Surgery
+Department of Gastroenterology Surgery
 The First Affiliated Hospital of Wenzhou Medical University
 Zhejiang, China
-E-mail: xuqigang@wmu.edu.cn
+E-mail: zhouzhuha@wmu.edu.cn
 ```
 
 ---
@@ -79,7 +79,7 @@ E-mail: xuqigang@wmu.edu.cn
 
 | Figure | Title | File |
 |--------|-------|------|
-| **Fig 1** | Kaplan-Meier Survival Curves (6 panels: OS/CSS by surgery, stage, age, cancer type) | `Fig1_KM_Survival.pdf` |
+| **Fig 1** | Kaplan-Meier Survival Curves (6 panels: OS/CSS by surgery, stage, age, cancer type) | `Fig1_KM.pdf` |
 | **Fig 2** | Multivariate Cox Forest Plot (18 variables) | `Fig2_Forest.pdf` |
 | **Fig 3** | HCC vs ICC Surgical Strategy Comparison | `Fig20_HCCvsICC.pdf` |
 | **Fig 4** | External Validation (SEER→TCGA+ICGC) | `Fig5_ExternalValidation.pdf` |
@@ -90,7 +90,7 @@ E-mail: xuqigang@wmu.edu.cn
 
 | eFigure | Title | File |
 |---------|-------|------|
-| **eFig 1** | CONSORT Flow Diagram | `Fig19_CONSORT.png` |
+| **eFig 1** | CONSORT Flow Diagram | `Fig19_CONSORT.pdf` |
 | **eFig 2** | PSM Love Plot | `Fig6_CompositeAnalysis.pdf` (Panel B) |
 | **eFig 3** | 5-Fold CV Model Comparison | `Fig6_CompositeAnalysis.pdf` (Panel A) |
 | **eFig 4** | SHAP Feature Importance | `FigS1_SHAP.png` |
@@ -104,14 +104,13 @@ E-mail: xuqigang@wmu.edu.cn
 | Item | File |
 |------|------|
 | Supplementary eTable S1-S6 | `supplementary_materials.md` |
-| DCA Decision Curve | `Fig8_DCA.png` |
+| Time-Dependent AUC | — *(not generated)* |
 | LASSO Variable Selection | `Fig7_LASSO.png` |
-| Time-Dependent AUC | `Fig9_TimeAUC.png` |
 | Subgroup Forest Plot | `Fig11_Subgroup.png` |
 | Landmark Conditional Survival | `Fig12_Landmark.png` |
 | AFP Analysis | `Fig13_AFP.png` |
 | Race Disparities | `Fig14_Race.png` |
-| SES Interaction | `Fig18_SES.png` |
+| SES Interaction | — *(not generated)* |
 | Geographic Variation | `Fig23_Geography.png` |
 
 ---
@@ -143,8 +142,8 @@ E-mail: xuqigang@wmu.edu.cn
 
 1. **Wei-Lin Wang** (Zhejiang University) — Published the reference SEER-HCC paper (Zhang et al. 2020, Front Oncol)
 2. **San-Lin You** (Fu Jen Catholic University) — Reviewed the reference paper; expertise in HCC epidemiology
-3. **Expert in surgical oncology with SEER methodology**
-4. **Expert in hepatobiliary surgery with geriatric focus**
+3. **Lei Xia**, MD — Corresponding author of Xia et al. 2025 (*Medicine*), the most recent SEER-based HCC surgical comparison
+4. **Expert in surgical oncology with SEER methodology**
 5. **Biostatistician with survival ML expertise**
 
 ---

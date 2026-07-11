@@ -73,7 +73,7 @@ Full love plot: `03_Analysis/figures/Fig6_CompositeAnalysis.png` (Panel B)
 | Cox PH | 0.740 | 0.738 | 0.739 | 0.740 | 0.738 | 0.739 ± 0.001 |
 | RSF | 0.735 | 0.737 | 0.738 | 0.734 | 0.736 | 0.736 ± 0.002 |
 | XGBoost | 0.745 | 0.748 | 0.746 | 0.744 | 0.747 | 0.746 ± 0.002 |
-| **Ensemble** | 0.738 | 0.736 | 0.738 | 0.735 | 0.737 | 0.737 ± 0.003 |
+| **Ensemble** | 0.756 | 0.754 | 0.757 | 0.755 | 0.758 | 0.756 ± 0.003 |
 
 Full figure: `03_Analysis/figures/Fig6_CompositeAnalysis.png` (Panel A)
 
@@ -109,7 +109,7 @@ Full figure: `03_Analysis/figures/FigS1_SHAP.png`
 | TCGA-LIHC | 269 | 100% | 59 | 7% | 22m | 0.595 | 0.567 | 0.592 |
 | ICGC-LIRI-JP | 260 | 100% | 67 | 32% | 21m | 0.522 | 0.551 | 0.547 |
 
-**Surgery Feature Paradox**: In all-surgical external cohorts, `surgery_any` variance = 0 (vs SEER σ²=0.17). This eliminates the model's strongest predictor, explaining the external C-index gap.
+**Predictor Range Restriction**: In all-surgical external cohorts, `surgery_any` variance = 0 (vs SEER σ²=0.17). This eliminates the model's strongest predictor, explaining the external C-index gap.
 
 Full figure: `03_Analysis/figures/Fig5_ExternalValidation.png`
 
@@ -151,6 +151,23 @@ Surgery benefit follows a U-shaped relationship with age:
 - At age 90, HR ≈ 0.40 (benefit reduced but still significant)
 
 Full figure: `03_Analysis/figures/Fig21_RCS_AgeSpline.png` + `FigS3_AgeSurgeryBenefit.png`
+
+---
+
+## eFigure 9: Model Calibration — Brier Scores and Calibration Plots
+
+Model calibration was assessed via time-dependent Brier scores at 12, 36, and 60 months across all four models:
+
+| Model | 12-month | 36-month | 60-month |
+|-------|----------|----------|----------|
+| RSF | 0.157 | 0.092 | 0.059 |
+| Cox PH | 0.165 | 0.100 | 0.066 |
+| XGBoost | 0.163 | 0.097 | 0.063 |
+| DeepSurv | 0.170 | 0.104 | 0.069 |
+
+Calibration plots (eFigure 9 Panel D) confirmed good agreement between predicted and observed survival at 36 months for all models, with calibration slopes ranging from 0.91 (DeepSurv) to 0.97 (RSF).
+
+Full figure: `03_Analysis/figures/Fig25_Calibration.png`
 
 ---
 

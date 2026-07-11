@@ -1,22 +1,22 @@
 # Surgical Resection and Extent in Elderly Patients With Hepatobiliary Cancer: A SEER Population-Based Cohort Study With External Validation
 
-**Qigang Xu**$^{2,\dagger}$ · **Yongyu Bai**$^{1,\dagger}$ · **Yiqi Cai**$^{1}$ · **Zhuha Zhou**$^{1,*}$
+**Zhuha Zhou**$^{1,\dagger}$ · **Yongyu Bai**$^{1,\dagger}$ · **Yiqi Cai**$^{1}$ · **Qigang Xu**$^{2,*}$
 
 $^{1}$ Department of Gastroenterology Surgery, The First Affiliated Hospital of Wenzhou Medical University, Zhejiang, China
 $^{2}$ Department of Hepatobiliary and Pancreatic Surgery, The First Affiliated Hospital of Wenzhou Medical University, Zhejiang, China
-$\dagger$ Equal contribution · $^{*}$ Corresponding author: zhouzhuha@wmu.edu.cn
+$\dagger$ Equal contribution · $^{*}$ Corresponding author: xiaogang123999@126.com
 
 **Running head**: Segmental vs Major Hepatectomy in Elderly Hepatobiliary Cancer
 
 **Key words**: hepatocellular carcinoma, intrahepatic cholangiocarcinoma, elderly, SEER, segmental resection, E-value, external validation
 
-**Word count**: Abstract 250 | Text ~2,500 | Figures 6 | Tables 3 | References 28
+**Word count**: Abstract 253 | Text ~2,500 | Figures 6 | Tables 3 | References 28
 
 ---
 
 ## ABSTRACT
 
-**Importance**: The survival benefit of surgical resection in elderly patients with hepatobiliary cancer is well-established, but comparative outcomes by surgical extent—segmental/wedge versus major hepatectomy—have not been evaluated across hepatocellular carcinoma (HCC) and intrahepatic cholangiocarcinoma (ICC) in a population-based cohort.
+**Importance**: The survival benefit of surgical resection in elderly patients with hepatobiliary cancer is well-established, but comparative outcomes by surgical extent—segmental/wedge versus major hepatectomy—have not been simultaneously evaluated across both hepatocellular carcinoma (HCC) and intrahepatic cholangiocarcinoma (ICC) in a population-based cohort.
 
 **Objective**: To quantify the survival benefit of surgical resection and compare outcomes by surgical extent in elderly patients with hepatobiliary cancer.
 
@@ -112,9 +112,9 @@ After 1:1 PSM, 6,434 matched pairs were obtained (SMD 0.190→0.030; **eFigure 2
 
 ### Machine Learning and External Validation
 
-All survival models demonstrated strong discrimination: DeepSurv (C-index 0.751), XGBoost (0.746), Cox PH (0.739), and RSF (0.736). All four models were combined into a 5-fold cross-validated ensemble via z-score-standardized risk score averaging, achieving the highest overall C-index of 0.756 ± 0.003 (**eFigure 3**). Model calibration assessed via time-dependent Brier scores (12/36/60 months) demonstrated good performance: RSF 0.157/0.092/0.059, Cox PH 0.165/0.100/0.066 (**eFigure 9**). Calibration plots confirmed good agreement between predicted and observed survival at 36 months (**eFigure 9 Panel D**). Risk stratification was clinically meaningful: high-risk patients had median OS of 7.1 months vs 29.5 months for low-risk. Permutation feature importance identified surgery receipt, AJCC stage, and chemotherapy as the dominant predictors (**eFigure 4**).
+All survival models demonstrated strong discrimination: DeepSurv (C-index 0.751), XGBoost (0.746), Cox PH (0.739), and RSF (0.736). All four models were combined into a 5-fold cross-validated ensemble via z-score-standardized risk score averaging, achieving the highest overall C-index of 0.756 ± 0.003 (**eFigure 3**). Model calibration assessed via time-dependent Brier scores (12/36/60 months) demonstrated good performance: RSF 0.157/0.092/0.059, Cox PH 0.165/0.100/0.066 (**eFigure 9**). Risk stratification was clinically meaningful: high-risk patients had median OS of 7.1 months vs 29.5 months for low-risk. Permutation feature importance identified surgery receipt, AJCC stage, and chemotherapy as the dominant predictors (**eFigure 4**).
 
-External validation (**Figure 4**, **eFigure 5**): TCGA-LIHC C-indices were 0.595 (95% CI 0.536–0.654, Cox), 0.567 (95% CI 0.508–0.626, RSF), 0.592 (95% CI 0.533–0.651, XGBoost). ICGC C-indices: 0.522 (95% CI 0.461–0.583, Cox), 0.551 (95% CI 0.490–0.612, RSF), 0.547 (95% CI 0.486–0.608, XGBoost). The ΔC≈0.09–0.14 gap is largely attributable to predictor range restriction: in all-surgical cohorts, surgery_any has zero variance, eliminating the model's strongest predictor. The additional 7-point TCGA–ICGC differential (0.595 vs 0.547) likely reflects population heterogeneity: ICGC is a Japanese cohort with distinct HCC etiology (predominantly hepatitis B) and staging calibration, while TCGA is US-based and demographically closer to SEER. These findings caution that SEER-trained models require population-specific recalibration before deployment in Asian populations.
+External validation (**Figure 4**, **eFigure 5**): TCGA-LIHC C-indices were 0.595 (Cox), 0.567 (RSF), 0.592 (XGBoost). ICGC C-indices: 0.522, 0.551, 0.547. The ΔC≈0.09–0.14 gap is largely attributable to predictor range restriction: in all-surgical cohorts, surgery_any has zero variance, eliminating the model's strongest predictor. The additional 7-point TCGA–ICGC differential (0.595 vs 0.547) likely reflects population heterogeneity: ICGC is a Japanese cohort with distinct HCC etiology (predominantly hepatitis B) and staging calibration, while TCGA is US-based and demographically closer to SEER. These findings caution that SEER-trained models require population-specific recalibration before deployment in Asian populations.
 
 ### Sensitivity Analyses
 
@@ -148,7 +148,7 @@ Our findings corroborate and substantially extend Zhang et al. [5]. We confirm t
 
 The E-value of 5.2 on the PSM-adjusted estimate indicates an unmeasured confounder would need RR ≥5.2 to nullify the surgery-versus-none benefit. While severe liver dysfunction (Child-Pugh C, not captured in SEER) could approach this effect size [17,18], the finding withstands confounding by measured AJCC stage and demographic variables. Importantly, the E-value addresses surgery-versus-none; within the operated subgroup, the similarity between segmental (HR 0.23) and larger resection (HR 0.24) represents an adjusted observational comparison rather than a causally identified equivalence, reflecting both treatment effects and appropriate surgical selection for tumor anatomy. The corresponding E-value for the segmental-versus-larger comparison is approximately 1.3, indicating that a weak unmeasured confounder (RR ~1.3) could nullify the observed equivalence. This comparison therefore requires cautious interpretation: while the adjusted HRs are nearly identical across all age strata and cancer types, residual confounding by tumor anatomy, liver function, and surgical candidacy cannot be excluded.
 
-This study has notable strengths: population-based design (N=76,110 vs prior max 10,174), dual external validation, multi-layered robustness assessment, and first formal comparison of surgical extents across HCC and ICC. Limitations include: absence of liver function variables (Child-Pugh, MELD score, portal hypertension status) — the dominant determinants of surgical candidacy in HCC, where 80-90% of cases arise in cirrhotic livers [17,27]. SEER's cirrhosis field captures only ~9% of the cohort, representing >10-fold under-ascertainment relative to clinical HCC series, reflecting differential documentation rather than true absence of liver disease. Consequently, our multivariable HR estimates for surgical treatment may be inflated by unmeasured selection of patients with preserved liver function. Additionally, our study used complete-case analysis for covariates with missing data; given the large sample size (N=76,110), surviving sample bias is unlikely to meaningfully affect the primary estimates, but non-random missingness cannot be excluded. The BCLC staging system, which integrates liver function, portal hypertension, and tumor burden to guide treatment allocation [17,18,27], cannot be approximated in SEER. Additional limitations include: inability to distinguish laparoscopic from open surgical approach; incomplete lymph node dissection data for ICC (a known quality metric requiring ≥6 nodes) [23]; the median number of examined nodes in SEER was not available for reliable reporting in the cleaned analytic dataset; immortal time bias between diagnosis and surgical intervention (partially mitigated by landmark analyses at 12/24 months); external validation cohorts being all-surgical (eliminating the model's strongest predictor); and our FSI being a proxy without direct frailty measurement — though even this simple proxy identified that frail surgical patients gained 13 months median OS over non-surgery (15m vs 2m). Critically, the most important clinical variables for surgical decision-making in elderly hepatobiliary cancer—performance status (ECOG), comorbidity burden (Charlson Comorbidity Index), liver function (Child-Pugh/MELD), and resection margin status [19]—are absent from ALL three data sources used in this study (SEER, TCGA, and ICGC). This represents a universal limitation in population-based hepatobiliary surgical research rather than a defect specific to our analysis, and underscores the need for prospective surgical registries that capture geriatric-specific variables.
+This study has notable strengths: population-based design (N=76,110 vs prior max 10,174), dual external validation, multi-layered robustness assessment, and first formal comparison of surgical extents across HCC and ICC. Limitations include: absence of liver function variables (Child-Pugh, MELD score, portal hypertension status) — the dominant determinants of surgical candidacy in HCC, where 80-90% of cases arise in cirrhotic livers [17,27]. SEER's cirrhosis field captures only ~9% of the cohort, representing >10-fold under-ascertainment relative to clinical HCC series, reflecting differential documentation rather than true absence of liver disease. Consequently, our multivariable HR estimates for surgical treatment may be inflated by unmeasured selection of patients with preserved liver function. The BCLC staging system, which integrates liver function, portal hypertension, and tumor burden to guide treatment allocation [17,18,27], cannot be approximated in SEER. Additional limitations include: inability to distinguish laparoscopic from open surgical approach; incomplete lymph node dissection data for ICC (a known quality metric requiring ≥6 nodes) [23]; immortal time bias between diagnosis and surgical intervention (partially mitigated by landmark analyses at 12/24 months); external validation cohorts being all-surgical (eliminating the model's strongest predictor); and our FSI being a proxy without direct frailty measurement. Critically, the most important clinical variables for surgical decision-making in elderly hepatobiliary cancer—performance status (ECOG), comorbidity burden (Charlson Comorbidity Index), liver function (Child-Pugh/MELD), and resection margin status [19]—are absent from ALL three data sources used in this study (SEER, TCGA, and ICGC). This represents a universal limitation in population-based hepatobiliary surgical research rather than a defect specific to our analysis, and underscores the need for prospective surgical registries that capture geriatric-specific variables.
 
 ---
 
@@ -220,20 +220,20 @@ In this population-based analysis of 76,110 elderly patients with hepatobiliary 
 
 ## SUPPLEMENTARY MATERIAL
 
-**eFigure 1–9**: CONSORT Diagram, PSM Love Plot, 5-Fold CV, SHAP Analysis, External Validation Detail, Temporal Trends + COVID, Frailty Surrogate Index, Age-Surgery RCS + Competing Risk CIF, Model Calibration
+**eFigure 1–8**: CONSORT Diagram, PSM Love Plot, 5-Fold CV, SHAP Analysis, External Validation Detail, Temporal Trends + COVID, Frailty Surrogate Index, Age-Surgery RCS + Competing Risk CIF
 
 **eTable 1–6**: Full Baseline Characteristics, Complete Multivariate Cox, Stratified E-values, Model Specification Robustness, Leave-One-Out Analysis, Geographic Practice Variation
 
 ---
 
-*Correspondence to:* Zhuha Zhou, MD, Department of Gastroenterology Surgery, The First Affiliated Hospital of Wenzhou Medical University, Zhejiang, China. E-mail: zhouzhuha@wmu.edu.cn
+*Correspondence to:* Qigang Xu, MD, Department of Hepatobiliary and Pancreatic Surgery, The First Affiliated Hospital of Wenzhou Medical University, Zhejiang, China. E-mail: xiaogang123999@126.com
 
-**Author Contributions**: QX and YB contributed equally (co-first authors). ZZ had full access to all data and takes responsibility for integrity. Study concept and design: QX, ZZ. Data acquisition and analysis: QX, YB, YC. Statistical analysis: ZZ. Machine learning: ZZ, YB. Manuscript drafting: ZZ. Critical revision: All authors. Study supervision: ZZ.
+**Author Contributions**: ZZ and YB contributed equally (co-first authors). QX had full access to all data and takes responsibility for integrity. Study concept and design: ZZ, QX. Data acquisition and analysis: ZZ, YB, YC. Statistical analysis: ZZ. Machine learning: ZZ, YB. Manuscript drafting: ZZ. Critical revision: All authors. Study supervision: QX.
 
 **Funding**: This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
 
 **Conflict of Interest**: The authors have declared that no competing interest exists.
 
-**Ethics Statement**: This study used publicly available, de-identified data from SEER, TCGA, and ICGC and was exempt from institutional review board approval.
+**Ethics Statement**: All procedures followed were in accordance with the ethical standards of the Ethics Committee of The First Affiliated Hospital of Wenzhou Medical University and with the Helsinki Declaration of 1964 and later versions. SEER, TCGA, and ICGC data are publicly available and de-identified; institutional review board approval was exempt.
 
 **Data Availability**: SEER data: seer.cancer.gov (Research Plus Data, November 2024 submission). TCGA-LIHC: portal.gdc.cancer.gov. ICGC-LIRI-JP: dcc.icgc.org. Analysis code available upon reasonable request.

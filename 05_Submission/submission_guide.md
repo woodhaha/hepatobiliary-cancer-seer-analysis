@@ -6,7 +6,7 @@
 |------|-------------|:----------:|
 | Abstract | Structured, <=250 words | PASS |
 | Body Text | ~3,000-5,000 words | PASS |
-| References | No strict limit | PASS (16) |
+| References | No strict limit | PASS (28) |
 | Figures/Tables | No strict limit | PASS (6 main + suppl) |
 | Cover Letter | Required | PASS |
 | STROBE | Required for observational | PASS (22/22) |
@@ -29,7 +29,7 @@ Located at `D:\Researching\SEER\hepatobiliary cancer\05_Submission\`
 |------|-------------|
 | manuscript.docx | Main manuscript (Word) |
 | manuscript.pdf | Main manuscript (PDF) |
-| cover_letter_final.md | Cover Letter |
+| cover_letter.md | Cover Letter |
 | STROBE_checklist.md | STROBE 22/22 |
 | supplementary_materials.md | Supplementary (8 eTables) |
 

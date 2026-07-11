@@ -42,7 +42,7 @@ All 15 covariates plotted with HR and 95% CI on log scale.
 
 **Panel C**: Survival curves for SEER surgery vs TCGA vs ICGC — TCGA and ICGC patients have much better baseline survival (all surgical, younger, earlier stage).
 
-**Panel D**: Feature variance comparison — surgery_any has near-zero variance in external cohorts (the "Surgery Feature Paradox") explaining most of the C-index drop.
+**Panel D**: Feature variance comparison — surgery_any has near-zero variance in external cohorts (predictor range restriction) explaining most of the C-index drop.
 
 **Key finding**: Model generalizes to TCGA (US-based) but fails in ICGC (Japanese). Gap explained by predictor range restriction + population differences.
 

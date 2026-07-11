@@ -15,5 +15,5 @@
 | RSF | 0.685 | 0.567 | 0.551 | +0.117 |
 | Cox PH | 0.669 | 0.595 | 0.522 | +0.074 |
 
-## Surgery Feature Paradox
+## Predictor Range Restriction
 
