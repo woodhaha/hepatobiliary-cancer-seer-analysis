@@ -236,4 +236,4 @@ In this population-based analysis of 76,110 elderly patients with hepatobiliary 
 
 **Ethics Statement**: This study used publicly available, de-identified data from SEER, TCGA, and ICGC and was exempt from institutional review board approval.
 
-**Data Availability**: SEER data: seer.cancer.gov (Research Plus Data, November 2024 submission). TCGA-LIHC: portal.gdc.cancer.gov. ICGC-LIRI-JP: dcc.icgc.org. Analysis code available upon reasonable request.
+**Data Availability**: SEER data: seer.cancer.gov (Research Plus Data, November 2024 submission). TCGA-LIHC: portal.gdc.cancer.gov. ICGC-LIRI-JP: dcc.icgc.org. Analysis code: github.com/woodhaha/hepatobiliary-cancer-seer-analysis.
