@@ -346,3 +346,40 @@ S1. TCGA Research Network. Comprehensive and integrative genomic characterizatio
 S2. Totoki Y, et al. Trans-ancestry mutational landscape of hepatocellular carcinoma genomes. *Nat Genet*. 2014;46:1267-1273.
 S3. VanderWeele TJ, Ding P. Sensitivity analysis in observational research: introducing the E-value. *Ann Intern Med*. 2017;167(4):268-274.
 S4. Baiocchi M, Cheng J, Small DS. Instrumental variable methods for causal inference. *Stat Med*. 2014;33(13):2297-2340.
+
+---
+
+## eFigure 10: Composite Analysis — PSM + HBI + Landmark + Age-Surgery
+
+**Panel A**: 5-Fold Cross-Validated Model Comparison (C-index by fold for Cox, RSF, XGBoost, DeepSurv, Ensemble)
+**Panel B**: PSM Love Plot (SMD before/after matching, 0.190→0.030)
+**Panel C**: HBI Risk Score Stratification (Low/Intermediate/High)
+**Panel D**: Age-Surgery Benefit by FSI Group
+
+Full figure: `03_Analysis/figures/Fig6_CompositeAnalysis.png`
+
+---
+
+## eFigure 11: Clinical Nomogram for Individualized Survival Prediction
+
+A 7-variable nomogram predicting 36-month CSS probability based on: surgery type, AJCC stage, age, ICC histology, chemotherapy, radiation, and cirrhosis.
+
+- C-index: 0.739 (Cox PH)
+- Calibration-in-the-large: good agreement at 36 months
+
+Full figure: `03_Analysis/figures/Fig10_Nomogram.png`
+
+---
+
+## eTable 9: Clinical Decision Matrix
+
+| Age | Cancer Type | Stage | FSI Group | Recommended Surgery | Rationale |
+|-----|-------------|-------|-----------|-------------------|-----------|
+| 65-69 | HCC | I-II | Fit | Segmental or Larger | Similar outcomes; larger if margin concern |
+| 65-69 | HCC | III-IV | Fit | Segmental | Palliative intent; minimize morbidity |
+| 65-69 | ICC | I-II | Fit | Segmental | Segmental HR 0.22 vs Larger HR 0.26 |
+| 70-74 | HCC/ICC | Any | Fit/Pre-frail | Segmental | Equivalent survival; lower morbidity |
+| 75-79 | HCC/ICC | Any | Fit/Pre-frail | Segmental | Segmental superior in all age bands ≥75 |
+| 80+ | HCC/ICC | Any | Pre-frail/Frail | Segmental | Benefit persists; 13-month OS gain |
+| Any | Any | IV | Any | Non-surgical | Systemic therapy first; palliation |
+| Any | Any | I-II | Frail | Segmental/Local | Frail patients gain 13 months OS |

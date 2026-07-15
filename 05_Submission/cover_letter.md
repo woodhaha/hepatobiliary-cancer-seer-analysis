@@ -7,7 +7,7 @@ Annals of Surgical Oncology
 
 **Dear Editor,**
 
-We are pleased to submit our manuscript entitled **"Surgical Resection and Extent in Elderly Patients With Hepatobiliary Cancer: A SEER Population-Based Cohort Study With External Validation"** for consideration in Annals of Surgical Oncology.
+We are pleased to submit our manuscript entitled **"Surgical Resection in Elderly Hepatobiliary Cancer: A Population-Based Cohort Study Comparing Parenchymal-Sparing and Major Hepatectomy"** for consideration in Annals of Surgical Oncology.
 
 ### Clinical Question
 
