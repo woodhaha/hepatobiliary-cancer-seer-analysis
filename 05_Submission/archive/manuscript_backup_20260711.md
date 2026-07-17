@@ -1,4 +1,4 @@
-# Surgical Resection and Extent in Elderly Patients With Hepatobiliary Cancer: A SEER Population-Based Cohort Study With External Validation
+# Comparable but Not Equivalent: Segmental and Major Hepatectomy in Elderly Hepatobiliary Cancer — A Population-Based Study With E-Value Analysis
 
 **Zhuha Zhou**$^{1,\dagger}$ · **Yongyu Bai**$^{1,\dagger}$ · **Yiqi Cai**$^{1}$ · **Qigang Xu**$^{2,*}$
 
@@ -6,7 +6,7 @@ $^{1}$ Department of Gastroenterology Surgery, The First Affiliated Hospital of 
 $^{2}$ Department of Hepatobiliary and Pancreatic Surgery, The First Affiliated Hospital of Wenzhou Medical University, Zhejiang, China
 $\dagger$ Equal contribution · $^{*}$ Corresponding author: xiaogang123999@126.com
 
-**Running head**: Segmental vs Major Hepatectomy in Elderly Hepatobiliary Cancer
+**Running head**: Comparable but Not Equivalent: Segmental Hepatectomy
 
 **Key words**: hepatocellular carcinoma, intrahepatic cholangiocarcinoma, elderly, SEER, segmental resection, E-value, external validation
 

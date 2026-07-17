@@ -3,6 +3,7 @@ E-value + Instrumental Variable + RCS + Frailty + Geography + Fine-Gray + Sensit
 """
 import pandas as pd, numpy as np, matplotlib; matplotlib.use('Agg')
 import matplotlib.pyplot as plt, os, warnings; warnings.filterwarnings('ignore')
+from PIL import Image
 plt.rcParams['axes.prop_cycle'] = plt.cycler(color=['#0072B2','#E69F00','#009E73','#CC79A7','#56B4E9','#F0E442','#000000'])
 os.chdir(r'D:\Researching\SEER\hepatobiliary cancer')
 os.makedirs('03_Analysis/figures', exist_ok=True)
@@ -146,7 +147,16 @@ with open('03_Analysis/outputs/12_jama_level_report.md', 'w', encoding='utf-8') 
         inflection = age_fine[np.argmin(np.gradient(cs_adj(age_fine)))]
         p(f"Inflection point: age {inflection:.0f} — beyond this, benefit attenuation accelerates")
 
+    plt.rcParams.update({
+        'font.family': 'sans-serif', 'font.size': 7,
+        'axes.titlesize': 7.5, 'axes.labelsize': 7,
+        'xtick.labelsize': 6.5, 'ytick.labelsize': 6.5,
+        'legend.fontsize': 6, 'figure.dpi': 300,
+        'axes.linewidth': 0.4, 'xtick.major.width': 0.35, 'ytick.major.width': 0.35,
+    })
     fig, ax = plt.subplots(figsize=(10, 5))
+    for s in ['top','right']: ax.spines[s].set_visible(False)
+    ax.spines['bottom'].set_linewidth(0.35); ax.spines['left'].set_linewidth(0.35)
     ax.scatter(ages, hrs_raw, s=20, alpha=0.3, label='Unadjusted')
     ax.scatter(ages, hrs_adj, s=20, alpha=0.5, label='Adjusted')
     if valid_raw.sum() > 4:
@@ -155,7 +165,15 @@ with open('03_Analysis/outputs/12_jama_level_report.md', 'w', encoding='utf-8') 
     ax.axhline(1, color='black', ls='-'); ax.set_xlabel('Age'); ax.set_ylabel('Surgery HR')
     ax.set_title('Restricted Cubic Spline: Age-Dependent Surgery Benefit', fontweight='bold')
     ax.legend(); ax.set_ylim(0, 0.8)
-    fig.savefig('03_Analysis/figures/Fig21_RCS_AgeSpline.png', dpi=300, bbox_inches='tight'); plt.close()
+    fig.savefig('03_Analysis/figures/Fig21_RCS_AgeSpline.png', dpi=300, bbox_inches='tight')
+    # ASO output
+    fig.set_size_inches(6.85, 3.5)
+    os.makedirs('04_Manuscript/figures', exist_ok=True)
+    fig.savefig('04_Manuscript/figures/Fig21_RCS_AgeSpline.png', dpi=300, bbox_inches='tight', facecolor='white')
+    fig.savefig('04_Manuscript/figures/Fig21_RCS_AgeSpline.pdf', bbox_inches='tight', facecolor='white')
+    img21 = Image.open('04_Manuscript/figures/Fig21_RCS_AgeSpline.png').convert('RGB')
+    img21.save('04_Manuscript/figures/Fig21_RCS_AgeSpline.tiff', 'TIFF', compression='tiff_lzw', dpi=(300,300))
+    plt.close()
     p("✓ Fig21 RCS Age Spline saved\n")
 
     # ============================================================
@@ -189,6 +207,13 @@ with open('03_Analysis/outputs/12_jama_level_report.md', 'w', encoding='utf-8') 
 
     p(f"\n**Key**: Even 'Frail' patients benefit from surgery (HR < 1) — age alone ≠ contraindication")
 
+    plt.rcParams.update({
+        'font.family': 'sans-serif', 'font.size': 7,
+        'axes.titlesize': 7.5, 'axes.labelsize': 7,
+        'xtick.labelsize': 6.5, 'ytick.labelsize': 6.5,
+        'legend.fontsize': 6, 'figure.dpi': 300,
+        'axes.linewidth': 0.4, 'xtick.major.width': 0.35, 'ytick.major.width': 0.35,
+    })
     fig, axes = plt.subplots(1,3,figsize=(16,5))
     kmf = KaplanMeierFitter()
     for i, fg in enumerate(['Fit','Pre-frail','Frail']):
@@ -198,8 +223,18 @@ with open('03_Analysis/outputs/12_jama_level_report.md', 'w', encoding='utf-8') 
                    label=f"{'Surgery' if s_lbl else 'Non-surgery'}")
             kmf.plot_survival_function(ax=ax, ci_show=False, lw=2)
         ax.set_title(f'{fg} (n={len(sub)})', fontweight='bold'); ax.set_xlim(0,60); ax.legend(fontsize=8)
+        for s in ['top','right']: ax.spines[s].set_visible(False)
+        ax.spines['bottom'].set_linewidth(0.35); ax.spines['left'].set_linewidth(0.35)
     plt.tight_layout()
-    fig.savefig('03_Analysis/figures/Fig22_Frailty.png', dpi=300, bbox_inches='tight'); plt.close()
+    fig.savefig('03_Analysis/figures/Fig22_Frailty.png', dpi=300, bbox_inches='tight')
+    # ASO output
+    fig.set_size_inches(6.85, 3.2)
+    os.makedirs('04_Manuscript/figures', exist_ok=True)
+    fig.savefig('04_Manuscript/figures/Fig22_Frailty.png', dpi=300, bbox_inches='tight', facecolor='white')
+    fig.savefig('04_Manuscript/figures/Fig22_Frailty.pdf', bbox_inches='tight', facecolor='white')
+    Image.open('04_Manuscript/figures/Fig22_Frailty.png').convert('RGB').save(
+        '04_Manuscript/figures/Fig22_Frailty.tiff', 'TIFF', compression='tiff_lzw', dpi=(300,300))
+    plt.close()
     p("✓ Fig22 Frailty saved\n")
 
     # ============================================================
@@ -225,7 +260,16 @@ with open('03_Analysis/outputs/12_jama_level_report.md', 'w', encoding='utf-8') 
         ratio = sr/max(lr,1)
         p(f"| {reg} | {ratio:.1f} | {'Parenchymal-sparing preference' if ratio>3 else 'Balanced approach'} |")
 
+    plt.rcParams.update({
+        'font.family': 'sans-serif', 'font.size': 7,
+        'axes.titlesize': 7.5, 'axes.labelsize': 7,
+        'xtick.labelsize': 6.5, 'ytick.labelsize': 6.5,
+        'legend.fontsize': 6, 'figure.dpi': 300,
+        'axes.linewidth': 0.4, 'xtick.major.width': 0.35, 'ytick.major.width': 0.35,
+    })
     fig, ax = plt.subplots(figsize=(10, 6))
+    for s in ['top','right']: ax.spines[s].set_visible(False)
+    ax.spines['bottom'].set_linewidth(0.35); ax.spines['left'].set_linewidth(0.35)
     regions = [str(r) for r in df['region_quartile'].cat.categories]
     metrics = {
         'Surgery Rate (%)': [df[df['region_quartile']==r]['surgery_any'].mean()*100 for r in df['region_quartile'].cat.categories],
@@ -238,7 +282,15 @@ with open('03_Analysis/outputs/12_jama_level_report.md', 'w', encoding='utf-8') 
     ax.set_xticks(x + w); ax.set_xticklabels(regions, fontsize=8)
     ax.set_title('Geographic Practice Variation by SES Region', fontweight='bold')
     ax.legend(fontsize=8)
-    fig.savefig('03_Analysis/figures/Fig23_Geography.png', dpi=300, bbox_inches='tight'); plt.close()
+    fig.savefig('03_Analysis/figures/Fig23_Geography.png', dpi=300, bbox_inches='tight')
+    # ASO output
+    fig.set_size_inches(6.85, 4.5)
+    os.makedirs('04_Manuscript/figures', exist_ok=True)
+    fig.savefig('04_Manuscript/figures/Fig23_Geography.png', dpi=300, bbox_inches='tight', facecolor='white')
+    fig.savefig('04_Manuscript/figures/Fig23_Geography.pdf', bbox_inches='tight', facecolor='white')
+    Image.open('04_Manuscript/figures/Fig23_Geography.png').convert('RGB').save(
+        '04_Manuscript/figures/Fig23_Geography.tiff', 'TIFF', compression='tiff_lzw', dpi=(300,300))
+    plt.close()
     p("✓ Fig23 Geography saved\n")
 
     # ============================================================

@@ -4,12 +4,34 @@ import numpy as np
 import matplotlib; matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 plt.rcParams['axes.prop_cycle'] = plt.cycler(color=['#0072B2','#E69F00','#009E73','#CC79A7','#56B4E9','#F0E442','#000000'])
+from PIL import Image
 import os, warnings, json
 warnings.filterwarnings('ignore')
 
 os.chdir(r'D:\Researching\SEER\hepatobiliary cancer')
 os.makedirs('03_Analysis/figures', exist_ok=True)
 os.makedirs('03_Analysis/outputs', exist_ok=True)
+
+FIGDIR = '04_Manuscript/figures'
+W = 6.85
+DPI = 300
+os.makedirs(FIGDIR, exist_ok=True)
+
+def _sax(ax):
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['left'].set_linewidth(0.35)
+    ax.spines['bottom'].set_linewidth(0.35)
+    ax.tick_params(width=0.35)
+    ax.set_facecolor('white')
+
+_ASO_RC = {
+    'font.family': 'sans-serif', 'font.size': 7,
+    'axes.titlesize': 7.5, 'axes.labelsize': 7,
+    'xtick.labelsize': 6.5, 'ytick.labelsize': 6.5,
+    'legend.fontsize': 6, 'figure.dpi': 300,
+    'axes.linewidth': 0.4, 'xtick.major.width': 0.35, 'ytick.major.width': 0.35,
+}
 
 df = pd.read_csv(r'02_Data\cleaned\hepatobiliary_elderly_clean.csv')
 df['surgery_type'] = df['surgery_type'].fillna('None')
@@ -66,10 +88,25 @@ with open('03_Analysis/outputs/04_advanced_report.md', 'w', encoding='utf-8') as
         explainer = shap.TreeExplainer(xgb_model)
         shap_values = explainer.shap_values(X[:1000])
 
+        plt.rcParams.update(**_ASO_RC)
         fig, ax = plt.subplots(figsize=(10, 8))
-        shap.summary_plot(shap_values, X[:1000], feature_names=features,
+        shap_feat_labels = {
+            'age_c':'Age','male':'Male','married':'Married',
+            'race_nhb':'Race: NHB','race_nhapi':'Race: NHAPI','race_hispanic':'Race: Hispanic',
+            'stage_2':'Stage II','stage_3':'Stage III','stage_4':'Stage IV',
+            'grade_poor':'Poor Grade','is_icc':'ICC',
+            'chemotherapy':'Chemotherapy','radiation':'Radiation',
+            'cirrhosis':'Cirrhosis','income_10k':'Income','tumor_size':'Tumor Size','surgery_any':'Surgery',
+        }
+        shap_names = [shap_feat_labels.get(f, f) for f in features]
+        shap.summary_plot(shap_values, X[:1000], feature_names=shap_names,
                          show=False, max_display=15)
+        _sax(ax)
         fig.savefig('03_Analysis/figures/FigS1_SHAP.png', dpi=300, bbox_inches='tight')
+        fig.set_size_inches(W, fig.get_size_inches()[1] * W / fig.get_size_inches()[0])
+        fig.savefig(os.path.join(FIGDIR, 'FigS1_SHAP.png'), dpi=DPI, bbox_inches='tight', facecolor='white')
+        fig.savefig(os.path.join(FIGDIR, 'FigS1_SHAP.pdf'), bbox_inches='tight', facecolor='white')
+        Image.open(os.path.join(FIGDIR, 'FigS1_SHAP.png')).convert('RGB').save(os.path.join(FIGDIR, 'FigS1_SHAP.tiff'), 'TIFF', compression='tiff_lzw', dpi=(DPI,DPI))
         plt.close()
         p("✓ SHAP beeswarm saved")
     except Exception as e:
@@ -94,27 +131,38 @@ with open('03_Analysis/outputs/04_advanced_report.md', 'w', encoding='utf-8') as
     # CIF by surgery group — manual Nelson-Aalen style
     from lifelines import AalenJohansenFitter
 
-    fig, axes = plt.subplots(1, 3, figsize=(16, 5))
+    plt.rcParams.update(**_ASO_RC)
+    fig, axes = plt.subplots(1, 3, figsize=(W, 3.5))
 
     # By surgery
     for i, (groupby, title) in enumerate([
-        ('surgery_any', 'A. Competing Risk: Surgery vs None'),
-        ('age_band', 'B. Competing Risk: By Age'),
-        ('stage_label', 'C. Competing Risk: By Stage')
+        ('surgery_any', 'A. Surgery vs Non-surgery'),
+        ('age_band', 'B. By Age'),
+        ('stage_label', 'C. By Stage')
     ]):
         ax = axes[i]
         for name, grp in df.groupby(groupby):
             if len(grp) < 100: continue
             ajf = AalenJohansenFitter()
+            lbl_map = {1:'Surgery',0:'Non-surgery'} if groupby=='surgery_any' else {}
+            label = lbl_map.get(name, str(name))
             ajf.fit(grp['surv_months'], grp['comp_status'],
-                   event_of_interest=1, label=name)
-            ajf.plot(ax=ax, ci_show=False, lw=2)
-        ax.set_title(title, fontweight='bold')
+                   event_of_interest=1, label=label)
+            ajf.plot(ax=ax, ci_show=False, lw=1.2)
+        ax.set_title(title, fontweight='bold', fontsize=7.5, loc='left')
+        ax.set_ylabel('CSS Cumulative Incidence', fontsize=7)
+        ax.set_xlabel('Months', fontsize=7)
         ax.set_xlim(0, 120)
-        ax.legend(frameon=False, fontsize=8)
+        ax.set_xticks(np.arange(0, 121, 24))
+        ax.legend(frameon=False, fontsize=5.5)
+        _sax(ax)
 
     fig.savefig('03_Analysis/figures/FigS2_CompetingRisk.png', dpi=300, bbox_inches='tight')
     fig.savefig('03_Analysis/figures/FigS2_CompetingRisk.pdf', bbox_inches='tight')
+    fig.set_size_inches(W, 3.5)
+    fig.savefig(os.path.join(FIGDIR, 'FigS2_CompetingRisk.png'), dpi=DPI, bbox_inches='tight', facecolor='white')
+    fig.savefig(os.path.join(FIGDIR, 'FigS2_CompetingRisk.pdf'), bbox_inches='tight', facecolor='white')
+    Image.open(os.path.join(FIGDIR, 'FigS2_CompetingRisk.png')).convert('RGB').save(os.path.join(FIGDIR, 'FigS2_CompetingRisk.tiff'), 'TIFF', compression='tiff_lzw', dpi=(DPI,DPI))
     plt.close()
     p("✓ Competing risk CIF saved")
 
@@ -164,6 +212,7 @@ with open('03_Analysis/outputs/04_advanced_report.md', 'w', encoding='utf-8') as
         except:
             hrs.append(np.nan); ci_lo.append(np.nan); ci_hi.append(np.nan)
 
+    plt.rcParams.update(**_ASO_RC)
     fig, ax = plt.subplots(figsize=(10, 5))
     ax.plot(ages[:len(hrs)], hrs, 'o-', color='steelblue', lw=2)
     ax.fill_between(ages[:len(hrs)], ci_lo, ci_hi, alpha=0.2, color='steelblue')
@@ -192,9 +241,14 @@ with open('03_Analysis/outputs/04_advanced_report.md', 'w', encoding='utf-8') as
     ax.set_title('Age-Dependent Surgery Benefit in Hepatobiliary Cancer', fontweight='bold')
     ax.legend(frameon=False)
     ax.set_ylim(0, 0.8)
+    _sax(ax)
 
     fig.savefig('03_Analysis/figures/FigS3_AgeSurgeryBenefit.png', dpi=300, bbox_inches='tight')
     fig.savefig('03_Analysis/figures/FigS3_AgeSurgeryBenefit.pdf', bbox_inches='tight')
+    fig.set_size_inches(W, fig.get_size_inches()[1] * W / fig.get_size_inches()[0])
+    fig.savefig(os.path.join(FIGDIR, 'FigS3_AgeSurgeryBenefit.png'), dpi=DPI, bbox_inches='tight', facecolor='white')
+    fig.savefig(os.path.join(FIGDIR, 'FigS3_AgeSurgeryBenefit.pdf'), bbox_inches='tight', facecolor='white')
+    Image.open(os.path.join(FIGDIR, 'FigS3_AgeSurgeryBenefit.png')).convert('RGB').save(os.path.join(FIGDIR, 'FigS3_AgeSurgeryBenefit.tiff'), 'TIFF', compression='tiff_lzw', dpi=(DPI,DPI))
     plt.close()
     p("✓ Age-surgery benefit spline saved")
 
@@ -240,6 +294,7 @@ with open('03_Analysis/outputs/04_advanced_report.md', 'w', encoding='utf-8') as
         trends['Transplant Rate'].append(sub['surgery_type'].eq('Transplant').mean()*100 if len(sub)>100 else np.nan)
         trends['Median OS'].append(sub['surv_months'].median() if len(sub)>100 else np.nan)
 
+    plt.rcParams.update(**_ASO_RC)
     fig, ax1 = plt.subplots(figsize=(10, 5))
     ax1.plot(yrs, trends['Surgery Rate'], 'o-', color='steelblue', label='Surgery Rate %')
     ax1.plot(yrs, trends['Transplant Rate'], 's-', color='green', label='Transplant Rate %')
@@ -255,7 +310,14 @@ with open('03_Analysis/outputs/04_advanced_report.md', 'w', encoding='utf-8') as
     lines2, labels2 = ax2.get_legend_handles_labels()
     ax1.legend(lines1+lines2, labels1+labels2, frameon=False)
     ax1.set_title('Temporal Trends — Elderly Hepatobiliary Cancer (2000-2022)', fontweight='bold')
+    _sax(ax1)
+    _sax(ax2)
+
     fig.savefig('03_Analysis/figures/FigS4_TemporalTrends.png', dpi=300, bbox_inches='tight')
+    fig.set_size_inches(W, fig.get_size_inches()[1] * W / fig.get_size_inches()[0])
+    fig.savefig(os.path.join(FIGDIR, 'FigS4_TemporalTrends.png'), dpi=DPI, bbox_inches='tight', facecolor='white')
+    fig.savefig(os.path.join(FIGDIR, 'FigS4_TemporalTrends.pdf'), bbox_inches='tight', facecolor='white')
+    Image.open(os.path.join(FIGDIR, 'FigS4_TemporalTrends.png')).convert('RGB').save(os.path.join(FIGDIR, 'FigS4_TemporalTrends.tiff'), 'TIFF', compression='tiff_lzw', dpi=(DPI,DPI))
     plt.close()
     p("✓ Temporal trends saved")
 

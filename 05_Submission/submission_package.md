@@ -32,10 +32,9 @@ Date: [Insert Date]
 
 Dear Editor,
 
-We are pleased to submit our manuscript entitled "Parenchymal-Sparing vs Major
-Hepatectomy in Elderly Hepatobiliary Cancer: A Population-Based Analysis with
-Machine Learning Ensemble and External Validation" for consideration in Annals of
-Surgical Oncology.
+We are pleased to submit our manuscript entitled "Comparable but Not Equivalent:
+Segmental and Major Hepatectomy in Elderly Hepatobiliary Cancer — A Population-Based
+Study With E-Value Analysis" for consideration in Annals of Surgical Oncology.
 
 This study addresses a critical clinical question: whether parenchymal-sparing
 liver resection (segmental/wedge) provides equivalent oncologic outcomes to major

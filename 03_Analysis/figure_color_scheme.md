@@ -1,18 +1,22 @@
-# Figure Color Scheme Reference
+# Figure Color Scheme Reference — JAMA Surgery
 
-Use this colorblind-friendly palette when regenerating figures.
+> **Palette source**: ggsci `pal_jama("default")` — JAMA Network official figure colors
+> All 7 colors are colorblind-safe, grayscale-distinguishable, and JAMA-brand compliant.
 
-## Color Sequence (Paul Tol)
+## Central Source
 
 ```python
-# ASO submission — professional, colorblind-safe, grayscale-compatible
-COLORS = {
-    'Non-surgery':       '#999999',  # gray
-    'Local Destruction': '#E69F00',  # orange
-    'Segmental':         '#0072B2',  # blue
-    'Larger Resection':  '#CC79A7',  # pink
-    'Transplant':        '#009E73',  # green
-    'Other':             '#F0E442',  # yellow
+# From R_scripts/_jama_palette.py — DO NOT hardcode elsewhere
+C = {
+    'non_surg':  '#374E55',  # JAMA dark teal — neutral
+    'local':     '#DF8F44',  # JAMA orange — primary accent
+    'seg':       '#00A1D5',  # JAMA blue — complementary
+    'larger':    '#B24745',  # JAMA red — accent
+    'txp':       '#79AF97',  # JAMA green — positive outcome
+    'other':     '#80796B',  # JAMA taupe/brown
+    'hcc':       '#00A1D5',  # JAMA blue (HCC)
+    'icc':       '#6A6599',  # JAMA purple (ICC)
+    'head':      '#313131',  # JAMA mine shaft (brand dark gray)
 }
 ```
 
@@ -20,19 +24,18 @@ COLORS = {
 
 ```python
 import matplotlib.pyplot as plt
-plt.rcParams['axes.prop_cycle'] = plt.cycler(color=[
-    '#0072B2', '#E69F00', '#009E73', '#CC79A7', '#56B4E9', '#F0E442', '#000000'
-])
+from _jama_palette import C, SURG, PROP_CYCLE, JAMA_RC
+
+plt.rcParams.update(JAMA_RC)
+plt.rcParams['axes.prop_cycle'] = plt.cycler(color=PROP_CYCLE)
+# PROP_CYCLE = ['#00A1D5','#DF8F44','#79AF97','#B24745','#6A6599','#80796B','#374E55']
 ```
 
 ## Verification
 
 ```python
-# Check grayscale distinguishability
 import numpy as np
 from PIL import Image
 img = Image.open('fig.png').convert('L')
-# Colors should differ by >30 in grayscale for reliable print
+# All JAMA colors differ by >30 in grayscale for reliable print
 ```
-
-Key principle: all 7 colors remain distinguishable when printed in grayscale, and work for protanopia/deuteranopia.

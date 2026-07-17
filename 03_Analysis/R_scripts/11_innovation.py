@@ -1,6 +1,7 @@
 """Script 11: Counterfactual + AJCC Migration + Decision Tree + SES + CONSORT"""
 import pandas as pd, numpy as np, matplotlib; matplotlib.use('Agg')
 import matplotlib.pyplot as plt, os, warnings; warnings.filterwarnings('ignore')
+from PIL import Image
 plt.rcParams['axes.prop_cycle'] = plt.cycler(color=['#0072B2','#E69F00','#009E73','#CC79A7','#56B4E9','#F0E442','#000000'])
 os.chdir(r'D:\Researching\SEER\hepatobiliary cancer')
 os.makedirs('03_Analysis/figures', exist_ok=True)
@@ -249,6 +250,14 @@ with open(out, 'w', encoding='utf-8') as fout:
     ax.set_xlim(0, 1); ax.set_ylim(0.2, 1)
     ax.set_title('CONSORT Flow Diagram — Hepatobiliary Cancer SEER Analysis', fontweight='bold', fontsize=14)
     fig.savefig('03_Analysis/figures/Fig19_CONSORT.png', dpi=300, bbox_inches='tight')
+    # ASO publication output
+    ASO_DIR = '04_Manuscript/figures'
+    os.makedirs(ASO_DIR, exist_ok=True)
+    W = 6.85
+    fig.set_size_inches(W, fig.get_size_inches()[1] * W / fig.get_size_inches()[0])
+    fig.savefig(os.path.join(ASO_DIR, 'Fig19_CONSORT.png'), dpi=300, bbox_inches='tight', facecolor='white')
+    fig.savefig(os.path.join(ASO_DIR, 'Fig19_CONSORT.pdf'), bbox_inches='tight', facecolor='white')
+    Image.open(os.path.join(ASO_DIR, 'Fig19_CONSORT.png')).convert('RGB').save(os.path.join(ASO_DIR, 'Fig19_CONSORT.tiff'), 'TIFF', compression='tiff_lzw', dpi=(300,300))
     plt.close()
     p("✓ Fig19 CONSORT saved\n")
 

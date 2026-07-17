@@ -1,6 +1,6 @@
 # Audit Report — Hepatobiliary Cancer Manuscript
 
-**Date**: 2026-07-11 · **Manuscript**: "Surgical Resection and Extent in Elderly Patients With Hepatobiliary Cancer"
+**Date**: 2026-07-11 · **Manuscript**: "Comparable but Not Equivalent: Segmental and Major Hepatectomy in Elderly Hepatobiliary Cancer"
 **Audit scope**: Reference accuracy, number consistency, file completeness, reporting compliance
 
 ---

@@ -6,8 +6,15 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-plt.rcParams['axes.prop_cycle'] = plt.cycler(color=['#0072B2','#E69F00','#009E73','#CC79A7','#56B4E9','#F0E442','#000000'])
+plt.rcParams.update({
+    'font.family': 'sans-serif', 'font.size': 8,
+    'axes.titlesize': 9, 'axes.labelsize': 8,
+    'xtick.labelsize': 7.5, 'ytick.labelsize': 7.5,
+    'legend.fontsize': 7, 'figure.dpi': 300,
+    'axes.linewidth': 0.5, 'xtick.major.width': 0.4, 'ytick.major.width': 0.4,
+})
 from lifelines import KaplanMeierFitter, CoxPHFitter
+from lifelines.statistics import multivariate_logrank_test
 from sksurv.metrics import concordance_index_censored
 from sksurv.util import Surv
 import os, warnings
@@ -261,80 +268,185 @@ except Exception as e:
     tcga_c = 0
 
 # ============================================================
-# 8. FIGURES
+# 8. FIGURES — ASO Style
 # ============================================================
-print("\n=== Generating Figures ===")
-fig, axes = plt.subplots(2, 2, figsize=(15, 12))
-fig.suptitle('External Validation — Hepatobiliary Cancer (SEER→TCGA+ICGC)', fontsize=14, fontweight='bold')
+print("\n=== Generating ASO Figures ===")
 
-# A: C-index comparison
-ax = axes[0,0]
+WIDTH_IN = 6.85
+DPI = 300
+FIG_DIR = '04_Manuscript/figures'
+os.makedirs(FIG_DIR, exist_ok=True)
+
+def save(fig, name):
+    fig.savefig(os.path.join(FIG_DIR, name)+'.png', dpi=DPI, bbox_inches='tight', facecolor='white')
+    fig.savefig(os.path.join(FIG_DIR, name)+'.pdf', bbox_inches='tight', facecolor='white')
+    from PIL import Image
+    im = Image.open(os.path.join(FIG_DIR, name)+'.png').convert('RGB')
+    im.save(os.path.join(FIG_DIR, name)+'.tiff', 'TIFF', compression='tiff_lzw', dpi=(DPI,DPI))
+    print(f'  ✓ {name}')
+
+def style_ax(ax):
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['left'].set_linewidth(0.4)
+    ax.spines['bottom'].set_linewidth(0.4)
+    ax.tick_params(width=0.4)
+    ax.set_facecolor('white')
+
+C4 = {
+    'seer': '#2c3e50', 'tcga': '#2980b9', 'icgc': '#e67e22',
+    'low': '#2980b9', 'high': '#d35400', 'head': '#1a1a1a',
+}
+
+fig, axes = plt.subplots(2, 2, figsize=(WIDTH_IN, 7.2))
+fig.patch.set_facecolor('white')
+plt.subplots_adjust(hspace=0.40, wspace=0.35, left=0.10, right=0.97, bottom=0.10, top=0.95)
+
 models = ['XGBoost','RSF','Cox PH']
 seer_c = [xgb_int, rsf_int, cox_int]
-tcga_c = [tcga_results.get('XGBoost',0), tcga_results.get('RSF',0), tcga_results.get('Cox',0)]
+tcga_c_list = [tcga_results.get('XGBoost',0), tcga_results.get('RSF',0), tcga_results.get('Cox',0)]
 icgc_c_list = [icgc_results.get('XGBoost',0), icgc_results.get('RSF',0), icgc_results.get('Cox',0)]
 
+# A: C-index bar chart
+ax = axes[0,0]
 x = np.arange(len(models))
 w = 0.25
-bars1 = ax.bar(x - w, seer_c, w, label='SEER Internal', color='#2c3e50')
-bars2 = ax.bar(x, tcga_c, w, label='TCGA-LIHC', color='#0072B2')
-bars3 = ax.bar(x + w, icgc_c_list, w, label='ICGC-LIRI-JP', color='#e67e22')
-ax.set_ylabel('C-index'); ax.set_xticks(x); ax.set_xticklabels(models)
-ax.set_ylim(0.4, 0.85); ax.legend(frameon=False, fontsize=8)
-ax.set_title('A. Model Performance: Internal vs External', fontweight='bold')
-for i,v in enumerate(seer_c): ax.text(i-w, v+0.01, f'{v:.3f}', ha='center', fontsize=8)
-for i,v in enumerate(tcga_c): ax.text(i, v+0.01, f'{v:.3f}', ha='center', fontsize=8)
-for i,v in enumerate(icgc_c_list): ax.text(i+w, v+0.01, f'{v:.3f}', ha='center', fontsize=8)
+ax.bar(x - w, seer_c, w, label='SEER Internal', color=C4['seer'], alpha=0.85)
+ax.bar(x, tcga_c_list, w, label='TCGA-LIHC', color=C4['tcga'], alpha=0.85)
+ax.bar(x + w, icgc_c_list, w, label='ICGC-LIRI-JP', color=C4['icgc'], alpha=0.85)
+ax.set_ylabel('C-index', fontsize=7.5)
+ax.set_xticks(x)
+ax.set_xticklabels(models, fontsize=7.5)
+ax.set_ylim(0.35, 0.85)
+ax.legend(frameon=False, fontsize=6.5, loc='upper left')
+ax.set_title('A. Model Performance', fontweight='bold', fontsize=8.5, color=C4['head'], loc='left')
+for i,v in enumerate(seer_c):
+    ax.text(i-w, v+0.01, f'{v:.3f}', ha='center', fontsize=6.5, color=C4['head'])
+for i,v in enumerate(tcga_c_list):
+    ax.text(i, v+0.01, f'{v:.3f}', ha='center', fontsize=6.5, color=C4['head'])
+for i,v in enumerate(icgc_c_list):
+    ax.text(i+w, v+0.01, f'{v:.3f}', ha='center', fontsize=6.5, color=C4['head'])
+style_ax(ax)
 
-# B: TCGA KM by predicted risk
+# B: TCGA KM by predicted risk (log-rank P + median)
 ax = axes[0,1]
 tcga_risk = rsf_model.predict(X_tcga_s)
 tcga_df['risk'] = np.where(tcga_risk > np.median(tcga_risk), 'High', 'Low')
 kmf = KaplanMeierFitter()
-for lb, c in [('Low','#009E73'),('High','#CC79A7')]:
+medians_b = {}
+dur_b, ev_b, grp_b = [], [], []
+for lb, color in [('Low', C4['low']), ('High', C4['high'])]:
     g = tcga_df[tcga_df['risk']==lb]
     if len(g)>10:
-        kmf.fit(g['surv_months'], g['vital_dead'], label=f'{lb} Risk (n={len(g)})')
-        kmf.plot_survival_function(ax=ax, ci_show=False, lw=2, color=c)
-ax.set_title('B. TCGA-LIHC: Risk Stratification (SEER RSF)', fontweight='bold')
-ax.set_xlabel('Months'); ax.set_ylabel('Overall Survival')
-ax.set_xlim(0, 60); ax.legend(frameon=False)
+        kmf.fit(g['surv_months'], g['vital_dead'], label=lb)
+        m = kmf.median_survival_time_
+        medians_b[lb] = m
+        m_str = f', {int(m)}mo' if np.isfinite(m) else ', NR'
+        lbl = f'{lb} Risk (n={len(g)}){m_str}'
+        kmf.plot_survival_function(ax=ax, ci_show=True, ci_alpha=0.12, lw=1.3, color=color, label=lbl)
+        dur_b.extend(g['surv_months'].tolist())
+        ev_b.extend(g['vital_dead'].tolist())
+        grp_b.extend([lb]*len(g))
+ax.axhline(0.5, color='#999', ls=':', lw=0.4, alpha=0.5, zorder=0)
+for lb, color in [('Low', C4['low']), ('High', C4['high'])]:
+    m = medians_b.get(lb)
+    if m is not None and np.isfinite(m):
+        ax.plot([m, m], [0, 0.5], '--', lw=0.6, color=color, alpha=0.5, zorder=0)
+lr_b = multivariate_logrank_test(dur_b, ev_b, grp_b)
+p_b = lr_b.p_value
+p_txt_b = f'Log-rank P {"<0.001" if p_b < 0.001 else f"={p_b:.3f}"}'
+ax.text(0.98, 0.98, p_txt_b, transform=ax.transAxes, fontsize=6.5,
+        va='top', ha='right', color='#333', style='italic')
+ax.set_title('B. Risk Stratification (SEER RSF)', fontweight='bold', fontsize=8.5, color=C4['head'], loc='left')
+ax.set_xlabel('Months', fontsize=7.5)
+ax.set_ylabel('Overall Survival', fontsize=7.5)
+ax.set_xlim(0, 60)
+ax.set_xticks(np.arange(0, 61, 12))
+ax.legend(frameon=False, fontsize=6.5)
+style_ax(ax)
 
-# C: Survival by cohort
+# C: Survival by cohort (log-rank P + median)
 ax = axes[1,0]
-for label, grp, color in [('SEER Surgery', 'seer', '#2c3e50'),
-                           ('TCGA-LIHC', 'tcga', '#0072B2'),
-                           ('ICGC-LIRI-JP', 'icgc', '#e67e22')]:
+kmf = KaplanMeierFitter()
+cohorts_c = [('SEER Surgery', C4['seer']), ('TCGA-LIHC', C4['tcga']), ('ICGC-LIRI-JP', C4['icgc'])]
+dur_c, ev_c, grp_c = [], [], []
+medians_c = {}
+for label, color in cohorts_c:
     if label.startswith('SEER'):
         seer_s = pd.read_csv(r'02_Data\cleaned\hepatobiliary_elderly_clean.csv')
         seer_s = seer_s[seer_s['surgery_any'].fillna(0)==1]
-        kmf.fit(seer_s['surv_months'], seer_s['vital_dead'].fillna(0),
-                label=f'{label} (n={len(seer_s)})')
+        g = seer_s
+    elif 'TCGA' in label:
+        g = tcga_df
     else:
-        g = tcga_df if 'TCGA' in label else icgc
-        kmf.fit(g['surv_months'], g['vital_dead'], label=f'{label} (n={len(g)})')
-    kmf.plot_survival_function(ax=ax, ci_show=False, lw=2, color=color, ls='-')
-ax.set_title('C. Survival: SEER Surgery vs External Cohorts', fontweight='bold')
-ax.set_xlabel('Months'); ax.set_ylabel('Overall Survival')
-ax.set_xlim(0, 60); ax.legend(frameon=False, fontsize=8)
+        g = icgc
+    kmf.fit(g['surv_months'], g['vital_dead'].fillna(0), label=label)
+    m = kmf.median_survival_time_
+    medians_c[label] = m
+    lbl = f'{label} (n={len(g)})'
+    lbl += f', {int(m)}mo' if np.isfinite(m) else ', NR'
+    kmf.plot_survival_function(ax=ax, ci_show=True, ci_alpha=0.12, lw=1.3, color=color, label=lbl)
+    dur_c.extend(g['surv_months'].tolist())
+    ev_c.extend(g['vital_dead'].fillna(0).tolist())
+    grp_c.extend([label]*len(g))
+ax.axhline(0.5, color='#999', ls=':', lw=0.4, alpha=0.5, zorder=0)
+for label, color in cohorts_c:
+    m = medians_c.get(label)
+    if m is not None and np.isfinite(m):
+        ax.plot([m, m], [0, 0.5], '--', lw=0.6, color=color, alpha=0.5, zorder=0)
+lr_c = multivariate_logrank_test(dur_c, ev_c, grp_c)
+p_c = lr_c.p_value
+p_txt_c = f'Log-rank P {"<0.001" if p_c < 0.001 else f"={p_c:.3f}"}'
+ax.text(0.98, 0.98, p_txt_c, transform=ax.transAxes, fontsize=6.5,
+        va='top', ha='right', color='#333', style='italic')
+ax.set_title('C. Cohort Survival', fontweight='bold', fontsize=8.5, color=C4['head'], loc='left')
+ax.set_xlabel('Months', fontsize=7.5)
+ax.set_ylabel('Overall Survival', fontsize=7.5)
+ax.set_xlim(0, 60)
+ax.set_xticks(np.arange(0, 61, 12))
+ax.legend(frameon=False, fontsize=6.5)
+style_ax(ax)
 
-# D: Feature variance comparison
+# D: ICGC risk stratification (same as B but for ICGC)
 ax = axes[1,1]
-key_feats = ['age_c','male','stage_4','grade_poor','cirrhosis','chemotherapy']
-seer_var = [np.var(data['X_train'][:,features.index(f)]) for f in key_feats if f in features]
-tcga_var_list = [np.var(X_tcga[:,features.index(f)]) if f in features else 0 for f in key_feats]
-ypos = range(len(key_feats))
-ax.barh(ypos, seer_var, 0.35, label='SEER', color='#0072B2')
-ax.barh([y+0.35 for y in ypos], tcga_var_list, 0.35, label='TCGA', color='darkorange')
-ax.set_yticks([y+0.175 for y in ypos]); ax.set_yticklabels(key_feats, fontsize=9)
-ax.set_xlabel('Variance'); ax.set_title('D. Feature Variance: SEER vs TCGA', fontweight='bold')
-ax.legend(frameon=False, fontsize=8)
+icgc_risk = rsf_model.predict(X_icgc_s)
+icgc['risk'] = np.where(icgc_risk > np.median(icgc_risk), 'High', 'Low')
+kmf = KaplanMeierFitter()
+medians_d = {}
+dur_d, ev_d, grp_d = [], [], []
+for lb, color in [('Low', C4['low']), ('High', C4['high'])]:
+    g = icgc[icgc['risk']==lb]
+    if len(g)>10:
+        kmf.fit(g['surv_months'], g['vital_dead'].fillna(0), label=lb)
+        m = kmf.median_survival_time_
+        medians_d[lb] = m
+        lbl = f'{lb} Risk (n={len(g)})'
+        lbl += f', {int(m)}mo' if np.isfinite(m) else ', NR'
+        kmf.plot_survival_function(ax=ax, ci_show=True, ci_alpha=0.12, lw=1.3, color=color, label=lbl)
+        dur_d.extend(g['surv_months'].tolist())
+        ev_d.extend(g['vital_dead'].fillna(0).tolist())
+        grp_d.extend([lb]*len(g))
+ax.axhline(0.5, color='#999', ls=':', lw=0.4, alpha=0.5, zorder=0)
+for lb, color in [('Low', C4['low']), ('High', C4['high'])]:
+    m = medians_d.get(lb)
+    if m is not None and np.isfinite(m):
+        ax.plot([m, m], [0, 0.5], '--', lw=0.6, color=color, alpha=0.5, zorder=0)
+lr_d = multivariate_logrank_test(dur_d, ev_d, grp_d)
+p_d = lr_d.p_value
+p_txt_d = f'Log-rank P {"<0.001" if p_d < 0.001 else f"={p_d:.3f}"}'
+ax.text(0.98, 0.98, p_txt_d, transform=ax.transAxes, fontsize=6.5,
+        va='top', ha='right', color='#333', style='italic')
+ax.set_title('D. ICGC-LIRI-JP: Risk Stratification (SEER RSF)', fontweight='bold', fontsize=8.5, color=C4['head'], loc='left')
+ax.set_xlabel('Months', fontsize=7.5)
+ax.set_ylabel('Overall Survival', fontsize=7.5)
+ax.set_xlim(0, 60)
+ax.set_xticks(np.arange(0, 61, 12))
+ax.legend(frameon=False, fontsize=6.5)
+style_ax(ax)
 
-plt.tight_layout()
-fig.savefig('03_Analysis/figures/Fig5_ExternalValidation.png', dpi=300, bbox_inches='tight')
-fig.savefig('03_Analysis/figures/Fig5_ExternalValidation.pdf', bbox_inches='tight')
+save(fig, 'Fig4_ExternalValidation')
 plt.close()
-print("✓ Fig5 saved")
+print("✓ Fig4 (ASO style) saved")
 
 # ============================================================
 # 9. REPORT
@@ -359,7 +471,10 @@ with open('03_Analysis/outputs/05_external_validation_report.md', 'w', encoding=
         p(f"| {name} | {si:.3f} | {ti:.3f} | {ii:.3f} | {si-ti:+.3f} |")
 
     p(f"\n## Surgery Feature Paradox\n")
-    p(f"TCGA/ICGC: ALL surgical → `surgery_any` variance = 0 in external (vs {X_train[:,features.index('surgery_any')].var():.3f} in SEER)")
+    if 'surgery_any' in features:
+        p(f"TCGA/ICGC: ALL surgical → `surgery_any` variance = 0 in external (vs {X_train[:,features.index('surgery_any')].var():.3f} in SEER)")
+    else:
+        p("`surgery_any` not in ML model feature set — check data pipeline")
     p("This eliminates the strongest SEER predictor → external C-index drops by 0.05-0.15 (expected)\n")
 
     p("## TCGA-Internal Cox\n")

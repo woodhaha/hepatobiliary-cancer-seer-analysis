@@ -1,9 +1,31 @@
 """Calibration Assessment: Bootstrap Calibration + Brier Score for Survival Models"""
 import pandas as pd, numpy as np, matplotlib; matplotlib.use('Agg')
 import matplotlib.pyplot as plt, os, warnings; warnings.filterwarnings('ignore')
+from PIL import Image
 plt.rcParams['axes.prop_cycle'] = plt.cycler(color=['#0072B2','#E69F00','#009E73','#CC79A7','#56B4E9','#F0E442','#000000'])
 os.chdir(r'D:\Researching\SEER\hepatobiliary cancer')
 os.makedirs('03_Analysis/figures', exist_ok=True)
+
+FIGDIR = '04_Manuscript/figures'
+W = 6.85
+DPI = 300
+os.makedirs(FIGDIR, exist_ok=True)
+
+def _sax(ax):
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['left'].set_linewidth(0.35)
+    ax.spines['bottom'].set_linewidth(0.35)
+    ax.tick_params(width=0.35)
+    ax.set_facecolor('white')
+
+_ASO_RC = {
+    'font.family': 'sans-serif', 'font.size': 7,
+    'axes.titlesize': 7.5, 'axes.labelsize': 7,
+    'xtick.labelsize': 6.5, 'ytick.labelsize': 6.5,
+    'legend.fontsize': 6, 'figure.dpi': 300,
+    'axes.linewidth': 0.4, 'xtick.major.width': 0.35, 'ytick.major.width': 0.35,
+}
 
 df = pd.read_csv(r'02_Data\cleaned\hepatobiliary_elderly_clean.csv')
 df['surgery_type'] = df['surgery_type'].fillna('None')
@@ -20,6 +42,7 @@ from sksurv.linear_model import CoxPHSurvivalAnalysis
 from sksurv.ensemble import RandomSurvivalForest
 from sklearn.preprocessing import StandardScaler
 from lifelines import KaplanMeierFitter
+from lifelines.statistics import multivariate_logrank_test
 import xgboost as xgb
 
 ml = df[['surv_months','vital_dead']+features].dropna()
@@ -52,59 +75,150 @@ models = {'Cox PH': cox, 'RSF': rsf, 'XGBoost': xgb_model}
 # =====================================================
 print("=== Calibration: Observed vs Predicted ===\n")
 
-fig, axes = plt.subplots(2, 3, figsize=(18, 10))
-fig.suptitle('Model Calibration — Predicted vs Observed Survival', fontsize=14, fontweight='bold')
+times_brier = np.arange(6, 61, 6)
+plt.rcParams.update(**_ASO_RC)
+fig, axes = plt.subplots(2, 3, figsize=(W, 6.2))
+fig.patch.set_facecolor('white')
+plt.subplots_adjust(hspace=0.42, wspace=0.35, left=0.08, right=0.97, bottom=0.10, top=0.95)
 
-surv_fn = KaplanMeierFitter()
+kmf = KaplanMeierFitter()
 times_eval = [12, 36, 60]
+model_plot_names = [('Cox PH', '#2980b9', 'o'), ('RSF', '#e67e22', 's'), ('XGBoost', '#27ae60', '^')]
 
-for model_idx, (name, model) in enumerate(models.items()):
-    # Get predictions
+# ── Row 0: Observed vs Predicted calibration (one model per column) ──
+for col, (name, base_color, marker) in enumerate(model_plot_names):
+    ax = axes[0][col]
+    model = models[name]
+
     if name == 'XGBoost':
         pred = model.predict(xgb.DMatrix(X_te))
     else:
         pred = model.predict(X_te)
 
-    # Risk groups (5 quantiles)
-    try:
-        quantiles = pd.qcut(pred, 5, labels=False, duplicates='drop')
-    except:
-        quantiles = pd.cut(pred, 5, labels=False)
+    ax.plot([0, 1], [0, 1], 'k--', lw=0.5, alpha=0.3, label='Ideal')
 
-    for t_idx, t in enumerate(times_eval):
-        ax = axes[t_idx // 3][t_idx % 3] if len(times_eval) > 1 else axes[model_idx]
+    for tp_idx, t in enumerate([12, 36, 60]):
+        try:
+            quantiles = pd.qcut(pred, 5, labels=False, duplicates='drop')
+        except:
+            continue
 
         obs, exp = [], []
         for q in sorted(set(quantiles)):
             mask = quantiles == q
             if mask.sum() < 20: continue
-            kmf = KaplanMeierFitter()
-            kmf.fit(y_te['time'][mask], y_te['event'][mask])
-            obs_surv = kmf.survival_function_at_times(t).values[0]
-            pred_surv = np.exp(-np.exp(pred[mask]) * t / 12) if False else obs_surv  # placeholder
+            kmf_cal = KaplanMeierFitter()
+            kmf_cal.fit(y_te['time'][mask], y_te['event'][mask])
+            obs_surv = float(kmf_cal.survival_function_at_times(t).values[0])
+            mean_risk = float(pred[mask].mean())
+            # Normalize risk to [0,1] range before exponential transform
+            risk_norm = (mean_risk - float(pred.min())) / max(float(pred.max() - pred.min()), 1e-10)
+            pred_surv = np.exp(-risk_norm * (t / 12))
+            obs.append(1 - obs_surv)
+            exp.append(1 - pred_surv)
 
-            # Better: use mean predicted risk to estimate survival
-            mean_risk = pred[mask].mean()
-            pred_surv_approx = np.exp(-np.exp(mean_risk) * (t / 100))
-            obs.append(obs_surv)
-            exp.append(pred_surv_approx)
+        if len(obs) >= 3 and len(exp) >= 3:
+            ax.scatter(exp, obs, s=20, alpha=0.6, color=base_color, marker=marker,
+                      label=f'{t}mo')
+            if len(obs) >= 3:
+                z = np.polyfit(exp, obs, 1)
+                xr = np.linspace(0, max(exp)*1.1, 10)
+                lw = 0.8 + (1 - t/60) * 0.8
+                ax.plot(xr, z[0]*xr + z[1], '-', color=base_color, lw=lw, alpha=0.5)
 
-        if len(obs) >= 3 and model_idx == 0:
-            ax.plot(range(len(obs)), obs, 'o-', label=f'{name}', lw=2, markersize=6)
-            ax.plot(range(len(obs)), exp, 's--', label=f'{name} predicted', lw=1.5, alpha=0.7)
+    ax.set_xlabel('Predicted Event Prob.', fontsize=6.5)
+    ax.set_ylabel('Observed Event Prob.', fontsize=6.5)
+    ax.set_title(f'{chr(65+col)}. {name}', fontweight='bold', fontsize=7, loc='left')
+    ax.legend(frameon=False, fontsize=5.5)
+    ax.set_xlim(0, 1.05); ax.set_ylim(0, 1.05)
 
-    # Simple: compare predicted risk tertile vs observed survival
-    if model_idx == 0:
-        ax = axes[0][0]
-        tertiles = pd.qcut(pred, 3, labels=['Low Risk','Medium','High Risk'])
-        for lbl in ['Low Risk','Medium','High Risk']:
-            mask = tertiles == lbl
-            kmf.fit(y_te['time'][mask], y_te['event'][mask])
-            kmf.plot_survival_function(ax=ax, ci_show=False, lw=2, label=f'{name} {lbl}')
-        ax.set_title(f'{name}: Risk Tertile Calibration', fontweight='bold')
-        ax.set_xlabel('Months'); ax.set_xlim(0, 60); ax.legend(fontsize=8)
+# ── Row 1 ──
 
-# Brier scores
+# D: Brier score bar chart
+ax = axes[1][0]
+brier_data = []
+for name, model in models.items():
+    if name == 'XGBoost': pred = model.predict(xgb.DMatrix(X_te))
+    else: pred = model.predict(X_te)
+    surv_funcs = np.column_stack([np.exp(-np.exp(pred) * t/100) for t in times_brier])
+    scores = []
+    for t in times_brier:
+        try:
+            _, bs = brier_score(y_tr, y_te, surv_funcs[:, list(times_brier).index(t)], t)
+            scores.append(float(bs[0]) if hasattr(bs,'__len__') else float(bs))
+        except:
+            scores.append(np.nan)
+    brier_data.append(scores)
+
+x_b = np.arange(3); bw = 0.25
+for i, (name, color) in enumerate([('Cox PH','#2980b9'),('RSF','#e67e22'),('XGBoost','#27ae60')]):
+    vals = [brier_data[i][list(times_brier).index(t)] for t in [12,36,60]]
+    ax.bar(x_b + i*bw, vals, bw, label=name, color=color, alpha=0.85)
+ax.set_xticks(x_b + bw)
+ax.set_xticklabels(['12mo','36mo','60mo'], fontsize=6.5)
+ax.set_ylabel('Brier Score', fontsize=6.5)
+ax.set_title('D. Brier Score', fontweight='bold', fontsize=7, loc='left')
+ax.legend(frameon=False, fontsize=5.5)
+
+# E: Risk stratification by model
+ax = axes[1][1]
+ax.axhline(0.5, color='#999', ls=':', lw=0.35, alpha=0.5, zorder=0)
+for name, model in models.items():
+    clr = {'Cox PH':'#2980b9','RSF':'#e67e22','XGBoost':'#27ae60'}[name]
+    if name == 'XGBoost': pred = model.predict(xgb.DMatrix(X_te))
+    else: pred = model.predict(X_te)
+    med = np.median(pred)
+    for grp, is_high, ls in [('Low', False, '-'), ('High', True, '--')]:
+        mask = pred > med if is_high else pred <= med
+        if mask.sum() < 10: continue
+        kmf.fit(y_te['time'][mask], y_te['event'][mask])
+        m = kmf.median_survival_time_
+        lbl = f'{name} {grp} (n={mask.sum()})'
+        lbl += f', {int(m)}mo' if np.isfinite(m) else ', NR'
+        kmf.plot_survival_function(ax=ax, ci_show=False, lw=1, ls=ls, color=clr, label=lbl)
+        if np.isfinite(m):
+            ax.plot([m, m], [0, 0.5], '--', lw=0.5, color=clr, alpha=0.35, zorder=0)
+    # Log-rank for this model
+    lr = multivariate_logrank_test(y_te['time'], y_te['event'], pred > med)
+    pv = lr.p_value
+    ax.text(0.97, 0.97 - 0.08 * list(models.keys()).index(name), f'{name} P{"<0.001" if pv < 0.001 else f"={pv:.3f}"}',
+            transform=ax.transAxes, fontsize=5.5, va='top', ha='right', color=clr, style='italic')
+ax.set_title('E. Stratification', fontweight='bold', fontsize=7, loc='left')
+ax.set_xlabel('Months', fontsize=6.5); ax.set_xlim(0, 60)
+ax.set_xticks([0, 12, 24, 36, 48, 60])
+ax.legend(frameon=False, fontsize=5, loc='lower left')
+
+# F: Bootstrap calibration
+ax = axes[1][2]
+ax.plot([0,1],[0,1],'k--',alpha=0.3, lw=0.5, label='Ideal')
+pred_rsf = rsf.predict(X_te)
+try:
+    deciles = pd.qcut(pred_rsf, 10, labels=False, duplicates='drop')
+except:
+    deciles = pd.cut(pred_rsf, 10, labels=False)
+obs_means, pred_means = [], []
+for d in sorted(set(deciles)):
+    mask = deciles == d
+    if mask.sum() < 10: continue
+    kmf.fit(y_te['time'][mask], y_te['event'][mask])
+    obs_s = float(kmf.survival_function_at_times(36).values[0])
+    risk_norm_f = (pred_rsf[mask] - pred_rsf.min()) / max(pred_rsf.max() - pred_rsf.min(), 1e-10)
+    pred_s = float(np.mean(np.exp(-risk_norm_f * (36 / 12))))
+    obs_means.append(1 - obs_s)
+    pred_means.append(1 - pred_s)
+ax.scatter(pred_means, obs_means, s=40, alpha=0.7, color='#e67e22', label='RSF')
+if len(pred_means) >= 3:
+    z = np.polyfit(pred_means, obs_means, 1)
+    ax.plot([0, max(pred_means)], [z[1], z[1]+z[0]*max(pred_means)], '-', color='#e67e22', lw=1.5)
+ax.set_xlabel('Predicted Event Prob.', fontsize=6.5)
+ax.set_ylabel('Observed Event Prob.', fontsize=6.5)
+ax.set_xlim(0, 1.05); ax.set_ylim(0, 1.05)
+ax.set_title('F. Calibration', fontweight='bold', fontsize=7, loc='left')
+ax.legend(frameon=False, fontsize=5.5)
+
+for row in axes:
+    for ax in row:
+        _sax(ax)
 print("=== Brier Scores ===")
 from sksurv.metrics import brier_score, integrated_brier_score
 
@@ -138,53 +252,15 @@ for name, model in models.items():
 
     print(f"{name:<15} {b12:8.4f} {b36:8.4f} {b60:8.4f} {ibs:8.4f}")
 
-# =====================================================
-# RISK STRATIFICATION PLOT (all models)
-# =====================================================
-ax = axes[1][1]
-for name, model in models.items():
-    if name == 'XGBoost': pred = model.predict(xgb.DMatrix(X_te))
-    else: pred = model.predict(X_te)
-    high = pred > np.median(pred)
-    kmf.fit(y_te['time'][high], y_te['event'][high], label=f'{name} High')
-    kmf.plot_survival_function(ax=ax, ci_show=False, lw=1.5, ls='--')
-    kmf.fit(y_te['time'][~high], y_te['event'][~high], label=f'{name} Low')
-    kmf.plot_survival_function(ax=ax, ci_show=False, lw=1.5)
-ax.set_title('Risk Stratification by Model', fontweight='bold')
-ax.set_xlim(0, 60); ax.legend(fontsize=6)
+for row in axes:
+    for ax in row:
+        _sax(ax)
 
-# =====================================================
-# BOOTSTRAP CALIBRATION (RSF, 200 iterations)
-# =====================================================
-ax = axes[1][2]
-ax.plot([0,1],[0,1],'k--',alpha=0.3)
-from sklearn.utils import resample
-
-for name, model in [('RSF',rsf)]:
-    pred = model.predict(X_te)
-    deciles = pd.qcut(pred, 10, labels=False, duplicates='drop')
-    obs_means, pred_means = [], []
-    for d in sorted(set(deciles)):
-        mask = deciles == d
-        kmf.fit(y_te['time'][mask], y_te['event'][mask])
-        obs_s = kmf.survival_function_at_times(36).values[0]
-        pred_s = np.mean(np.exp(-np.exp(pred[mask]) * 36/100))
-        obs_means.append(1 - obs_s)  # event probability
-        pred_means.append(1 - pred_s)
-
-    ax.scatter(pred_means, obs_means, s=60, alpha=0.7, label=name)
-    # Fit line
-    if len(pred_means) >= 5:
-        z = np.polyfit(pred_means, obs_means, 1)
-        ax.plot([0,max(pred_means)], [z[1], z[1]+z[0]*max(pred_means)], '-', lw=2)
-
-ax.set_xlabel('Predicted Event Probability (36m)')
-ax.set_ylabel('Observed Event Probability (36m)')
-ax.set_title('Calibration Plot', fontweight='bold')
-ax.legend()
-
-plt.tight_layout()
 fig.savefig('03_Analysis/figures/Fig25_Calibration.png', dpi=300, bbox_inches='tight')
 fig.savefig('03_Analysis/figures/Fig25_Calibration.pdf', bbox_inches='tight')
+
+fig.savefig(os.path.join(FIGDIR, 'Fig25_Calibration.png'), dpi=DPI, bbox_inches='tight', facecolor='white')
+fig.savefig(os.path.join(FIGDIR, 'Fig25_Calibration.pdf'), bbox_inches='tight', facecolor='white')
+Image.open(os.path.join(FIGDIR, 'Fig25_Calibration.png')).convert('RGB').save(os.path.join(FIGDIR, 'Fig25_Calibration.tiff'), 'TIFF', compression='tiff_lzw', dpi=(DPI,DPI))
 plt.close()
 print("\n✓ Fig25 Calibration saved")

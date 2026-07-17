@@ -1,6 +1,6 @@
 # STROBE Checklist — Cohort Study
 
-**Manuscript**: Parenchymal-Sparing vs Major Hepatectomy in Elderly Hepatobiliary Cancer
+**Manuscript**: Comparable but Not Equivalent: Segmental and Major Hepatectomy in Elderly Hepatobiliary Cancer — A Population-Based Study With E-Value Analysis
 **Checklist**: STROBE (Strengthening the Reporting of Observational Studies in Epidemiology)
 
 | Item | Recommendation | Page/Section | ✓ |

@@ -1,4 +1,4 @@
-# Self-Review Report: Parenchymal-Sparing vs Major Hepatectomy in Elderly Hepatobiliary Cancer
+# Self-Review Report: Comparable but Not Equivalent — Segmental vs Major Hepatectomy in Elderly Hepatobiliary Cancer
 
 **Target journal**: Annals of Surgical Oncology (primary) / JAMA Surgery (stretch)
 **Manuscript type**: Observational cohort (STROBE + TRIPOD)

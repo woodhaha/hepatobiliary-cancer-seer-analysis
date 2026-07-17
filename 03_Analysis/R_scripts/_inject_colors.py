@@ -1,8 +1,8 @@
-"""Inject Paul Tol colorblind palette into all plotting scripts"""
+"""Inject JAMA Surgery palette into all plotting scripts"""
 import os, re
 
 BASE = r'D:\Researching\SEER\hepatobiliary cancer\03_Analysis\R_scripts'
-RC_LINE = "plt.rcParams['axes.prop_cycle'] = plt.cycler(color=['#0072B2','#E69F00','#009E73','#CC79A7','#56B4E9','#F0E442','#000000'])"
+RC_LINE = "plt.rcParams['axes.prop_cycle'] = plt.cycler(color=['#00A1D5','#DF8F44','#79AF97','#B24745','#6A6599','#80796B','#374E55'])"
 
 for f in sorted(os.listdir(BASE)):
     if not f.endswith('.py') or f.startswith('_') or f == '17_format_figures.py':

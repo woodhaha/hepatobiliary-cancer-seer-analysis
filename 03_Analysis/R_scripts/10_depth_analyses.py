@@ -1,6 +1,7 @@
 """Script 10: Schoenfeld + Subgroup + Landmark + AFP + Race + COVID"""
 import pandas as pd, numpy as np, matplotlib; matplotlib.use('Agg')
 import matplotlib.pyplot as plt, os, warnings; warnings.filterwarnings('ignore')
+from PIL import Image
 plt.rcParams['axes.prop_cycle'] = plt.cycler(color=['#0072B2','#E69F00','#009E73','#CC79A7','#56B4E9','#F0E442','#000000'])
 os.chdir(r'D:\Researching\SEER\hepatobiliary cancer')
 os.makedirs('03_Analysis/figures', exist_ok=True)
@@ -110,7 +111,21 @@ with open(out, 'w', encoding='utf-8') as f:
     ax.set_xlabel('Surgery CSS HR'); ax.set_xscale('log')
     ax.set_title('Subgroup Analysis: Surgery Benefit (CSS)', fontweight='bold')
     plt.tight_layout()
-    fig.savefig('03_Analysis/figures/Fig11_Subgroup.png', dpi=300, bbox_inches='tight'); plt.close()
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['left'].set_linewidth(0.4)
+    ax.spines['bottom'].set_linewidth(0.4)
+    ax.tick_params(width=0.4)
+    fig.savefig('03_Analysis/figures/Fig11_Subgroup.png', dpi=300, bbox_inches='tight')
+    # ASO publication output
+    ASO_DIR = '04_Manuscript/figures'
+    os.makedirs(ASO_DIR, exist_ok=True)
+    W = 6.85
+    fig.set_size_inches(W, fig.get_size_inches()[1] * W / fig.get_size_inches()[0])
+    fig.savefig(os.path.join(ASO_DIR, 'Fig11_Subgroup.png'), dpi=300, bbox_inches='tight', facecolor='white')
+    fig.savefig(os.path.join(ASO_DIR, 'Fig11_Subgroup.pdf'), bbox_inches='tight', facecolor='white')
+    Image.open(os.path.join(ASO_DIR, 'Fig11_Subgroup.png')).convert('RGB').save(os.path.join(ASO_DIR, 'Fig11_Subgroup.tiff'), 'TIFF', compression='tiff_lzw', dpi=(300,300))
+    plt.close()
     p("✓ Fig11 Subgroup Forest saved\n")
 
     # ===== 3. LANDMARK CONDITIONAL SURVIVAL =====
@@ -130,7 +145,22 @@ with open(out, 'w', encoding='utf-8') as f:
         ax.set_title(f'Landmark: {lm} months survived', fontweight='bold')
         ax.set_xlabel(f'Months from {lm}m'); ax.set_xlim(0, 60); ax.legend(fontsize=8)
 
-    fig.savefig('03_Analysis/figures/Fig12_Landmark.png', dpi=300, bbox_inches='tight'); plt.close()
+    for ax_i in axes.flat:
+        ax_i.spines['top'].set_visible(False)
+        ax_i.spines['right'].set_visible(False)
+        ax_i.spines['left'].set_linewidth(0.4)
+        ax_i.spines['bottom'].set_linewidth(0.4)
+        ax_i.tick_params(width=0.4)
+    fig.savefig('03_Analysis/figures/Fig12_Landmark.png', dpi=300, bbox_inches='tight')
+    # ASO publication output
+    ASO_DIR = '04_Manuscript/figures'
+    os.makedirs(ASO_DIR, exist_ok=True)
+    W = 6.85
+    fig.set_size_inches(W, 3.2)
+    fig.savefig(os.path.join(ASO_DIR, 'Fig12_Landmark.png'), dpi=300, bbox_inches='tight', facecolor='white')
+    fig.savefig(os.path.join(ASO_DIR, 'Fig12_Landmark.pdf'), bbox_inches='tight', facecolor='white')
+    Image.open(os.path.join(ASO_DIR, 'Fig12_Landmark.png')).convert('RGB').save(os.path.join(ASO_DIR, 'Fig12_Landmark.tiff'), 'TIFF', compression='tiff_lzw', dpi=(300,300))
+    plt.close()
     p("✓ Fig12 Landmark saved\n")
 
     # ===== 4. AFP DEPTH ANALYSIS =====
@@ -154,7 +184,22 @@ with open(out, 'w', encoding='utf-8') as f:
                 kmf.plot_survival_function(ax=ax, ci_show=False, lw=2)
             ax.set_title(f'AFP {afp_val} (n={len(sub)})', fontweight='bold')
             ax.set_xlim(0,60); ax.legend()
-        fig.savefig('03_Analysis/figures/Fig13_AFP.png', dpi=300, bbox_inches='tight'); plt.close()
+        for ax_i in axes.flat:
+            ax_i.spines['top'].set_visible(False)
+            ax_i.spines['right'].set_visible(False)
+            ax_i.spines['left'].set_linewidth(0.4)
+            ax_i.spines['bottom'].set_linewidth(0.4)
+            ax_i.tick_params(width=0.4)
+        fig.savefig('03_Analysis/figures/Fig13_AFP.png', dpi=300, bbox_inches='tight')
+        # ASO publication output
+        ASO_DIR = '04_Manuscript/figures'
+        os.makedirs(ASO_DIR, exist_ok=True)
+        W = 6.85
+        fig.set_size_inches(W, fig.get_size_inches()[1] * W / fig.get_size_inches()[0])
+        fig.savefig(os.path.join(ASO_DIR, 'Fig13_AFP.png'), dpi=300, bbox_inches='tight', facecolor='white')
+        fig.savefig(os.path.join(ASO_DIR, 'Fig13_AFP.pdf'), bbox_inches='tight', facecolor='white')
+        Image.open(os.path.join(ASO_DIR, 'Fig13_AFP.png')).convert('RGB').save(os.path.join(ASO_DIR, 'Fig13_AFP.tiff'), 'TIFF', compression='tiff_lzw', dpi=(300,300))
+        plt.close()
         p("✓ Fig13 AFP saved\n")
 
     # ===== 5. RACE DISPARITIES =====
@@ -183,7 +228,22 @@ with open(out, 'w', encoding='utf-8') as f:
                    label=f"{'Surgery' if s_lbl==1 else 'No Surgery'}")
             kmf.plot_survival_function(ax=ax, ci_show=False, lw=2)
         ax.set_title(f'{race} (n={len(sub)})', fontweight='bold'); ax.set_xlim(0,60); ax.legend()
-    fig.savefig('03_Analysis/figures/Fig14_Race.png', dpi=300, bbox_inches='tight'); plt.close()
+    for ax_i in axes.flat:
+        ax_i.spines['top'].set_visible(False)
+        ax_i.spines['right'].set_visible(False)
+        ax_i.spines['left'].set_linewidth(0.4)
+        ax_i.spines['bottom'].set_linewidth(0.4)
+        ax_i.tick_params(width=0.4)
+    fig.savefig('03_Analysis/figures/Fig14_Race.png', dpi=300, bbox_inches='tight')
+    # ASO publication output
+    ASO_DIR = '04_Manuscript/figures'
+    os.makedirs(ASO_DIR, exist_ok=True)
+    W = 6.85
+    fig.set_size_inches(W, fig.get_size_inches()[1] * W / fig.get_size_inches()[0])
+    fig.savefig(os.path.join(ASO_DIR, 'Fig14_Race.png'), dpi=300, bbox_inches='tight', facecolor='white')
+    fig.savefig(os.path.join(ASO_DIR, 'Fig14_Race.pdf'), bbox_inches='tight', facecolor='white')
+    Image.open(os.path.join(ASO_DIR, 'Fig14_Race.png')).convert('RGB').save(os.path.join(ASO_DIR, 'Fig14_Race.tiff'), 'TIFF', compression='tiff_lzw', dpi=(300,300))
+    plt.close()
     p("✓ Fig14 Race saved\n")
 
     # ===== 6. COVID ERA IMPACT =====
@@ -213,7 +273,22 @@ with open(out, 'w', encoding='utf-8') as f:
     ax = axes[2]; ax.plot(yrs, [monthly[y]['os'] for y in yrs], 's-', color='darkred')
     ax.axvspan(2020, 2022.5, alpha=0.1, color='red'); ax.set_title('Median OS (COVID shaded)')
     plt.tight_layout()
-    fig.savefig('03_Analysis/figures/Fig15_COVID.png', dpi=300, bbox_inches='tight'); plt.close()
+    for ax_i in axes.flat:
+        ax_i.spines['top'].set_visible(False)
+        ax_i.spines['right'].set_visible(False)
+        ax_i.spines['left'].set_linewidth(0.4)
+        ax_i.spines['bottom'].set_linewidth(0.4)
+        ax_i.tick_params(width=0.4)
+    fig.savefig('03_Analysis/figures/Fig15_COVID.png', dpi=300, bbox_inches='tight')
+    # ASO publication output
+    ASO_DIR = '04_Manuscript/figures'
+    os.makedirs(ASO_DIR, exist_ok=True)
+    W = 6.85
+    fig.set_size_inches(W, 3.2)
+    fig.savefig(os.path.join(ASO_DIR, 'Fig15_COVID.png'), dpi=300, bbox_inches='tight', facecolor='white')
+    fig.savefig(os.path.join(ASO_DIR, 'Fig15_COVID.pdf'), bbox_inches='tight', facecolor='white')
+    Image.open(os.path.join(ASO_DIR, 'Fig15_COVID.png')).convert('RGB').save(os.path.join(ASO_DIR, 'Fig15_COVID.tiff'), 'TIFF', compression='tiff_lzw', dpi=(300,300))
+    plt.close()
     p("✓ Fig15 COVID saved\n")
 
     p("\n## Depth Analysis Summary")
