@@ -1,6 +1,6 @@
 # Submission Package — Hepatobiliary Cancer Manuscript
 
-## Target Journal: Annals of Surgical Oncology (Primary) / JAMA Surgery (Stretch)
+## Target Journal: Annals of Surgical Oncology
 
 ---
 

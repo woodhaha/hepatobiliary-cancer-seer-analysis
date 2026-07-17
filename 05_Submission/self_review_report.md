@@ -1,6 +1,6 @@
 # Self-Review Report: Comparable but Not Equivalent — Segmental vs Major Hepatectomy in Elderly Hepatobiliary Cancer
 
-**Target journal**: Annals of Surgical Oncology (primary) / JAMA Surgery (stretch)
+**Target journal**: Annals of Surgical Oncology
 **Manuscript type**: Observational cohort (STROBE + TRIPOD)
 **Date**: 2026-06-26
 **Overall assessment**: Methodologically robust (E-value=7.5, 76K patients, dual external validation). Three fixable Major issues before submission: (1) DeepSurv model failure unexplained, (2) ICGC external C-index near random, (3) unsubstantiated informed-consent statement. Minors are mostly reporting-compliance items.

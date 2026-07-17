@@ -1,7 +1,7 @@
-# Figure Color Scheme Reference — JAMA Surgery
+# Figure Color Scheme Reference — ASO Submission
 
-> **Palette source**: ggsci `pal_jama("default")` — JAMA Network official figure colors
-> All 7 colors are colorblind-safe, grayscale-distinguishable, and JAMA-brand compliant.
+> **Palette source**: ggsci `pal_jama("default")` — professional academic palette (colorblind-safe)
+> All 7 colors are colorblind-safe and grayscale-distinguishable.
 
 ## Central Source
 
