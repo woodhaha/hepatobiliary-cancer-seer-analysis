@@ -74,43 +74,33 @@ E-mail: zhouzhuha@wmu.edu.cn
 
 ## Figure List
 
-### Main Figures
+### Main Figures (TIFF 300 DPI, RGB)
 
 | Figure | Title | File |
 |--------|-------|------|
-| **Fig 1** | Kaplan-Meier Survival Curves (6 panels: OS/CSS by surgery, stage, age, cancer type) | `Fig1_KM.pdf` |
-| **Fig 2** | Multivariate Cox Forest Plot (18 variables) | `Fig2_Forest.pdf` |
-| **Fig 3** | HCC vs ICC Surgical Strategy Comparison | `Fig20_HCCvsICC.pdf` |
-| **Fig 4** | External Validation (SEER→TCGA+ICGC) | `Fig5_ExternalValidation.pdf` |
-| **Fig 5** | Composite Analysis (CV + PSM + HBI + Age-Surgery) | `Fig6_CompositeAnalysis.pdf` |
-| **Fig 6** | Clinical Nomogram | `Fig10_Nomogram.png` |
+| **Fig 1** | Kaplan-Meier Survival Curves | `Fig1_KM.tiff` |
+| **Fig 2** | Multivariable Cox Forest Plot | `Fig2_Forest.tiff` |
+| **Fig 3** | HCC vs ICC Surgical Strategy Comparison | `Fig3_HCCvsICC.tiff` |
+| **Fig 4** | External Validation (SEER→TCGA+ICGC) | `Fig4_ExternalValidation.tiff` |
+| **Fig 5** | HBI Risk Score and Clinical Decision Support | `Fig5_HBI.tiff` |
+| **Fig 6** | Clinical Nomogram | `Fig6_Nomogram.tiff` |
 
-### Supplementary Figures (eFigure 1-8)
+### Supplementary Figures (eFigure 1–8, TIFF 300 DPI, RGB)
 
 | eFigure | Title | File |
 |---------|-------|------|
-| **eFig 1** | CONSORT Flow Diagram | `Fig19_CONSORT.pdf` |
-| **eFig 2** | PSM Love Plot | `Fig6_CompositeAnalysis.pdf` (Panel B) |
-| **eFig 3** | 5-Fold CV Model Comparison | `Fig6_CompositeAnalysis.pdf` (Panel A) |
-| **eFig 4** | SHAP Feature Importance | `FigS1_SHAP.png` |
-| **eFig 5** | External Validation Details | `Fig5_ExternalValidation.pdf` |
-| **eFig 6** | Temporal Trends (2004-2022) + COVID | `FigS4_TemporalTrends.png` + `Fig15_COVID.png` |
-| **eFig 7** | Frailty Surrogate Index | `Fig22_Frailty.png` |
-| **eFig 8** | Age-Surgery RCS + Landmark + Competing Risk | `Fig21_RCS_AgeSpline.png` + `FigS2_CompetingRisk.pdf` |
+| **eFig 1** | CONSORT Patient Selection Diagram | `eFig1_Consort.tiff` |
+| **eFig 2** | SHAP Feature Importance | `eFig2_SHAP.tiff` |
+| **eFig 3** | Model Analysis (LASSO + DCA + Competing Risk) | `eFig3_ModelAnalysis.tiff` |
+| **eFig 4** | Age-Dependent Surgery Benefit and Temporal Trends | `eFig4_Comprehensive.tiff` |
+| **eFig 5** | Landmark Conditional Survival and Frailty Stratification | `eFig5_LandmarkFrailty.tiff` |
+| **eFig 6** | Model Calibration at 12/36/60 Months | `eFig6_Calibration.tiff` |
+| **eFig 7** | Subgroup Interaction Forest Plot | `eFig7_Subgroup.tiff` |
+| **eFig 8** | Comprehensive Analysis Overview | `eFig8_Overview.tiff` |
 
-### Additional Supplementary
+### Supplementary Tables
 
-| Item | File |
-|------|------|
-| Supplementary eTable S1-S6 | `supplementary_materials.md` |
-| Time-Dependent AUC | — *(not generated)* |
-| LASSO Variable Selection | `Fig7_LASSO.png` |
-| Subgroup Forest Plot | `Fig11_Subgroup.png` |
-| Landmark Conditional Survival | `Fig12_Landmark.png` |
-| AFP Analysis | `Fig13_AFP.png` |
-| Race Disparities | `Fig14_Race.png` |
-| SES Interaction | — *(not generated)* |
-| Geographic Variation | `Fig23_Geography.png` |
+eTable 1–11 are embedded in `supplementary_materials.md`.
 
 ---
 
