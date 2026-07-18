@@ -2,7 +2,6 @@
 import matplotlib; matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
-from PIL import Image
 import os
 
 BASE = r'D:\Researching\SEER\hepatobiliary cancer'
@@ -10,7 +9,7 @@ FIG = os.path.join(BASE, '04_Manuscript', 'figures')
 os.makedirs(FIG, exist_ok=True)
 W, DPI = 6.85, 300
 
-plt.rcParams.update({'font.family': 'sans-serif', 'font.size': 7, 'figure.dpi': DPI})
+plt.rcParams.update({'font.family': 'sans-serif', 'font.size': 8, 'figure.dpi': DPI})
 
 fig, ax = plt.subplots(figsize=(W, 5.5))
 fig.patch.set_facecolor('white')
@@ -58,8 +57,8 @@ bx(0.27, 0.10, 0.34, 0.065, 'Chemotherapy / Radiation\nBest Supportive Care', 6.
 bx(0.73, 0.08, 0.34, 0.095, 'Local Destruction: 10,771\nSegmental: 2,486  |  Larger: 699\nTransplant: 1,778', 6.5, 'normal', '#555')
 
 name = 'Fig19_CONSORT'
-fig.savefig(os.path.join(FIG, name+'.png'), dpi=DPI, bbox_inches='tight', facecolor='white')
+plt.rcParams['tiff.compression'] = 'tiff_lzw'
+fig.savefig(os.path.join(FIG, name+'.tiff'), dpi=DPI, bbox_inches='tight', facecolor='white')
 fig.savefig(os.path.join(FIG, name+'.pdf'), bbox_inches='tight', facecolor='white')
-Image.open(os.path.join(FIG, name+'.png')).convert('RGB').save(os.path.join(FIG, name+'.tiff'), 'TIFF', compression='tiff_lzw', dpi=(DPI,DPI))
 plt.close()
 print(f'  ✓ {name}')

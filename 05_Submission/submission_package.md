@@ -83,24 +83,25 @@ E-mail: zhouzhuha@wmu.edu.cn
 | **Fig 3** | HCC vs ICC Surgical Strategy Comparison | `Fig3_HCCvsICC.tiff` |
 | **Fig 4** | External Validation (SEER→TCGA+ICGC) | `Fig4_ExternalValidation.tiff` |
 | **Fig 5** | HBI Risk Score and Clinical Decision Support | `Fig5_HBI.tiff` |
-| **Fig 6** | Clinical Nomogram | `Fig6_Nomogram.tiff` |
 
-### Supplementary Figures (eFigure 1–8, TIFF 300 DPI, RGB)
+### Supplementary Figures (eFigure 1–10, TIFF 300 DPI, RGB)
 
 | eFigure | Title | File |
 |---------|-------|------|
 | **eFig 1** | CONSORT Patient Selection Diagram | `eFig1_Consort.tiff` |
 | **eFig 2** | SHAP Feature Importance | `eFig2_SHAP.tiff` |
-| **eFig 3** | Model Analysis (LASSO + DCA + Competing Risk) | `eFig3_ModelAnalysis.tiff` |
-| **eFig 4** | Age-Dependent Surgery Benefit and Temporal Trends | `eFig4_Comprehensive.tiff` |
-| **eFig 5** | Landmark Conditional Survival and Frailty Stratification | `eFig5_LandmarkFrailty.tiff` |
-| **eFig 6** | Model Calibration at 12/36/60 Months | `eFig6_Calibration.tiff` |
-| **eFig 7** | Subgroup Interaction Forest Plot | `eFig7_Subgroup.tiff` |
-| **eFig 8** | Comprehensive Analysis Overview | `eFig8_Overview.tiff` |
+| **eFig 3** | Model Analysis (5-Fold CV + Competing Risk) | `eFig3_ModelAnalysis.tiff` |
+| **eFig 4** | Model Calibration at 12/36/60 Months | `eFig4_Calibration.tiff` |
+| **eFig 5** | Comprehensive Analysis Overview (PSM + HBI) | `eFig5_Overview.tiff` |
+| **eFig 6** | Subgroup Interaction Forest Plot | `eFig6_Subgroup.tiff` |
+| **eFig 7** | Subgroup Kaplan-Meier Survival (AFP/Chemotherapy/Race) | `eFig7_SubgroupKM.tiff` |
+| **eFig 8** | Age-Dependent Surgery Benefit and Temporal Trends | `eFig8_Comprehensive.tiff` |
+| **eFig 9** | Landmark Conditional Survival and Frailty Stratification | `eFig9_LandmarkFrailty.tiff` |
+| **eFig 10** | Clinical Nomogram | `eFig10_Nomogram.tiff` |
 
 ### Supplementary Tables
 
-eTable 1–11 are embedded in `supplementary_materials.md`.
+eTable 1–9 are embedded in `supplementary_materials.md`.
 
 ---
 
@@ -124,6 +125,9 @@ eTable 1–11 are embedded in `supplementary_materials.md`.
 | eTable 4 | Model Specification Robustness |
 | eTable 5 | Leave-One-Out Sensitivity Analysis |
 | eTable 6 | Geographic Practice Variation |
+| eTable 7 | Model Hyperparameters |
+| eTable 8 | Schoenfeld Residual Tests |
+| eTable 9 | Clinical Decision Matrix |
 
 ---
 

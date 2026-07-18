@@ -13,7 +13,6 @@ from sksurv.util import Surv
 from sksurv.ensemble import RandomSurvivalForest
 from lifelines import AalenJohansenFitter
 from lifelines.statistics import multivariate_logrank_test
-from PIL import Image
 import os, warnings; warnings.filterwarnings('ignore')
 
 BASE = r'D:\Researching\SEER\hepatobiliary cancer'
@@ -38,17 +37,16 @@ X_tr, X_te = X_s[:-n_test], X_s[-n_test:]
 y_tr, y_te = y_all[:-n_test], y_all[-n_test:]
 
 plt.rcParams.update({
-    'font.family': 'sans-serif', 'font.size': 7,
-    'axes.titlesize': 7.5, 'axes.labelsize': 7,
-    'xtick.labelsize': 6.5, 'ytick.labelsize': 6.5,
-    'legend.fontsize': 5.5, 'figure.dpi': 300,
-    'axes.linewidth': 0.4, 'xtick.major.width': 0.35, 'ytick.major.width': 0.35,
+    'font.family': 'sans-serif', 'font.size': 8,
+    'axes.titlesize': 9, 'axes.labelsize': 8,
+    'xtick.labelsize': 7.5, 'ytick.labelsize': 7.5,
+    'legend.fontsize': 6.5, 'figure.dpi': 300,
 })
 
 def sax(ax):
     ax.spines['top'].set_visible(False); ax.spines['right'].set_visible(False)
-    ax.spines['left'].set_linewidth(0.35); ax.spines['bottom'].set_linewidth(0.35)
-    ax.tick_params(width=0.35); ax.set_facecolor('white')
+    ax.spines['left'].set_linewidth(0.4); ax.spines['bottom'].set_linewidth(0.4)
+    ax.tick_params(width=0.4); ax.set_facecolor('white')
 
 # ── LASSO data ──
 alphas_all = np.logspace(-4, 1, 50)
@@ -159,9 +157,9 @@ for col, (gb, lbl_map, title, ev_col) in enumerate(cr_configs):
     ax.legend(frameon=False, fontsize=5.5); sax(ax)
 
 name = 'Fig7_Composite'
-fig.savefig(os.path.join(FIG, name+'.png'), dpi=300, bbox_inches='tight', facecolor='white')
+plt.rcParams['tiff.compression'] = 'tiff_lzw'
+fig.savefig(os.path.join(FIG, name+'.tiff'), dpi=300, bbox_inches='tight', facecolor='white')
 fig.savefig(os.path.join(FIG, name+'.pdf'), bbox_inches='tight', facecolor='white')
-Image.open(os.path.join(FIG, name+'.png')).convert('RGB').save(os.path.join(FIG, name+'.tiff'), 'TIFF', compression='tiff_lzw', dpi=(300,300))
 plt.close()
 
 for old in ['Fig_LASSO_DCA.png','Fig_LASSO_DCA.pdf','Fig_LASSO_DCA.tiff',

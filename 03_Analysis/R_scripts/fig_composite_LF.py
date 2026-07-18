@@ -9,7 +9,6 @@ import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 from lifelines import KaplanMeierFitter, CoxPHFitter
 from lifelines.statistics import multivariate_logrank_test
-from PIL import Image
 import os, warnings; warnings.filterwarnings('ignore')
 
 BASE = r'D:\Researching\SEER\hepatobiliary cancer'
@@ -22,16 +21,16 @@ df['surgery_type'] = df['surgery_type'].fillna('None')
 df['surgery_any'] = (df['surgery_type'] != 'None').astype(int)
 
 plt.rcParams.update({
-    'font.family': 'sans-serif', 'font.size': 7,
-    'axes.titlesize': 7.5, 'axes.labelsize': 7,
-    'xtick.labelsize': 6.5, 'ytick.labelsize': 6.5,
-    'legend.fontsize': 6, 'figure.dpi': 300,
+    'font.family': 'sans-serif', 'font.size': 8,
+    'axes.titlesize': 9, 'axes.labelsize': 8,
+    'xtick.labelsize': 7.5, 'ytick.labelsize': 7.5,
+    'legend.fontsize': 6.5, 'figure.dpi': 300,
 })
 
 def sax(ax):
     ax.spines['top'].set_visible(False); ax.spines['right'].set_visible(False)
-    ax.spines['left'].set_linewidth(0.35); ax.spines['bottom'].set_linewidth(0.35)
-    ax.tick_params(width=0.35); ax.set_facecolor('white')
+    ax.spines['left'].set_linewidth(0.4); ax.spines['bottom'].set_linewidth(0.4)
+    ax.tick_params(width=0.4); ax.set_facecolor('white')
 
 kmf = KaplanMeierFitter()
 
@@ -120,9 +119,9 @@ for i, fg in enumerate(['Fit','Pre-frail','Frail']):
     sax(ax)
 
 name = 'Fig_LandmarkFrailty_Composite'
-fig.savefig(os.path.join(FIG, name+'.png'), dpi=300, bbox_inches='tight', facecolor='white')
+plt.rcParams['tiff.compression'] = 'tiff_lzw'
+fig.savefig(os.path.join(FIG, name+'.tiff'), dpi=300, bbox_inches='tight', facecolor='white')
 fig.savefig(os.path.join(FIG, name+'.pdf'), bbox_inches='tight', facecolor='white')
-Image.open(os.path.join(FIG, name+'.png')).convert('RGB').save(os.path.join(FIG, name+'.tiff'), 'TIFF', compression='tiff_lzw', dpi=(300,300))
 plt.close()
 
 # Delete old files

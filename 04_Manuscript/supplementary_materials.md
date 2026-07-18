@@ -49,37 +49,7 @@ SEER Research Plus Data (Nov 2024 submission)
 
 ---
 
-## eFigure 2: PSM Love Plot
-
-**Before Matching**: Mean SMD = 0.190
-- Stage IV: SMD = 0.72
-- Chemotherapy: SMD = 0.36
-- Age: SMD = 0.33
-- Stage I: SMD = 0.31
-- Radiation: SMD = 0.22
-
-**After Matching** (1:1 nearest-neighbor, caliper=0.05): Mean SMD = 0.030
-- All covariates SMD < 0.10 (adequately balanced)
-- Largest residual: Income SMD = 0.06
-
-Full love plot: `03_Analysis/figures/Fig6_CompositeAnalysis.png` (Panel B)
-
----
-
-## eFigure 3: 5-Fold CV Model Comparison
-
-| Model | Fold 1 | Fold 2 | Fold 3 | Fold 4 | Fold 5 | Mean ± SD |
-|-------|--------|--------|--------|--------|--------|-----------|
-| Cox PH | 0.740 | 0.738 | 0.739 | 0.740 | 0.738 | 0.739 ± 0.001 |
-| RSF | 0.735 | 0.737 | 0.738 | 0.734 | 0.736 | 0.736 ± 0.002 |
-| XGBoost | 0.745 | 0.748 | 0.746 | 0.744 | 0.747 | 0.746 ± 0.002 |
-| **Ensemble** | 0.756 | 0.754 | 0.757 | 0.755 | 0.758 | 0.756 ± 0.003 |
-
-Full figure: `03_Analysis/figures/Fig6_CompositeAnalysis.png` (Panel A)
-
----
-
-## eFigure 4: SHAP Feature Importance
+## eFigure 2: SHAP Feature Importance
 
 Top 10 features by SHAP value (XGBoost model):
 
@@ -96,11 +66,41 @@ Top 10 features by SHAP value (XGBoost model):
 | 9 | cirrhosis | 0.012 |
 | 10 | grade_poor | 0.009 |
 
-Full figure: `03_Analysis/figures/FigS1_SHAP.png`
+Full figure: `04_Manuscript/figures/eFig2_SHAP.tiff`
 
 ---
 
-## eFigure 5: External Validation (TCGA-LIHC + ICGC-LIRI-JP)
+## eFigure 3: Model Analysis — 5-Fold Cross-Validated Model Comparison
+
+| Model | Fold 1 | Fold 2 | Fold 3 | Fold 4 | Fold 5 | Mean ± SD |
+|-------|--------|--------|--------|--------|--------|-----------|
+| Cox PH | 0.740 | 0.738 | 0.739 | 0.740 | 0.738 | 0.739 ± 0.001 |
+| RSF | 0.735 | 0.737 | 0.738 | 0.734 | 0.736 | 0.736 ± 0.002 |
+| XGBoost | 0.745 | 0.748 | 0.746 | 0.744 | 0.747 | 0.746 ± 0.002 |
+| **Ensemble** | 0.756 | 0.754 | 0.757 | 0.755 | 0.758 | 0.756 ± 0.003 |
+
+Full figure: `04_Manuscript/figures/eFig3_ModelAnalysis.tiff`
+
+---
+
+## eFigure 4: Model Calibration — Brier Scores and Calibration Plots
+
+Model calibration was assessed via time-dependent Brier scores at 12, 36, and 60 months across all four models:
+
+| Model | 12-month | 36-month | 60-month |
+|-------|----------|----------|----------|
+| RSF | 0.157 | 0.092 | 0.059 |
+| Cox PH | 0.165 | 0.100 | 0.066 |
+| XGBoost | 0.163 | 0.097 | 0.063 |
+| DeepSurv | 0.170 | 0.104 | 0.069 |
+
+Calibration plots (Panel D) confirmed good agreement between predicted and observed survival at 36 months for all models, with calibration slopes ranging from 0.91 (DeepSurv) to 0.97 (RSF).
+
+Full figure: `03_Analysis/figures/Fig25_Calibration.png`
+
+---
+
+## Supplementary Text: External Validation (TCGA-LIHC + ICGC-LIRI-JP)
 
 | Cohort | N | Surgery% | Age | Dead% | Med OS | Cox C | RSF C | XGB C |
 |--------|---|----------|-----|-------|--------|-------|-------|-------|
@@ -115,7 +115,74 @@ Full figure: `03_Analysis/figures/Fig5_ExternalValidation.png`
 
 ---
 
-## eFigure 6: Temporal Trends (2004-2022)
+## eFigure 5: Comprehensive Analysis Overview
+
+**Panel A**: 5-Fold Cross-Validated Model Comparison (C-index by fold for Cox, RSF, XGBoost, DeepSurv, Ensemble)
+**Panel B**: PSM Love Plot (SMD before/after matching, 0.190→0.030)
+**Panel C**: HBI Risk Score Stratification (Low/Intermediate/High)
+**Panel D**: Age-Surgery Benefit by FSI Group
+
+Full figure: `03_Analysis/figures/Fig6_CompositeAnalysis.png`
+
+---
+
+## Supplementary Text: PSM Love Plot
+
+**Before Matching**: Mean SMD = 0.190
+- Stage IV: SMD = 0.72
+- Chemotherapy: SMD = 0.36
+- Age: SMD = 0.33
+- Stage I: SMD = 0.31
+- Radiation: SMD = 0.22
+
+**After Matching** (1:1 nearest-neighbor, caliper=0.05): Mean SMD = 0.030
+- All covariates SMD < 0.10 (adequately balanced)
+- Largest residual: Income SMD = 0.06
+
+Full love plot: `03_Analysis/figures/Fig6_CompositeAnalysis.png` (Panel B)
+
+---
+
+## eFigure 6: Subgroup Interaction Forest Plot
+
+Forest plot displaying adjusted hazard ratios for surgery across clinically relevant subgroups.
+
+| Subgroup | N | Surgery HR (95% CI) | P-interaction |
+|----------|---|--------------------|:------------:|
+| Age 65–69 | 28,372 | 0.27 (0.25–0.29) | 0.42 |
+| Age 70–74 | 18,376 | 0.25 (0.23–0.27) | |
+| Age 75–79 | 14,231 | 0.28 (0.26–0.30) | |
+| Age 80+ | 15,131 | 0.29 (0.27–0.31) | |
+| Male | 49,733 | 0.26 (0.25–0.27) | 0.68 |
+| Female | 26,377 | 0.27 (0.25–0.29) | |
+| HCC | 57,380 | 0.25 (0.24–0.26) | 0.21 |
+| ICC | 11,749 | 0.28 (0.26–0.30) | |
+| Stage I | 34,854 | 0.25 (0.24–0.26) | <0.001 |
+| Stage II | 12,816 | 0.30 (0.28–0.32) | |
+| Stage III | 11,318 | 0.31 (0.29–0.33) | |
+| Stage IV | 17,122 | 0.32 (0.30–0.34) | |
+| Chemotherapy: Yes | 24,293 | 0.33 (0.31–0.35) | <0.001 |
+| Chemotherapy: No | 51,817 | 0.24 (0.23–0.25) | |
+
+Full figure: `04_Manuscript/figures/eFig7_Subgroup.tiff`
+
+---
+
+## eFigure 7: Subgroup Kaplan-Meier Survival — AFP Status, Chemotherapy, and Race
+
+Three-panel composite of subgroup survival analyses stratified by surgical treatment.
+
+**Panel A: AFP Status × Surgery**. Among AFP-positive patients, median OS was 6 months (no surgery) vs 46 months (surgery); among AFP-negative patients, 16 vs 63 months. Surgery was associated with substantial survival improvement regardless of AFP status (log-rank p<0.001).
+
+**Panel B: Surgery × Chemotherapy**. Patients receiving neither treatment had median OS of 2 months. Surgery alone (45 months) and surgery with chemotherapy (36 months) both outperformed chemotherapy alone (12 months) (log-rank p<0.001).
+
+**Panel C: Race × Surgery**. Surgical benefit was consistent across all racial groups: NHW (4 vs 38 months), NHB (5 vs 44 months), NHAPI (6 vs 55 months), and Hispanic (6 vs 39 months) (log-rank p<0.001).
+
+Full figure: `04_Manuscript/figures/eFig9_SubgroupKM.tiff`
+
+---
+
+## eFigure 8: Age-Dependent Surgery Benefit and Temporal Trends
 
 | Period | Surgical Rate | Transplant Rate | Median OS | Chemotherapy |
 |--------|--------------|-----------------|-----------|-------------|
@@ -128,7 +195,19 @@ Full figure: `03_Analysis/figures/FigS4_TemporalTrends.png` + `Fig15_COVID.png`
 
 ---
 
-## eFigure 7: Frailty Surrogate Index
+## Supplementary Text: Restricted Cubic Spline — Age-Surgery Benefit
+
+Surgery benefit follows a U-shaped relationship with age:
+- Peak benefit at age ~72 (HR ≈ 0.24)
+- Stable plateau from ages 65-82
+- Inflection point at age 86 — beyond this, attenuation accelerates
+- At age 90, HR ≈ 0.40 (benefit reduced but still significant)
+
+Full figure: `03_Analysis/figures/Fig21_RCS_AgeSpline.png` + `FigS3_AgeSurgeryBenefit.png`
+
+---
+
+## eFigure 9: Landmark Conditional Survival and Frailty Stratification
 
 | FSI Group | N | Age | Surgery% | Med OS (Surg) | Med OS (Non) | HR |
 |-----------|----|-----|----------|---------------|--------------|-----|
@@ -142,32 +221,14 @@ Full figure: `03_Analysis/figures/Fig22_Frailty.png`
 
 ---
 
-## eFigure 8: Restricted Cubic Spline — Age-Surgery Benefit
+## eFigure 10: Clinical Nomogram for Individualized Survival Prediction
 
-Surgery benefit follows a U-shaped relationship with age:
-- Peak benefit at age ~72 (HR ≈ 0.24)
-- Stable plateau from ages 65-82
-- Inflection point at age 86 — beyond this, attenuation accelerates
-- At age 90, HR ≈ 0.40 (benefit reduced but still significant)
+A 7-variable nomogram predicting 36-month CSS probability based on: surgery type, AJCC stage, age, ICC histology, chemotherapy, radiation, and cirrhosis.
 
-Full figure: `03_Analysis/figures/Fig21_RCS_AgeSpline.png` + `FigS3_AgeSurgeryBenefit.png`
+- C-index: 0.739 (Cox PH)
+- Calibration-in-the-large: good agreement at 36 months
 
----
-
-## eFigure 9: Model Calibration — Brier Scores and Calibration Plots
-
-Model calibration was assessed via time-dependent Brier scores at 12, 36, and 60 months across all four models:
-
-| Model | 12-month | 36-month | 60-month |
-|-------|----------|----------|----------|
-| RSF | 0.157 | 0.092 | 0.059 |
-| Cox PH | 0.165 | 0.100 | 0.066 |
-| XGBoost | 0.163 | 0.097 | 0.063 |
-| DeepSurv | 0.170 | 0.104 | 0.069 |
-
-Calibration plots (eFigure 9 Panel D) confirmed good agreement between predicted and observed survival at 36 months for all models, with calibration slopes ranging from 0.91 (DeepSurv) to 0.97 (RSF).
-
-Full figure: `03_Analysis/figures/Fig25_Calibration.png`
+Full figure: `04_Manuscript/figures/eFig10_Nomogram.tiff`
 
 ---
 
@@ -290,8 +351,6 @@ All E-values > 5, indicating extreme robustness to unmeasured confounding.
 
 ---
 
----
-
 ## eTable 7: Model Hyperparameters
 
 | Parameter | Cox PH | RSF | XGBoost | DeepSurv |
@@ -340,37 +399,6 @@ All E-values > 5, indicating extreme robustness to unmeasured confounding.
 
 ---
 
-## Supplementary References
-
-S1. TCGA Research Network. Comprehensive and integrative genomic characterization of hepatocellular carcinoma. *Cell*. 2017;169(7):1327-1341.
-S2. Totoki Y, et al. Trans-ancestry mutational landscape of hepatocellular carcinoma genomes. *Nat Genet*. 2014;46:1267-1273.
-S3. VanderWeele TJ, Ding P. Sensitivity analysis in observational research: introducing the E-value. *Ann Intern Med*. 2017;167(4):268-274.
-S4. Baiocchi M, Cheng J, Small DS. Instrumental variable methods for causal inference. *Stat Med*. 2014;33(13):2297-2340.
-
----
-
-## eFigure 10: Composite Analysis — PSM + HBI + Landmark + Age-Surgery
-
-**Panel A**: 5-Fold Cross-Validated Model Comparison (C-index by fold for Cox, RSF, XGBoost, DeepSurv, Ensemble)
-**Panel B**: PSM Love Plot (SMD before/after matching, 0.190→0.030)
-**Panel C**: HBI Risk Score Stratification (Low/Intermediate/High)
-**Panel D**: Age-Surgery Benefit by FSI Group
-
-Full figure: `03_Analysis/figures/Fig6_CompositeAnalysis.png`
-
----
-
-## eFigure 11: Clinical Nomogram for Individualized Survival Prediction
-
-A 7-variable nomogram predicting 36-month CSS probability based on: surgery type, AJCC stage, age, ICC histology, chemotherapy, radiation, and cirrhosis.
-
-- C-index: 0.739 (Cox PH)
-- Calibration-in-the-large: good agreement at 36 months
-
-Full figure: `03_Analysis/figures/Fig10_Nomogram.png`
-
----
-
 ## eTable 9: Clinical Decision Matrix
 
 | Age | Cancer Type | Stage | FSI Group | Recommended Surgery | Rationale |
@@ -383,3 +411,14 @@ Full figure: `03_Analysis/figures/Fig10_Nomogram.png`
 | 80+ | HCC/ICC | Any | Pre-frail/Frail | Segmental | Benefit persists; 13-month OS gain |
 | Any | Any | IV | Any | Non-surgical | Systemic therapy first; palliation |
 | Any | Any | I-II | Frail | Segmental/Local | Frail patients gain 13 months OS |
+
+---
+
+## Supplementary References
+
+S1. TCGA Research Network. Comprehensive and integrative genomic characterization of hepatocellular carcinoma. *Cell*. 2017;169(7):1327-1341.
+S2. Totoki Y, et al. Trans-ancestry mutational landscape of hepatocellular carcinoma genomes. *Nat Genet*. 2014;46:1267-1273.
+S3. VanderWeele TJ, Ding P. Sensitivity analysis in observational research: introducing the E-value. *Ann Intern Med*. 2017;167(4):268-274.
+S4. Baiocchi M, Cheng J, Small DS. Instrumental variable methods for causal inference. *Stat Med*. 2014;33(13):2297-2340.
+
+---

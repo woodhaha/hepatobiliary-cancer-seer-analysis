@@ -7,7 +7,6 @@ from sklearn.linear_model import LassoCV, lasso_path
 from sklearn.preprocessing import StandardScaler
 from sksurv.util import Surv
 from sksurv.ensemble import RandomSurvivalForest
-from PIL import Image
 import os, warnings; warnings.filterwarnings('ignore')
 
 BASE = r'D:\Researching\SEER\hepatobiliary cancer'
@@ -29,17 +28,16 @@ X_tr, X_te = X_s[:-n_test], X_s[-n_test:]
 y_tr, y_te = y_all[:-n_test], y_all[-n_test:]
 
 plt.rcParams.update({
-    'font.family': 'sans-serif', 'font.size': 7,
-    'axes.titlesize': 7.5, 'axes.labelsize': 7,
-    'xtick.labelsize': 6.5, 'ytick.labelsize': 6.5,
-    'legend.fontsize': 6, 'figure.dpi': 300,
-    'axes.linewidth': 0.4, 'xtick.major.width': 0.35, 'ytick.major.width': 0.35,
+    'font.family': 'sans-serif', 'font.size': 8,
+    'axes.titlesize': 9, 'axes.labelsize': 8,
+    'xtick.labelsize': 7.5, 'ytick.labelsize': 7.5,
+    'legend.fontsize': 6.5, 'figure.dpi': 300,
 })
 
 def sax(ax):
     ax.spines['top'].set_visible(False); ax.spines['right'].set_visible(False)
-    ax.spines['left'].set_linewidth(0.35); ax.spines['bottom'].set_linewidth(0.35)
-    ax.tick_params(width=0.35); ax.set_facecolor('white')
+    ax.spines['left'].set_linewidth(0.4); ax.spines['bottom'].set_linewidth(0.4)
+    ax.tick_params(width=0.4); ax.set_facecolor('white')
 
 # ── Panel A: LASSO CV ──
 alphas_all = np.logspace(-4, 1, 50)
@@ -138,9 +136,9 @@ ax.set_title('C. Decision Curve', fontweight='bold', fontsize=7, loc='left', pad
 ax.legend(frameon=False, fontsize=5.5); ax.set_xlim(0, 0.5); sax(ax)
 
 name = 'Fig_LASSO_DCA'
-fig.savefig(os.path.join(FIG, name+'.png'), dpi=300, bbox_inches='tight', facecolor='white')
+plt.rcParams['tiff.compression'] = 'tiff_lzw'
+fig.savefig(os.path.join(FIG, name+'.tiff'), dpi=300, bbox_inches='tight', facecolor='white')
 fig.savefig(os.path.join(FIG, name+'.pdf'), bbox_inches='tight', facecolor='white')
-Image.open(os.path.join(FIG, name+'.png')).convert('RGB').save(os.path.join(FIG, name+'.tiff'), 'TIFF', compression='tiff_lzw', dpi=(300,300))
 plt.close()
 
 # Delete old files
