@@ -1,4 +1,4 @@
-# Self-Review Report: Comparable but Not Equivalent — Segmental vs Major Hepatectomy in Elderly Hepatobiliary Cancer
+# Self-Review Report: Segmental Versus Major Hepatectomy in Elderly Hepatobiliary Cancer
 
 **Target journal**: Annals of Surgical Oncology
 **Manuscript type**: Observational cohort (STROBE + TRIPOD)

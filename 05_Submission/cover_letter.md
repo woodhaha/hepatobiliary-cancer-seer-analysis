@@ -7,7 +7,7 @@ Annals of Surgical Oncology
 
 **Dear Editor,**
 
-We are pleased to submit our manuscript entitled **"Comparable but Not Equivalent: Segmental and Major Hepatectomy in Elderly Hepatobiliary Cancer — A Population-Based Study With E-Value Analysis"** for consideration in Annals of Surgical Oncology.
+We are pleased to submit our manuscript entitled **"Segmental Versus Major Hepatectomy in Elderly Hepatobiliary Cancer: Comparable Survival but Sensitive to Confounding — A SEER Analysis With E-Value"** for consideration in Annals of Surgical Oncology.
 
 ### Clinical Question
 

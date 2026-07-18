@@ -1,6 +1,6 @@
 # STROBE Checklist — Cohort Study
 
-**Manuscript**: Comparable but Not Equivalent: Segmental and Major Hepatectomy in Elderly Hepatobiliary Cancer — A Population-Based Study With E-Value Analysis
+**Manuscript**: Segmental Versus Major Hepatectomy in Elderly Hepatobiliary Cancer: Comparable Survival but Sensitive to Confounding — A SEER Analysis With E-Value
 **Checklist**: STROBE (Strengthening the Reporting of Observational Studies in Epidemiology)
 
 | Item | Recommendation | Page/Section | ✓ |

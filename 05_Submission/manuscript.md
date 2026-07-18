@@ -1,4 +1,4 @@
-# Comparable but Not Equivalent: Segmental and Major Hepatectomy in Elderly Hepatobiliary Cancer — A Population-Based Study With E-Value Analysis
+# Segmental Versus Major Hepatectomy in Elderly Hepatobiliary Cancer: Comparable Survival but Sensitive to Confounding — A SEER Analysis With E-Value
 
 **Qigang Xu**$^{2,\dagger}$ · **Yongyu Bai**$^{1,\dagger}$ · **Yiqi Cai**$^{1}$ · **Zhuha Zhou**$^{1,*}$
 
@@ -6,7 +6,7 @@ $^{1}$ Department of Gastroenterology Surgery, The First Affiliated Hospital of 
 $^{2}$ Department of Hepatobiliary and Pancreatic Surgery, The First Affiliated Hospital of Wenzhou Medical University, Zhejiang, China
 $\dagger$ Equal contribution · $^{*}$ Corresponding author: zhouzhuha@wmu.edu.cn
 
-**Running head**: Comparable but Not Equivalent: Segmental Hepatectomy
+**Running head**: Segmental Versus Major Hepatectomy in Elderly Hepatobiliary Cancer
 
 **Key words**: hepatocellular carcinoma, intrahepatic cholangiocarcinoma, elderly, SEER, segmental resection, E-value, external validation
 
