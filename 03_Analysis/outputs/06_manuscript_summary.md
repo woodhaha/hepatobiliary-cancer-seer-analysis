@@ -7,7 +7,7 @@
 - **Segmental Resection HR=0.23** vs Larger Resection HR=0.24 — nearly identical benefit
 - In **ICC**, segmental resection (HR=0.22) **outperforms** larger resection (HR=0.26)
 - Age-surgery benefit persists through **80+** years
-- **5-fold CV Ensemble C-index: 0.737** (SEER internal)
+- **5-fold CV Ensemble C-index: 0.756** (SEER internal)
 - External validation: TCGA-LIHC C-index **0.595**, ICGC-LIRI-JP **0.547**
 
 ## Key Tables
@@ -36,10 +36,12 @@
 ### Table 3: Stratification (Age × Surgery Type CSS HR)
 | Age | Segmental HR | Larger HR | Better Option |
 |---|---|---|---|
-| 65-69 | 0.34 | 0.40 | Segmental ✓ |
-| 70-74 | 0.30 | 0.29 | Larger |
-| 75-79 | 0.33 | 0.38 | Segmental ✓ |
-| 80+ | 0.33 | 0.34 | Segmental ✓ |
+| 65-69 | 0.33 | 0.35 | Comparable |
+| 70-74 | 0.27 | 0.25 | Comparable |
+| 75-79 | 0.29 | 0.33 | Comparable |
+| 80+ | 0.26 | 0.31 | Comparable |
+
+*Note: This file contains interim analysis outputs. Refer to manuscript.md for final reported values.*
 
 ### Table 4: Model Performance
 | Model | SEER C-index | TCGA C-index | ICGC C-index |
@@ -47,7 +49,7 @@
 | Cox PH | 0.739 | 0.595 | 0.522 |
 | RSF | 0.736 | 0.567 | 0.551 |
 | XGBoost | 0.746 | 0.592 | 0.547 |
-| **Ensemble** | **0.737** | — | — |
+| **Ensemble** | **0.756** | — | — |
 
 ## Novel Insights (Not Previously Reported)
 

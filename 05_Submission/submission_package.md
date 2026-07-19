@@ -12,7 +12,7 @@
 | Manuscript Body | ✅ | `05_Submission/manuscript.md` |
 | Abstract (structured) | ✅ | 250 words |
 | Key Words | ✅ | 6 keywords |
-| Figures (main) | ✅ | Fig1-6 (6 main + 8 suppl) |
+| Figures (main) | ✅ | Fig1-5 (5 main + 10 suppl) |
 | Tables (main) | ✅ | Table 1-3 |
 | Supplementary Materials | ✅ | `supplementary_materials.md` |
 | Cover Letter | ⚠️ | Draft below |

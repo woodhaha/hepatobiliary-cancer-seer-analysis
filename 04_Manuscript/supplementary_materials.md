@@ -96,7 +96,7 @@ Model calibration was assessed via time-dependent Brier scores at 12, 36, and 60
 
 Calibration plots (Panel D) confirmed good agreement between predicted and observed survival at 36 months for all models, with calibration slopes ranging from 0.91 (DeepSurv) to 0.97 (RSF).
 
-Full figure: `03_Analysis/figures/Fig25_Calibration.png`
+Full figure: `04_Manuscript/figures/eFig4_Calibration.tiff`
 
 ---
 
@@ -111,7 +111,7 @@ Full figure: `03_Analysis/figures/Fig25_Calibration.png`
 
 **Predictor Range Restriction**: In all-surgical external cohorts, `surgery_any` variance = 0 (vs SEER σ²=0.17). This eliminates the model's strongest predictor, explaining the external C-index gap.
 
-Full figure: `03_Analysis/figures/Fig5_ExternalValidation.png`
+Full figure: `04_Manuscript/figures/Fig4_ExternalValidation.tiff`
 
 ---
 
@@ -122,7 +122,7 @@ Full figure: `03_Analysis/figures/Fig5_ExternalValidation.png`
 **Panel C**: HBI Risk Score Stratification (Low/Intermediate/High)
 **Panel D**: Age-Surgery Benefit by FSI Group
 
-Full figure: `03_Analysis/figures/Fig6_CompositeAnalysis.png`
+Full figure: `04_Manuscript/figures/eFig5_Overview.tiff`
 
 ---
 
@@ -139,7 +139,7 @@ Full figure: `03_Analysis/figures/Fig6_CompositeAnalysis.png`
 - All covariates SMD < 0.10 (adequately balanced)
 - Largest residual: Income SMD = 0.06
 
-Full love plot: `03_Analysis/figures/Fig6_CompositeAnalysis.png` (Panel B)
+Full love plot: `04_Manuscript/figures/eFig5_Overview.tiff` (Panel B)
 
 ---
 
@@ -191,7 +191,7 @@ Full figure: `04_Manuscript/figures/eFig9_SubgroupKM.tiff`
 | 2016-2019 | 23% | 2.4% | 11m | 32% |
 | 2020-2022 (COVID) | 21% | 2.4% | 6m | 27% |
 
-Full figure: `03_Analysis/figures/FigS4_TemporalTrends.png` + `Fig15_COVID.png`
+Full figure: `04_Manuscript/figures/eFig8_Comprehensive.tiff`
 
 ---
 
@@ -203,7 +203,7 @@ Surgery benefit follows a U-shaped relationship with age:
 - Inflection point at age 86 — beyond this, attenuation accelerates
 - At age 90, HR ≈ 0.40 (benefit reduced but still significant)
 
-Full figure: `03_Analysis/figures/Fig21_RCS_AgeSpline.png` + `FigS3_AgeSurgeryBenefit.png`
+Full figure: `04_Manuscript/figures/eFig8_Comprehensive.tiff` (RCS panel embedded)
 
 ---
 
@@ -217,7 +217,7 @@ Full figure: `03_Analysis/figures/Fig21_RCS_AgeSpline.png` + `FigS3_AgeSurgeryBe
 
 FSI components: age ≥80 (2pts), age ≥75 (1pt), stage ≥III (2pts), poor grade (1pt).
 
-Full figure: `03_Analysis/figures/Fig22_Frailty.png`
+Full figure: `04_Manuscript/figures/eFig9_LandmarkFrailty.tiff`
 
 ---
 
@@ -331,6 +331,7 @@ All E-values > 5, indicating extreme robustness to unmeasured confounding.
 | Excluded Subgroup | Remaining N | Surgery HR | Δ from base |
 |-------------------|-------------|-----------|-------------|
 | None (full cohort) | 76,110 | 0.25 | — |
+| Exclude non-HCC/ICC histologies | 69,129 | 0.25 | 0.00 |
 | Stage IV patients | 58,988 | 0.29 | +0.04 |
 | Age 80+ patients | 60,979 | 0.25 | 0.00 |
 | ICC patients | 64,361 | 0.25 | 0.00 |

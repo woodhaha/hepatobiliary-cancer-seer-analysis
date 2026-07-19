@@ -1,6 +1,6 @@
 # Cover Letter
 
-**Date**: July 3, 2026
+**Date**: July 19, 2026
 
 **To**: The Editor  
 Annals of Surgical Oncology
@@ -15,15 +15,14 @@ For elderly patients with hepatobiliary cancer, any surgical resection dramatica
 
 ### What This Study Adds
 
-Using SEER data covering **76,110 elderly patients** — the largest analysis of its kind — we demonstrate that any surgical resection confers a robust survival benefit (PSM-adjusted HR 0.35; E-value 5.2), and within the operated subgroup, segmental and larger resection are associated with similar adjusted survival. Seven features distinguish this work:
+Using SEER data covering **76,110 elderly patients** — the largest analysis of its kind — we demonstrate that any surgical resection confers a robust survival benefit (PSM-adjusted HR 0.35; E-value 5.2), and within the operated subgroup, segmental and larger resection are associated with similar adjusted survival, though this comparison is sensitive to unmeasured confounding (E-value ~1.3). Six features distinguish this work:
 
 1. **First simultaneous evaluation of surgical extent in both HCC and ICC** (prior: HCC only; here: 57,380 HCC + 11,749 ICC)
-2. **Surgery × cancer type interaction p=0.206** — survival benefit of surgical resection is comparable across histologies
-3. **E-value=5.2** — robust to unmeasured confounding by clinically plausible variables
-4. **DeepSurv (C-index 0.751) + 4-model ensemble (0.756)** with calibration assessment (Brier scores)
-5. **External validation** on TCGA-LIHC (C-index 0.595, significantly above chance) — the first benchmark for SEER-trained hepatobiliary models
-6. **Honest reporting of ICGC validation failure** (C-index 0.547, 95% CI 0.486–0.608) — population-specific recalibration needed for Asian cohorts
-7. **Clinical decision matrix** with HBI risk score stratifying patients by expected survival
+2. **Causal sensitivity analysis (E-value=5.2)** — robust to unmeasured confounding by clinically plausible variables, supported by PSM and multiple sensitivity analyses
+3. **DeepSurv (C-index 0.751) + 4-model ensemble (0.756)** with calibration assessment (Brier scores)
+4. **External validation** on TCGA-LIHC (C-index 0.595, significantly above chance) — the first benchmark for SEER-trained hepatobiliary models
+5. **Honest reporting of ICGC validation failure** (C-index 0.547, 95% CI 0.486–0.608) — population-specific recalibration needed for Asian cohorts
+6. **Clinical decision matrix** with HBI risk score stratifying patients by expected survival
 
 ### Why Annals of Surgical Oncology
 
@@ -69,4 +68,9 @@ Department of Hepatobiliary and Pancreatic Surgery
 The First Affiliated Hospital of Wenzhou Medical University
 
 **Yongyu Bai** — Co-First Author  
-**Yiqi Cai** — Co-Author
+Department of Gastroenterology Surgery  
+The First Affiliated Hospital of Wenzhou Medical University
+
+**Yiqi Cai** — Co-Author  
+Department of Gastroenterology Surgery  
+The First Affiliated Hospital of Wenzhou Medical University
